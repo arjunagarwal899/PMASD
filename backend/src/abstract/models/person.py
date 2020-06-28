@@ -4,6 +4,44 @@ from django.core.validators import MinLengthValidator
 from datetime import date
 
 
+class PersonAddress(models.Model):
+
+    building_details = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+    )
+
+    lane = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+    )
+
+    area = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+    )
+
+    city = models.CharField(
+        max_length=50,
+        default='Mumbai',
+        null=True,
+        blank=True,
+    )
+
+    pincode = models.CharField(
+        max_length=6,
+        validators=[MinLengthValidator(6)],
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        abstract = True
+
+
 """
     Custom abstract base model for any person. Has the following custom fields:
         - title (with 5 specific choices)
@@ -16,7 +54,7 @@ from datetime import date
         - pincode
     Also derives the age from the date of birth
 """
-class Person(models.Model):
+class Person(PersonAddress):
 
     title_choices = [
         ('Dr', 'Dr.'),
@@ -49,38 +87,6 @@ class Person(models.Model):
         max_length=1,
         choices=gender_choices,
         default='U',
-    )
-
-    building_details = models.CharField(
-        max_length=50,
-        null=True,
-        blank=True,
-    )
-
-    lane = models.CharField(
-        max_length=50,
-        null=True,
-        blank=True,
-    )
-
-    area = models.CharField(
-        max_length=50,
-        null=True,
-        blank=True,
-    )
-
-    city = models.CharField(
-        max_length=50,
-        default='Mumbai',
-        null=True,
-        blank=True,
-    )
-
-    pincode = models.CharField(
-        max_length=6,
-        validators=[MinLengthValidator(6)],
-        null=True,
-        blank=True,
     )
 
 
@@ -176,3 +182,9 @@ class PersonEmail(models.Model):
 
     class Meta:
         abstract = True
+
+
+
+
+
+

@@ -1,9 +1,15 @@
 from django.db import models
 from abstract.models.person import Person, PersonMobile, PersonEmail
 
-
 class Patient(Person):
-    pass
+
+    last_consultation = models.OneToOneField(
+        'consultations.Consultation',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='last_consultation_for_patient',
+    )
 
 
 class PatientMobile(PersonMobile):
