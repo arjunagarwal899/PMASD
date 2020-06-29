@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { Form, Input, Button, Row, Col, Card, Spin } from 'antd';
 import { UserOutlined, LockOutlined, LoadingOutlined } from '@ant-design/icons';
 
-import '../App.css';
+import { authSuccess, authLogin } from '../redux/auth/authActions';
+import './Login.css';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const Login = (props) => {
   const onSuccess = (values) => {
     console.log('Success:', values);
+    props.authLogin(values.username, values.password);
   };
 
   const onFailure = (errorInfo) => {
@@ -23,6 +25,7 @@ const Login = (props) => {
 
   return (
     <div className="login">
+      <div className="bg-image"></div>
       {errorMessage}
       {props.loading ? (
         <Spin indicator={antIcon} />
@@ -33,8 +36,8 @@ const Login = (props) => {
           style={{ marginTop: '20vh' }}
           gutter="16"
         >
-          <Col xl={12} lg={14} md={16} sm={18} xs={20}>
-            <Card title="LOGIN TO CONTINUE" hoverable>
+          <Col xl={8} lg={10} md={12} sm={14} xs={20}>
+            <Card title="LOGIN TO CONTINUE">
               <Form
                 name="basic"
                 initialValues={{ remember: true }}
@@ -86,4 +89,7 @@ const mapStateToProps = (state) => {
   return { loading: state.loading, error: state.error };
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, {
+  authSuccess,
+  authLogin,
+})(Login);

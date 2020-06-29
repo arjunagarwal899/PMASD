@@ -1,0 +1,42 @@
+body {
+  overflow: hidden;
+  background-image: url('../assets/img/road-nature-trees-branches-38537.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(8px);
+}
+
+.login {
+  height: 100%;
+  padding-top: 1vh;
+}
+
+.ant-card {
+  background: rgb(39, 39, 39);
+  z-index: 2;
+  opacity: 0.68;
+  -webkit-box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
+  -moz-box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
+  box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
+}
+
+.ant-card-bordered {
+  border: none;
+  border-radius: 0px;
+  padding: 1rem;
+}
+
+.ant-card-head {
+  border: none;
+}
+
+.ant-card-head-title {
+  text-align: center;
+  font-size: 24px;
+  color: white;
+}
+
+.ant-card-body {
+  padding: 3rem 3rem;
+}
