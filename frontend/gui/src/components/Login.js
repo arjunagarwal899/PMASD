@@ -40,7 +40,7 @@ const Login = (props) => {
             <Card title="LOGIN TO CONTINUE">
               <Form
                 name="basic"
-                initialValues={{ remember: true }}
+                initialValues={{ username: props.username }}
                 onFinish={onSuccess}
                 onFinishFailed={onFailure}
                 justify="center"
@@ -86,7 +86,12 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { loading: state.loading, error: state.error };
+  console.log(state);
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    username: state.auth.username,
+  };
 };
 
 export default connect(mapStateToProps, {
