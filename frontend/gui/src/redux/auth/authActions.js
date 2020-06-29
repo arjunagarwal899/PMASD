@@ -12,7 +12,7 @@ export const authBegin = () => {
 export const authSuccess = (token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    token,
+    payload: token,
   };
 };
 
@@ -20,7 +20,7 @@ export const authSuccess = (token) => {
 export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
-    error,
+    error: error,
   };
 };
 
@@ -30,9 +30,9 @@ export const authLogin = (username, password) => {
   return async (dispatch) => {
     dispatch(authBegin());
     const res = await login
-      .post('/rest-auth/login/', {
-        username,
-        password,
+      .post('/auth/login/', {
+        username: username,
+        password: password,
       })
       .catch((err) => authFail(err));
 
