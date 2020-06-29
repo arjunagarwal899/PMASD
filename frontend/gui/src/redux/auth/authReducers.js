@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   error: null,
   loading: false,
+  username: 'admin',
 };
 
 // reducer for auth-begin
@@ -14,7 +15,7 @@ const authBegin = (state, action) => {
 
 // reducer for auth-success
 const authSuccess = (state, action) => {
-  return { ...state, token: action.token, error: null, loading: false };
+  return { ...state, token: action.payload, error: null, loading: false };
 };
 
 // reducer for auth-fail
