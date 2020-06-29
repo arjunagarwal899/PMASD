@@ -8,11 +8,11 @@ import '../App.css';
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const Login = (props) => {
-  const onFinish = (values) => {
+  const onSuccess = (values) => {
     console.log('Success:', values);
   };
 
-  const onFinishFailed = (errorInfo) => {
+  const onFailure = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
@@ -38,8 +38,8 @@ const Login = (props) => {
               <Form
                 name="basic"
                 initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                onFinish={onSuccess}
+                onFinishFailed={onFailure}
                 justify="center"
               >
                 <Form.Item

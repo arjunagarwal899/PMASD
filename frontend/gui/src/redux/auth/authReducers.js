@@ -27,7 +27,7 @@ const authLogout = (state, action) => {
   return { ...state, token: null };
 };
 
-const reducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_BEGIN:
       return authBegin(state, action);
@@ -42,4 +42,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default authReducer;
