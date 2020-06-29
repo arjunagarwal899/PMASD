@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from "react-redux";
+import store from "./redux/store";
 
 import "antd/dist/antd.css";
 import './App.css';
@@ -8,13 +10,15 @@ import BaseRouter from "./routes";
 
 function App() {
     return (
-        <div className="App">
-            <Router>
+        <Provider store={store}>
+            <div className="App">
+                <Router>
 
-                <BaseRouter/>
+                    <BaseRouter/>
 
-            </Router>
-        </div>
+                </Router>
+            </div>
+        </Provider>
     );
 }
 
