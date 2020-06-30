@@ -26,14 +26,8 @@ body {
   padding: 1rem;
 }
 
-.ant-card-head {
-  border: none;
-}
-
-.ant-card-head-title {
-  text-align: center;
-  font-size: 24px;
-  color: white;
+.avatar-img {
+  margin-bottom: 2rem;
 }
 
 .ant-card-body {

@@ -15,7 +15,7 @@ const AuthContainer = (props) => {
 				justify="center"
 				align="middle"
 				style={{marginTop: '20vh'}}
-				gutter="16">
+			>
 				<Col xl={8} lg={10} md={12} sm={14} xs={20}>
 
 

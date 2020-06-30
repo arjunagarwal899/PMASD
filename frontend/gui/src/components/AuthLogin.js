@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {Avatar, Button, Form, Input, Space} from 'antd';
+import {Avatar, Button, Form, Input } from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 
 import {authLogin} from '../redux';
@@ -20,7 +20,8 @@ const AuthLogin = (props) => {
 	return (
 		<React.Fragment>
 			<Avatar size={60}
-			        src="https://www.elliottsfancydress.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/c/a/camel-800.jpg"/>
+			        src="https://www.elliottsfancydress.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/c/a/camel-800.jpg"
+							className="avatar-img"/>
 
 			<Form name="basic" initialValues={{username: defaultUsername}} onFinish={onSubmit} justify="center">
 
