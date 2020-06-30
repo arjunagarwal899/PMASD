@@ -1,16 +1,16 @@
 import React from 'react';
-import { Route, Redirect, Switch, Router } from 'react-router-dom';
+import {Redirect, Route, Router, Switch} from 'react-router-dom';
 
 import history from './history';
-import Login from './components/Login.js';
+import AuthContainer from "./containers/AuthContainer";
 
 const BaseRouter = () => {
   return (
     <React.Fragment>
       <Router history={history}>
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Redirect from="/" to="/login" />
+          <Route exact path="/login" component={AuthContainer} />
+          {/*<Redirect from="/" to="/login/"/>*/}
         </Switch>
       </Router>
     </React.Fragment>

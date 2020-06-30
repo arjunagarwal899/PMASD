@@ -25,7 +25,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
+    'dj_rest_auth',
+    'corsheaders',
 
     'doctors.apps.DoctorsConfig',
     'patients.apps.PatientsConfig',
@@ -33,6 +34,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -112,6 +115,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# djangorestframework setup with the api
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
-# For django-rest-auth (User authentication and logout)
+
+# For dj-rest-auth (User authentication and logout)
+OLD_PASSWORD_FIELD_ENABLED  = True
 LOGOUT_ON_PASSWORD_CHANGE = False
+
+
+# TO enable corsheaders
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
