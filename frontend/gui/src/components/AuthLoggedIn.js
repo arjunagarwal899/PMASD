@@ -3,13 +3,10 @@ import React from 'react';
 import {Button, Space, Typography} from "antd";
 import {NavLink} from "react-router-dom";
 
-import {authLogout} from "../redux";
-import {connect} from "react-redux";
 
-
-const AuthLoggedIn = (props) => {
+const AuthLoggedIn = () => {
 	return (
-		<div style={{textAlign: "center", color:"white"}}>
+		<div style={{textAlign: "center", color: "white"}}>
 			<Space direction="vertical">
 
 				<Typography.Title level={3} style={{color: "white"}}>
@@ -22,19 +19,12 @@ const AuthLoggedIn = (props) => {
 					</Button>
 				</NavLink>
 
-				Temporary: <Button type="primary" onClick={props.logout}>Logout</Button>
+				Temporary: <NavLink to="/logout">Logout</NavLink>
 			</Space>
 		</div>
 	);
 };
 
 
-//Temporary:
-const mapDispathToProps = (dispatch) => {
-	return {
-		logout: () => dispatch(authLogout())
-	}
-};
-
-export default connect(null, mapDispathToProps)(AuthLoggedIn);
+export default AuthLoggedIn;
 // export default AuthLoggedIn;
