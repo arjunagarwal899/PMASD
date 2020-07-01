@@ -11,11 +11,7 @@ import './AuthContainer.css'
 const AuthContainer = (props) => {
 	return (
 		<div className="login-container">
-			<Row
-				justify="center"
-				align="middle"
-				style={{marginTop: '20vh'}}
-			>
+			<Row justify="center" align="middle" style={{marginTop: '20vh'}}>
 				<Col xl={8} lg={10} md={12} sm={14} xs={20}>
 
 
