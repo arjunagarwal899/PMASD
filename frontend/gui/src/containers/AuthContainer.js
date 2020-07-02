@@ -9,25 +9,31 @@ import AuthLoggedIn from '../components/AuthLoggedIn';
 import './AuthContainer.css';
 
 const AuthContainer = (props) => {
-  return (
-    <div className="login-container">
-      <Row justify="center" align="middle">
-        <Col span={24}>
-          <Spin spinning={props.loading}>
-            <Card style={{ textAlign: 'center' }}>
-              {
-                !props.isAuthenticated ? (
-                  <AuthLogin /> // If user has to be authenticated
-                ) : (
-                  <AuthLoggedIn />
-                ) // If user is already authenticated
-              }
-            </Card>
-          </Spin>
-        </Col>
-      </Row>
-    </div>
-  );
+	return (
+		<div className="login-container">
+// 			<Row justify="center" align="middle" style={{marginTop: '20vh'}}>
+// 				<Col xl={8} lg={10} md={12} sm={14} xs={20}>
+			<Row justify="center" align="middle">
+				<Col span={24}>
+
+
+					<Spin spinning={props.loading}>
+						<Card style={{textAlign: "center"}}>
+
+							{!props.isAuthenticated ?
+								<AuthLogin/>        // If user has to be authenticated
+								:
+								<AuthLoggedIn/>       // If user is already authenticated
+							}
+
+						</Card>
+					</Spin>
+
+
+				</Col>
+			</Row>
+		</div>
+	);
 };
 
 const mapStateToProps = (state, ownProps) => {
