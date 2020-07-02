@@ -2,12 +2,10 @@ import axios from 'axios';
 
 const baseURL = 'http://127.0.0.1:8000/';
 
-
 // If axios is being used to login
 const axiosLogin = axios.create({
-	baseURL: baseURL
+  baseURL: baseURL,
 });
-
 
 // // If axios is being used after logging in
 // const axiosLoggedIn = axios.create({
@@ -18,6 +16,5 @@ const axiosLogin = axios.create({
 // 	Authentication: "Token "
 // };
 
-
-export {axiosLogin};
+export { axiosLogin };
 // export {axiosLogin, axiosLoggedIn};

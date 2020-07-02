@@ -5,6 +5,7 @@ import {Redirect, Route, Router, Switch} from 'react-router-dom';
 import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout'
+import ChangePassword from './components/ChangePassword';
 
 
 const BaseRouter = (props) => {
@@ -14,6 +15,7 @@ const BaseRouter = (props) => {
 				<Switch>
 					<Route exact path="/login" component={AuthContainer}/>
 					<Route exact path="/logout" component={Logout}/>
+					<Route exact path="/changepassword" component={ChangePassword} />
 
 					{   props.isAuthenticated ?
 							<Redirect from="/" to="/home"/>

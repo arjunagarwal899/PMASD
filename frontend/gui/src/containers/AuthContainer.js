@@ -1,18 +1,20 @@
 import React from 'react';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 
-import {Card, Col, Row, Spin} from "antd";
+import { Card, Col, Row, Spin } from 'antd';
 
-import AuthLogin from "../components/AuthLogin";
-import AuthLoggedIn from "../components/AuthLoggedIn";
-import './AuthContainer.css'
+import AuthLogin from '../components/AuthLogin';
+import AuthLoggedIn from '../components/AuthLoggedIn';
 
+import './AuthContainer.css';
 
 const AuthContainer = (props) => {
 	return (
 		<div className="login-container">
-			<Row justify="center" align="middle" style={{marginTop: '20vh'}}>
-				<Col xl={8} lg={10} md={12} sm={14} xs={20}>
+// 			<Row justify="center" align="middle" style={{marginTop: '20vh'}}>
+// 				<Col xl={8} lg={10} md={12} sm={14} xs={20}>
+			<Row justify="center" align="middle">
+				<Col span={24}>
 
 
 					<Spin spinning={props.loading}>
@@ -34,13 +36,11 @@ const AuthContainer = (props) => {
 	);
 };
 
-
 const mapStateToProps = (state, ownProps) => {
-	return {
-		loading: state.auth.loading,
-		isAuthenticated: state.auth.isAuthenticated,
-	};
+  return {
+    loading: state.auth.loading,
+    isAuthenticated: state.auth.isAuthenticated,
+  };
 };
-
 
 export default connect(mapStateToProps)(AuthContainer);

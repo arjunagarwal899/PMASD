@@ -6,6 +6,7 @@ import {LockOutlined, UserOutlined} from '@ant-design/icons';
 
 import {authLogin} from '../redux';
 
+import { authLogin } from '../redux';
 
 const AuthLogin = (props) => {
 
@@ -58,19 +59,18 @@ const AuthLogin = (props) => {
 	);
 };
 
-
 const mapStateToProps = (state) => {
-	return {
-		loading: state.auth.loading,
-		error: state.auth.error,
-		token: state.auth.token,
-	};
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    token: state.auth.token,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		login: (username, password) => dispatch(authLogin(username, password))
-	}
+  return {
+    login: (username, password) => dispatch(authLogin(username, password)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthLogin);
