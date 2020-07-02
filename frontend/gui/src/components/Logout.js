@@ -13,7 +13,7 @@ const MyComponent = (props) => {
 	}, []);
 
 	return (
-		<Redirect to="/"/>
+		<Redirect to={props.redirect ? props.redirect : "/"}/>
 	);
 };
 

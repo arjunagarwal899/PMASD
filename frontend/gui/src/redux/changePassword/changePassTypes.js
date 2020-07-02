@@ -1,0 +1,3 @@
+export const CHANGE_PASS_BEGIN = 'PASS_BEGIN';
+export const CHANGE_PASS_SUCCESS = 'PASS_SUCCESS';
+export const CHANGE_PASS_FAIL = 'PASS_FAIL';

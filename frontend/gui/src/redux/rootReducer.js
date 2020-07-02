@@ -1,11 +1,11 @@
 import {combineReducers} from "redux";
 
 import authReducer from "./auth/authReducers";
-import changePasswordReducer from './auth/changePassReducers';
+import changePasswordReducer from './changePassword/changePassReducers';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    changePass: changePasswordReducer
+    changePassword: changePasswordReducer
 });
 
 export default rootReducer;

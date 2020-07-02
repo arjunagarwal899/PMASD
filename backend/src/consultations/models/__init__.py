@@ -4,4 +4,4 @@ from .investigations import InvestigationDone, InvestigationPrescribed, Investig
 from .diagnosis import Diagnosis
 from .general_advice import GeneralAdvice
 from .drugs import DrugMaster, DrugPrescribed
-from .next_visit import FollowUp, ReferredTo, Remark
+from .misc import FollowUp, ReferredTo, Remark
