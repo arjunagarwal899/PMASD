@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Button, Space, Typography} from "antd";
 import {NavLink} from "react-router-dom";
 
 
 const AuthLoggedIn = () => {
+
+	useEffect(() => {
+		document.title = 'Login | PMASD';
+	});
+
 	return (
 		<div style={{textAlign: "center", color: "white"}}>
 			<Space direction="vertical">

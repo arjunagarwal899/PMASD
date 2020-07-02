@@ -7,6 +7,8 @@ import {authLogout} from "../redux";
 const MyComponent = (props) => {
 
 	useEffect(() => {
+		document.title = 'Logout | PMASD';
+
 		props.logout();
 	}, []);
 
