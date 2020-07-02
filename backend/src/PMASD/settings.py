@@ -128,7 +128,7 @@ REST_FRAMEWORK = {
 
 # For dj-rest-auth (User authentication and logout)
 OLD_PASSWORD_FIELD_ENABLED  = True
-LOGOUT_ON_PASSWORD_CHANGE = False
+LOGOUT_ON_PASSWORD_CHANGE = True
 
 
 # TO enable corsheaders

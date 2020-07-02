@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import {Avatar, Button, Form, Input} from 'antd';
@@ -11,15 +11,19 @@ const AuthLogin = (props) => {
 
 	const defaultUsername = "admin";
 
-
 	const onSubmit = (values) => {
 		props.login(values.username, values.password);
 	};
 
 
+	useEffect(() => {
+		document.title = 'Login | PMASD';
+	});
+
+
 	return (
 		<React.Fragment>
-			<Avatar size={60}
+			<Avatar size={85}
 			        src="https://www.elliottsfancydress.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/c/a/camel-800.jpg"
 			        className="avatar-img"/>
 
