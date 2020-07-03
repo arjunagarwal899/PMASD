@@ -6,10 +6,10 @@ import {Card, Col, Row, Spin} from 'antd';
 import AuthLogin from '../components/AuthLogin';
 import AuthLoggedIn from '../components/AuthLoggedIn';
 
-import './UserContainer.css';
+import './AuthContainer.css';
 import ChangePassword from "../components/ChangePassword";
 
-const UserContainer = (props) => {
+const AuthContainer = (props) => {
 	return (
 		<React.Fragment>
 			<div className="bg-image"></div>
@@ -54,4 +54,4 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 
-export default connect(mapStateToProps)(UserContainer);
+export default connect(mapStateToProps)(AuthContainer);

@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
+import {NavLink} from "react-router-dom";
 
 import {Avatar, Button, Form, Input, Space, Alert} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 
 import {authLogin} from '../redux';
-import {NavLink} from "react-router-dom";
+import avatar_image from '../static/img/dr-raj.jpg';
 
 
 const AuthLogin = (props) => {
@@ -24,9 +25,7 @@ const AuthLogin = (props) => {
 
 	return (
 		<React.Fragment>
-			<Avatar size={85}
-			        src="https://www.elliottsfancydress.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/c/a/camel-800.jpg"
-			        className="avatar-img"/>
+			<Avatar size={85} src={avatar_image} className="avatar-img"/>
 
 			<Form name="login" initialValues={{username: defaultUsername}} onFinish={onSubmit} justify="center">
 
@@ -43,9 +42,9 @@ const AuthLogin = (props) => {
 
 				<Space direction="vertical" style={{width: "100%"}}>
 					{props.error ?
-					<Form.Item>
-							<Alert message={props.error} type="error" showIcon />
-					</Form.Item>
+						<Form.Item>
+							<Alert message={props.error} type="error" showIcon/>
+						</Form.Item>
 						:
 						null
 					}
