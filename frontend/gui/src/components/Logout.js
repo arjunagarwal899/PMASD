@@ -10,7 +10,7 @@ const MyComponent = (props) => {
 		document.title = 'Logout | PMASD';
 
 		props.logout();
-	}, []);
+	});
 
 	return (
 		<Redirect to={props.redirect ? props.redirect : "/"}/>

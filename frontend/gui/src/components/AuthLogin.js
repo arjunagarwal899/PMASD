@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
-import {Avatar, Button, Form, Input, Space} from 'antd';
+import {Avatar, Button, Form, Input, Space, Alert} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 
 import {authLogin} from '../redux';
@@ -43,7 +43,9 @@ const AuthLogin = (props) => {
 
 				<Space direction="vertical" style={{width: "100%"}}>
 					{props.error ?
-						<span style={{color: "white"}}>{props.error}</span>
+					<Form.Item>
+							<Alert message={props.error} type="error" showIcon />
+					</Form.Item>
 						:
 						null
 					}

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 
-import {Button, Form, Input} from 'antd';
+import {Button, Form, Input, Alert} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 
 import {authLogout, changePassword} from '../redux';
@@ -67,9 +67,15 @@ const ChangePassword = (props) => {
 
 			{props.error ? (
 				<Form.Item>
-					<span style={{color: 'white'}}>{props.error}</span>
+					<Alert type="error" message={props.error} />
 				</Form.Item>
 			) : null}
+
+			{props.success ? (
+				<Form.Item>
+					<Alert type="success" message="Password changed successfully!" />
+				</Form.Item>
+			): null}
 
 			<Form.Item justify="center">
 				<Button type="primary" htmlType="submit" size="large" block>
@@ -87,6 +93,7 @@ const mapStateToProps = (state) => {
 	return {
 		loading: state.changePassword.loading,
 		error: state.changePassword.error,
+		success: state.changePassword.success,
 	};
 };
 
