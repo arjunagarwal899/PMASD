@@ -3,9 +3,8 @@ import {connect} from 'react-redux';
 import {Redirect, Route, Router, Switch} from 'react-router-dom';
 
 import history from './history';
-import AuthContainer from "./containers/AuthContainer";
+import UserContainer from "./containers/UserContainer";
 import Logout from './components/Logout'
-import ChangePassword from './components/ChangePassword';
 
 
 const BaseRouter = (props) => {
@@ -13,14 +12,14 @@ const BaseRouter = (props) => {
 		<React.Fragment>
 			<Router history={history}>
 				<Switch>
-					<Route exact path="/login" component={AuthContainer}/>
-					<Route exact path="/logout" component={Logout}/>
-					<Route exact path="/changepassword" component={ChangePassword} />
+					<Route exact path="/login/" component={UserContainer}/>
+					<Route exact path="/logout/" component={Logout}/>
+					<Route exact path="/changepassword/" render={() => <UserContainer changePass={true} />} />
 
 					{   props.isAuthenticated ?
-							<Redirect from="/" to="/home"/>
+							<Redirect from="/" to="/home/"/>
 						:
-							<Redirect from="/" to="/login"/>
+							<Redirect from="/" to="/login/"/>
 					}
 				</Switch>
 			</Router>

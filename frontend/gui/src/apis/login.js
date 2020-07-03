@@ -1,20 +1,28 @@
 import axios from 'axios';
+import store from "../redux/store";
 
 const baseURL = 'http://127.0.0.1:8000/';
 
+
 // If axios is being used to login
 const axiosLogin = axios.create({
-  baseURL: baseURL,
+	baseURL: baseURL,
 });
 
-// // If axios is being used after logging in
-// const axiosLoggedIn = axios.create({
-// 	baseURL: baseURL
-// });
-// axiosLoggedIn.default.headers = {
-// 	"Content-Type": "application/json",
-// 	Authentication: "Token "
-// };
+// If axios is being used after logging in
+const default_headers = {
+	"Content-Type": "application/json",
+	Authorization: "Token " + store.getState().auth.token
+};
 
-export { axiosLogin };
-// export {axiosLogin, axiosLoggedIn};
+const axiosLoggedIn = axios.create({
+	baseURL: baseURL,
+	headers: {
+		post: default_headers,
+		put: default_headers,
+		delete: default_headers,
+	}
+});
+
+
+export {axiosLogin, axiosLoggedIn};
