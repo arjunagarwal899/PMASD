@@ -1,2 +1,2 @@
 export * from './auth/authActions';
-export * from './auth/changePassActions';
+export * from './changePassword/changePassActions';

@@ -4,6 +4,8 @@ from .basic_data import Consultation
 from abstract.models.person import PersonAddress
 from abstract.fields.fields import MobileField
 
+# TODO: Add ReferredFrom Model
+
 
 class FollowUp(models.Model):
 
