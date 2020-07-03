@@ -3,6 +3,7 @@ import * as actionTypes from './changePassTypes';
 // Initial state of application for change password
 const initialState = {
 	error: null,
+	success: false,
 	loading: false,
 };
 
@@ -11,6 +12,7 @@ const changePasswordBegin = (state, action) => {
 	return {
 		...state,
 		error: null,
+		success: false,
 		loading: true,
 	};
 };
@@ -20,6 +22,7 @@ const changePasswordSuccess = (state, action) => {
 	return {
 		...state,
 		error: null,
+		success: true,
 		loading: false,
 	}
 }
@@ -29,6 +32,7 @@ const changePasswordFail = (state, action) => {
 	return {
 		...state,
 		error: action.error,
+		success: false,
 		loading: false,
 	}
 }
