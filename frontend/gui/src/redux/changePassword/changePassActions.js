@@ -81,7 +81,7 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 							history.push('/login/');
 						})
 						.catch((error) => {
-							console.log(error.message)
+							console.log(error.response.data);
 							dispatch(changePasswordFail(error));
 						});
 				} else {
