@@ -18,6 +18,7 @@ const default_headers = {
 const axiosLoggedIn = axios.create({
 	baseURL: baseURL,
 	headers: {
+		get: default_headers,
 		post: default_headers,
 		put: default_headers,
 		delete: default_headers,

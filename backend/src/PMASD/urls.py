@@ -4,7 +4,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('dj_rest_auth.urls')),       # url is auth/ and not rest-auth/
+    path('auth/', include('dj_rest_auth.urls')),
 
-    path('api/', include('api.urls')),
+
+    # Custom API endpoints
+    path('api/patient/', include('patients.api.urls')),
 ]

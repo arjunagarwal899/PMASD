@@ -3,6 +3,11 @@ from abstract.models.person import Person, PersonMobile, PersonEmail
 
 class Patient(Person):
 
+    patient_id = models.CharField(
+        primary_key=True,
+        max_length=6,
+    )
+
     last_consultation = models.OneToOneField(
         'consultations.Consultation',
         on_delete=models.SET_NULL,

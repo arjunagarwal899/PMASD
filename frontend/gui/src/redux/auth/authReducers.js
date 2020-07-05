@@ -2,7 +2,7 @@ import * as actionTypes from '../auth/authTypes';
 
 // Initial state of the application for login
 const initialState = {
-  token: null,
+  token: sessionStorage.getItem('token') || null,
   error: null,
   loading: false,
   isAuthenticated: sessionStorage.getItem('token') !== null,
