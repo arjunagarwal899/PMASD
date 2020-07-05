@@ -1,5 +1,6 @@
 import * as actionTypes from './authTypes';
 import {axiosLogin} from '../../apis/login';
+import history from '../../history';
 
 // Begin login action-type
 const authBegin = () => {
@@ -54,6 +55,8 @@ const authLogin = (username, password) => {
 				sessionStorage.setItem('token', token);
 				// Login success
 				dispatch(authSuccess(token));
+				// Do programmatic navigation to home page
+				history.push('/');
 			})
 			.catch((error) => dispatch(authFail(error)));
 	};
