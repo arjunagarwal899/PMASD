@@ -3,10 +3,10 @@ body {
 }
 
 .bg-image {
-	background-image: url('../static/img/road-nature-trees-branches-38537.jpg');
+	background-image: url('../static/img/etzNLna.jpg');
 
-	filter: blur(5px);
-	-webkit-filter: blur(5px);
+	filter: blur(2px);
+	-webkit-filter: blur(2px);
 	height: 100vh;
 
 	background-size: cover;

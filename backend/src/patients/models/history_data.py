@@ -32,7 +32,7 @@ class PatientHistory(models.Model):
 
 
     def __str__(self):
-        return '(%s) %s\t-\t%s' % (self.timestamp.date(), self.patient, self.history)
+        return '(%s) %s - %s' % (self.timestamp.date(), self.patient, self.history)
 
 
     class Meta:

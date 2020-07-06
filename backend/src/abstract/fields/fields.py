@@ -24,6 +24,9 @@ class MobileField(models.CharField):
         return value
 
 
+"""
+    # Custom field to store percentage values in the database. Derived from PositiveSmallIntegerField
+"""
 class PercentageField(models.PositiveSmallIntegerField):
 
     description = 'Percentage value between 0 and 100'
