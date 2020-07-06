@@ -1,5 +1,5 @@
 import * as actionTypes from './authTypes';
-import {axiosLogin} from '../../apis/login';
+import {axiosWithoutHeaders} from '../../apis/login';
 import history from '../../history';
 
 // Begin login action-type
@@ -19,18 +19,21 @@ const authSuccess = (token) => {
 
 // Fail login action-type
 const authFail = (error) => {
-
 	let recordError = error.message;
-	switch (String(recordError)) {
-		case 'Request failed with status code 400':
-			recordError = 'User credentials invalid. Please try again.';
-			break;
 
-		case 'Network Error':
-			recordError = 'Backend server not functioning. Please restart system.';
+	switch (error.response) {
+		case undefined:
+			recordError = 'Server not functioning. Please restart system.';
 			break;
 
 		default:
+			switch (error.response.status) {
+				case 400:
+					recordError = 'User credentials invalid. Please try again.';
+					break;
+
+				default:
+			}
 	}
 
 	return {
@@ -43,7 +46,7 @@ const authFail = (error) => {
 const authLogin = (username, password) => {
 	return (dispatch) => {
 		dispatch(authBegin());
-		axiosLogin
+		axiosWithoutHeaders
 			.post('/auth/login/', {
 				username: username,
 				password: password,

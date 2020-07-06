@@ -3,10 +3,10 @@ body {
 }
 
 .bg-image {
-	background-image: url('../static/img/etzNLna.jpg');
+	background-image: url('../static/img/login-page-background.jpg');
 
-	filter: blur(2px);
-	-webkit-filter: blur(2px);
+	/*filter: blur(2px);*/
+	/*-webkit-filter: blur(2px);*/
 	height: 100vh;
 
 	background-size: cover;
@@ -25,7 +25,7 @@ body {
 }
 
 .ant-card {
-	background: rgba(39, 39, 39, 0.68);
+	background: rgba(39, 39, 39, 0.80);
 	z-index: 2;
 	-webkit-box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
 	-moz-box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
