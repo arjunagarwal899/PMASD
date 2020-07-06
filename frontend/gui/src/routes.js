@@ -12,6 +12,9 @@ const BaseRouter = (props) => {
 		<React.Fragment>
 			<Router history={history}>
 				<Switch>
+					{/*Temporary:*/}
+					<Redirect from="/home/" to="/patient/"/>
+
 					{/*Authentication routes*/}
 					<Route exact path="/login/" component={AuthContainer}/>
 					<Route exact path="/logout/" component={Logout}/>
