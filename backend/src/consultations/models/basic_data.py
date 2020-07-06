@@ -5,7 +5,7 @@ from patients.models.basic_data import Patient
 
 
 class Consultation(models.Model):
-
+    # TODO: Edit to save patient data for each consultation
     patient = models.ForeignKey(
         Patient,
         on_delete=models.PROTECT,

@@ -5,20 +5,27 @@ import {Redirect, Route, Router, Switch} from 'react-router-dom';
 import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout'
+import Patient from './components/Patient';
 
 const BaseRouter = (props) => {
 	return (
 		<React.Fragment>
 			<Router history={history}>
 				<Switch>
+					{/*Authentication routes*/}
 					<Route exact path="/login/" component={AuthContainer}/>
 					<Route exact path="/logout/" component={Logout}/>
-					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true} />} />
+					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true}/>}/>
 
-					{   props.isAuthenticated ?
-							<Redirect from="/" to="/home/"/>
+					{/*Data management routes*/}
+					<Route exact path="/patient/" component={Patient}/>
+
+
+					{/*Redirects*/}
+					{ !props.isAuthenticated ?
+						<Redirect to="/login/"/>
 						:
-							<Redirect from="/" to="/login/"/>
+						<Redirect from="/" to="/home/"/>
 					}
 				</Switch>
 			</Router>
