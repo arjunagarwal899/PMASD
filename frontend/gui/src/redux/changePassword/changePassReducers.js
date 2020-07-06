@@ -37,6 +37,12 @@ const changePasswordFail = (state, action) => {
 	}
 }
 
+// reducer for resetting "Change Password" process
+const changePasswordReset = (state, action) => {
+	return initialState
+}
+
+
 const changePasswordReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.CHANGE_PASS_BEGIN:
@@ -45,9 +51,12 @@ const changePasswordReducer = (state = initialState, action) => {
 			return changePasswordSuccess(state, action);
 		case actionTypes.CHANGE_PASS_FAIL:
 			return changePasswordFail(state, action);
+		case actionTypes.CHANGE_PASS_RESET:
+			return changePasswordReset(state, action);
 		default:
 			return state;
 	}
 }
 
+export {changePasswordReset};
 export default changePasswordReducer;

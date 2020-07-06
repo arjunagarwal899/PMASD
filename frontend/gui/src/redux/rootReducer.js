@@ -5,7 +5,7 @@ import changePasswordReducer from './changePassword/changePassReducers';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    changePassword: changePasswordReducer
+    changePassword: changePasswordReducer,
 });
 
 export default rootReducer;

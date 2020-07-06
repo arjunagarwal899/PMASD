@@ -10,7 +10,7 @@ import {authLogout, changePassword} from '../redux';
 
 const ChangePassword = (props) => {
 
-	const defaultUsername = 'admin';
+	const defaultUsername = props.defaultUsername || "admin";
 
 	const onSubmit = (values) => {
 		props.changePassword(
@@ -23,7 +23,7 @@ const ChangePassword = (props) => {
 
 	useEffect(() => {
 		props.logout();
-	});
+	}, []);
 
 
 	return (
@@ -39,7 +39,26 @@ const ChangePassword = (props) => {
 				                placeholder="Enter Old Password" autoFocus={true}/>
 			</Form.Item>
 
-			<Form.Item name="new_password1" rules={[{required: true, message: 'Please input your new password!',},]}>
+			<Form.Item name="new_password1" dependencies={['old_password']} hasFeedback
+			           rules={[
+				           {
+					           required: true,
+					           message: 'Please input your new password!',
+				           },
+				           ({getFieldValue}) => ({
+			           	        validator(rule, value) {
+			           	        	if (value.length < 6)
+			           	        		return Promise.reject('Password should be atleast 6 characters!');
+				                    else if (!isNaN(value))
+				                    	return Promise.reject('Password cannot be completely numeric!');
+				                    else if (value && getFieldValue('old_password') === value) {
+				                    	return Promise.reject('New password cannot be the same as old password!');
+				                    }
+
+				                    return Promise.resolve();
+			                    }
+				           }),
+			           ]}>
 				<Input.Password size="large" prefix={<LockOutlined className="site-form-item-icon"/>}
 				                placeholder="Enter New Password"/>
 			</Form.Item>
@@ -67,15 +86,9 @@ const ChangePassword = (props) => {
 
 			{props.error ? (
 				<Form.Item>
-					<Alert type="error" message={props.error} />
+					<Alert type="error" message={props.error}/>
 				</Form.Item>
 			) : null}
-
-			{props.success ? (
-				<Form.Item>
-					<Alert type="success" message="Password changed successfully!" />
-				</Form.Item>
-			): null}
 
 			<Form.Item justify="center">
 				<Button type="primary" htmlType="submit" size="large" block>
@@ -91,9 +104,7 @@ const ChangePassword = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.changePassword.loading,
 		error: state.changePassword.error,
-		success: state.changePassword.success,
 	};
 };
 

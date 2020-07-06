@@ -1,17 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from "react-router-dom";
 
-import {Avatar, Button, Form, Input, Space, Alert} from 'antd';
+import {Alert, Avatar, Button, Form, Input, notification, Space} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 
-import {authLogin} from '../redux';
-import avatar_image from '../static/img/dr-raj.jpg';
+import {authLogin, changePasswordReset} from '../redux';
+import rajAvatarImage from '../static/img/dr-raj.jpg';
+import defaultAvatarImage from '../static/img/default-user.jpg';
 
 
 const AuthLogin = (props) => {
 
-	const defaultUsername = "admin";
+	const [username, setUsername] = useState(props.defaultUsername || "admin");
+	let avatarImage = username === 'Raj' ? rajAvatarImage : defaultAvatarImage;
 
 	const onSubmit = (values) => {
 		props.login(values.username, values.password);
@@ -20,19 +22,28 @@ const AuthLogin = (props) => {
 
 	useEffect(() => {
 		document.title = 'Login | PMASD';
-	});
+
+		if (props.passwordChanged) {
+			notification['success']({
+				message: 'Change Password',
+				description: 'Your password has been successfully changed',
+			});
+
+			props.resetPasswordChange();
+		}
+	}, []);
 
 
 	return (
 		<React.Fragment>
-			<Avatar size={85} src={avatar_image} className="avatar-img"/>
+			<Avatar size={85} src={avatarImage} className="avatar-img"/>
 
-			<Form name="login" initialValues={{username: defaultUsername}} onFinish={onSubmit} justify="center">
+			<Form name="login" onFinish={onSubmit} justify="center" initialValues={{'username': username}}>
 
 
 				<Form.Item name="username" rules={[{required: true, message: 'Please input your username!'},]}>
 					<Input size="large" prefix={<UserOutlined className="site-form-item-icon"/>}
-					       placeholder="Username"/>
+					       placeholder="Username" onChange={(event) => setUsername(event.target.value)}/>
 				</Form.Item>
 
 				<Form.Item name="password" rules={[{required: true, message: 'Please input your password!'},]}>
@@ -57,7 +68,7 @@ const AuthLogin = (props) => {
 				</Space>
 			</Form>
 
-			<NavLink to="/changepassword/">Change Password</NavLink>
+			<NavLink to="/changepassword/" style={{color: 'darkgrey'}}>Change Password</NavLink>
 
 		</React.Fragment>
 	);
@@ -66,15 +77,15 @@ const AuthLogin = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.auth.loading,
 		error: state.auth.error,
-		token: state.auth.token,
+		passwordChanged: state.changePassword.success
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		login: (username, password) => dispatch(authLogin(username, password)),
+		resetPasswordChange: () => dispatch(changePasswordReset()),
 	};
 };
 

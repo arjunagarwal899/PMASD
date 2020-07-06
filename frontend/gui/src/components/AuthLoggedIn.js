@@ -8,7 +8,7 @@ const AuthLoggedIn = () => {
 
 	useEffect(() => {
 		document.title = 'Login | PMASD';
-	});
+	}, []);
 
 	return (
 		<div style={{textAlign: "center", color: "white"}}>
