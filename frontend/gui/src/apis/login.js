@@ -5,7 +5,7 @@ const baseURL = 'http://127.0.0.1:8000/';
 
 
 // If axios is being used to login
-const axiosLogin = axios.create({
+const axiosWithoutHeaders = axios.create({
 	baseURL: baseURL,
 });
 
@@ -15,7 +15,7 @@ const default_headers = {
 	Authorization: "Token " + store.getState().auth.token
 };
 
-const axiosLoggedIn = axios.create({
+const axiosWithHeaders = axios.create({
 	baseURL: baseURL,
 	headers: {
 		get: default_headers,
@@ -26,4 +26,4 @@ const axiosLoggedIn = axios.create({
 });
 
 
-export {axiosLogin, axiosLoggedIn};
+export {axiosWithoutHeaders, axiosWithHeaders};

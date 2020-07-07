@@ -9,10 +9,11 @@ import AuthLoggedIn from '../components/AuthLoggedIn';
 import './AuthContainer.css';
 import ChangePassword from "../components/ChangePassword";
 
+
 const AuthContainer = (props) => {
 	return (
 		<React.Fragment>
-			<div className="bg-image"></div>
+			<div className="bg-image" ></div>
 			<div className="login-container">
 				<Row justify="center" align="middle">
 					<Col span={24}>
@@ -23,12 +24,12 @@ const AuthContainer = (props) => {
 
 								{props.changePass || false ?
 
-									<ChangePassword/>
+									<ChangePassword defaultUsername="Raj"/>
 
 									:
 
 									(!props.isAuthenticated ?
-											<AuthLogin/>        // If user has to be authenticated
+											<AuthLogin defaultUsername="Raj"/>        // If user has to be authenticated
 											:
 											<AuthLoggedIn/>       // If user is already authenticated
 									)
@@ -48,7 +49,7 @@ const AuthContainer = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		loading: state.auth.loading,
+		loading: state.auth.loading || state.changePassword.loading,
 		isAuthenticated: state.auth.isAuthenticated,
 	};
 };

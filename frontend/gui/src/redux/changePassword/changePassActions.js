@@ -1,5 +1,5 @@
 import * as actionTypes from './changePassTypes';
-import {axiosLogin} from '../../apis/login';
+import {axiosWithoutHeaders} from '../../apis/login';
 import history from '../../history';
 
 
@@ -21,24 +21,34 @@ const changePasswordSuccess = () => {
 const changePasswordFail = (error, errorType) => {
 
 	let recordError = error.message;
-	switch (String(recordError)) {
-		case 'Request failed with status code 400':
-			switch (String(errorType)) {
-				case 'authentication_error':
-					recordError = 'Old password was entered incorrectly. Please try again.';
-					break;
-				case '':
-					recordError = '';
-					break;
-				default:
+
+	switch (error.response) {
+		case undefined:
+			if (error.defaultError === null || error.defaultError) {
+				recordError = 'Server not functioning. Please restart system.';
 			}
 			break;
 
-		case 'Network Error':
-			recordError = 'Backend server not functioning. Please restart system.';
-			break;
-
 		default:
+			switch (error.response.status) {
+				case 400:
+					switch (String(errorType)) {
+						case 'authentication_error':
+							recordError = 'Old password was entered incorrectly. Please try again.';
+							break;
+						case 'password_restrictions':
+							const errorsObject = error.response.data.new_password2;
+							const errorsArray = Object.keys(errorsObject).map(key => errorsObject[key]);
+
+							recordError = errorsArray.join(' ');
+
+							break;
+						default:
+					}
+					break;
+
+				default:
+			}
 	}
 
 	return {
@@ -47,20 +57,27 @@ const changePasswordFail = (error, errorType) => {
 	};
 };
 
+// Change Password reset type
+const changePasswordReset = () => {
+	return {
+		type: actionTypes.CHANGE_PASS_RESET,
+	}
+};
+
 
 // Change Password action type
 const changePassword = (username = 'admin', old_password, new_password1, new_password2) => {
 	return (dispatch) => {
 		dispatch(changePasswordBegin());
 
-		axiosLogin
+		axiosWithoutHeaders
 			.post('/auth/login/', {
 				username: username,
 				password: old_password,
 			})
 			.then((response) => {
 				if (response.data.key) {
-					axiosLogin
+					axiosWithoutHeaders
 						.post('/auth/password/change/', {
 							old_password: old_password,
 							new_password1: new_password1,
@@ -72,8 +89,6 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 							}
 						})
 						.then((response) => {
-							console.log(response);
-
 							// Password change success
 							dispatch(changePasswordSuccess());
 
@@ -81,11 +96,10 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 							history.push('/login/');
 						})
 						.catch((error) => {
-							console.log(error.response.data);
-							dispatch(changePasswordFail(error));
+							dispatch(changePasswordFail(error, 'password_restrictions'));
 						});
 				} else {
-					dispatch(changePasswordFail({message: 'Unknown error'}));
+					dispatch(changePasswordFail({message: 'Unknown error', defaultError: false}));
 				}
 			})
 			.catch((error) => {
@@ -94,4 +108,4 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 	};
 };
 
-export {changePassword};
+export {changePassword, changePasswordReset};
