@@ -1,7 +1,3 @@
-body {
-	overflow: hidden;
-}
-
 .bg-image {
 	background-image: url('../static/img/login-page-background.jpg');
 

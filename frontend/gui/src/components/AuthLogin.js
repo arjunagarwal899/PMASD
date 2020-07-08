@@ -31,7 +31,7 @@ const AuthLogin = (props) => {
 
 			props.resetPasswordChange();
 		}
-	}, []);
+	}, []);             // eslint-disable-line
 
 
 	return (
