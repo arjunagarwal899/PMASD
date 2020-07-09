@@ -1,12 +1,11 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Redirect, Route, Router, Switch} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 
 import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout'
-import Patient from './components/Patient';
-import HomeContainer from './containers/HomeContainer';
+import PatientContainer from "./containers/PatientContainer";
 
 const BaseRouter = (props) => {
 	return (
@@ -14,21 +13,20 @@ const BaseRouter = (props) => {
 			<Router history={history}>
 				<Switch>
 					{/*Authentication routes*/}
-					<Route exact path="/login/" component={AuthContainer}/>
-					<Route exact path="/logout/" component={Logout}/>
-					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true}/>}/>
-
+					<Route exact path="/login/" component={AuthContainer} />
+					<Route exact path="/logout/" component={Logout} />
+					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true} />} />
+					
 					{/*Data management routes*/}
-					<Route exact path="/patient/" component={Patient}/>
-
-					{/* Home route */}
-					<Route exact path="/home/" component={HomeContainer}/>
-
+					<Route exact path="/patient/" component={PatientContainer} />
+					<Route exact path="/patient2/" render={() => <PatientContainer newPatient={true} />} />
+					
+					
 					{/*Redirects*/}
-					{ !props.isAuthenticated ?
-						<Redirect to="/login/"/>
+					{!props.isAuthenticated ?
+						<Redirect to="/login/" />
 						:
-						<Redirect from="/" to="/home/"/>
+						<Redirect from="/" to="/home/" />
 					}
 				</Switch>
 			</Router>
