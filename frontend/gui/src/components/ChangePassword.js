@@ -21,9 +21,10 @@ const ChangePassword = (props) => {
 		);
 	};
 
+
 	useEffect(() => {
 		props.logout();
-	}, []);
+	}, []);             // eslint-disable-line
 
 
 	return (
@@ -47,9 +48,9 @@ const ChangePassword = (props) => {
 				           },
 				           ({getFieldValue}) => ({
 			           	        validator(rule, value) {
-			           	        	if (value.length < 6)
+			           	        	if (value && value.length < 6)
 			           	        		return Promise.reject('Password should be atleast 6 characters!');
-				                    else if (!isNaN(value))
+				                    else if (value && !isNaN(value))
 				                    	return Promise.reject('Password cannot be completely numeric!');
 				                    else if (value && getFieldValue('old_password') === value) {
 				                    	return Promise.reject('New password cannot be the same as old password!');
@@ -96,7 +97,7 @@ const ChangePassword = (props) => {
 				</Button>
 			</Form.Item>
 
-			<NavLink to="/login">Go Back To Login</NavLink>
+			<NavLink to="/login" style={{color: 'darkgrey'}}>Go Back To Login</NavLink>
 		</Form>
 	);
 };
