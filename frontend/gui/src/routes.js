@@ -4,7 +4,8 @@ import { Redirect, Route, Router, Switch } from 'react-router-dom';
 
 import history from './history';
 import AuthContainer from "./containers/AuthContainer";
-import Logout from './components/Logout'
+import Logout from './components/Logout';
+import HomeContainer from './containers/HomeContainer';
 import PatientContainer from "./containers/PatientContainer";
 
 const BaseRouter = (props) => {
@@ -21,6 +22,8 @@ const BaseRouter = (props) => {
 					<Route exact path="/patient/" component={PatientContainer} />
 					<Route exact path="/patient2/" render={() => <PatientContainer newPatient={true} />} />
 					
+					{/* Home route */}
+					<Route exact path="/home/" component={HomeContainer} />
 					
 					{/*Redirects*/}
 					{!props.isAuthenticated ?
