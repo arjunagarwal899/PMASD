@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from './myredux/store';
 
 import 'antd/dist/antd.less';
 import {notification} from "antd";

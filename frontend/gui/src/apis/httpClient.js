@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from "../redux/store";
+import store from "../myredux/store";
 
 const baseURL = 'http://127.0.0.1:8000/';
 

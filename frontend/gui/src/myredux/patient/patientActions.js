@@ -1,19 +1,12 @@
-// Generate new ID
-// Get information for existing patient
-// Add new patient
-// Update existing patient
-
-
 import * as actionTypes from "./patientTypes";
-import { axiosWithHeaders } from "../../apis/httpClient";
 
 
+// State actions
 const patientBegin = () => {
 	return {
 		type: actionTypes.PATIENT_BEGIN,
 	};
 };
-
 
 const patientSuccess = (patientID = null) => {
 	return {
@@ -21,7 +14,6 @@ const patientSuccess = (patientID = null) => {
 		patientID: patientID,
 	};
 };
-
 
 const patientFail = error => {
 	return {
@@ -31,13 +23,26 @@ const patientFail = error => {
 };
 
 
+const patientNewPatient = () => {
+	return {
+		type: actionTypes.PATIENT_NEW_PATIENT,
+	};
+};
+
+const patientExistingPatient = () => {
+	return {
+		type: actionTypes.PATIENT_EXISTING_PATIENT,
+	};
+};
+
+
+// Main actions
 const patientGenerate = () => {
 	return (dispatch) => {
 		dispatch(patientBegin());
 		// axiosWithHeaders()
 	};
 };
-
 
 const patientAdd = (patientID, patientData) => {
 	return (dispatch) => {
@@ -46,6 +51,12 @@ const patientAdd = (patientID, patientData) => {
 	};
 };
 
+const patientSearch = (patientID) => {
+	return (dispatch) => {
+		dispatch(patientBegin());
+		// axiosWithHeaders()
+	};
+};
 
 const patientRetrieve = (patientID) => {
 	return (dispatch) => {
@@ -53,7 +64,6 @@ const patientRetrieve = (patientID) => {
 		// axiosWithHeaders()
 	};
 };
-
 
 const patientUpdate = (patientID, patientDATA) => {
 	return (dispatch) => {
@@ -63,4 +73,12 @@ const patientUpdate = (patientID, patientDATA) => {
 };
 
 
-export { patientGenerate, patientAdd, patientRetrieve, patientUpdate };
+export {
+	patientNewPatient,
+	patientExistingPatient,
+	patientGenerate,
+	patientAdd,
+	patientSearch,
+	patientRetrieve,
+	patientUpdate
+};

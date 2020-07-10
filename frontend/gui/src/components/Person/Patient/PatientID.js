@@ -1,30 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
-import { Button, Form, Input } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
+import { axiosWithHeaders } from "apis/httpClient";
 
 
-const PatientID = (props) => {
-	
-	const {newPatient} = props || false;
-	const [patientID, setPatientID] = useState(null);
-	
-	
-	const generateNewPatientID = () => {
-		setPatientID(Math.floor(Math.random() * (1000000 - 100000)) + 100000);
-	};
+const dropDownColumnWidths = [3, 6, 13]
+
+
+const PatientID = props => {
 	
 	
-	useEffect(() => {
-		// TODO add checking of unique patient id
-	}, [patientID]);            // eslint-disable-line
+	//Temporary
 	
+	const [patientData, setPatientData] = useState([]);
 	
-	useEffect(() => {
-		if (newPatient) {
-			generateNewPatientID();
+	const getPatientData = searchValue => {
+		if (searchValue.length > 3) {
+			axiosWithHeaders
+				.get('api/patient/search', {
+					params: {
+						search: searchValue,
+					}
+				})
+				.then(response => {
+					setPatientData(response.data)
+				})
+				.catch(error => {
+					switch (error.status) {
+						case 401:
+							console.log('Unauthorized');
+							break;
+						case undefined:
+							console.log('Unknown Error');
+							break;
+						
+						default:
+					}
+					
+					setPatientData([]);
+				})
+		} else {
+			setPatientData([]);
 		}
-	}, [newPatient]);
+	};
+	// End of temporary
 	
 	
 	return (
@@ -35,20 +55,59 @@ const PatientID = (props) => {
 				           message: 'Valid Patient ID is required!'
 			           }]}
 			>
-				<Input allowClear placeholder="Enter patient ID"
-				       maxLength={props.maxlengths.patientID}
-				       minLength={5}
-				       value={patientID}
-				       onChange={event => setPatientID(event.target.value.toUpperCase())}
-				       disabled={newPatient}
-				       autoFocus={!newPatient}
-				/>
+				{props.newPatient ?
+					
+					<Input allowClear placeholder="Enter patient ID"
+					       maxLength={props.maxlengths.patientID}
+					       minLength={5}
+					       value={props.patientID}
+					       disabled={props.newPatient}
+					       autoFocus={!props.newPatient}
+					/>
+					
+					:
+					
+					<Select showSearch
+					        showArrow={false}
+					        placeholder="Enter patient ID"
+					        onSearch={getPatientData}
+					        filterOption={false}
+					        notFoundContent={null}
+					        defaultActiveFirstOption
+					        optionLabelProp="value"
+					        loading={props.loading}
+					>
+						{patientData.length ?
+							
+							<Select.OptGroup label={
+								<Row>
+									<Col span={dropDownColumnWidths[0]}>Patient ID</Col>
+									<Col span={dropDownColumnWidths[1]}>Patient Name</Col>
+									<Col span={dropDownColumnWidths[2]}>Mobile Numbers</Col>
+								</Row>
+							}>
+								{patientData.map(patient => (
+									<Select.Option value={patient.patient_id} key={patient.patient_id}>
+										<Row>
+											{/*TODO Apply style={{textOverflow: 'ellipsis', overflow: 'hidden' }}*/}
+											<Col span={dropDownColumnWidths[0]}>{patient.patient_id}</Col>
+											{/*<Col span={dropDownColumnWidths[1]}>{patient.name}</Col>*/}
+											<Col span={dropDownColumnWidths[1]} style={{
+												textOverflow: 'ellipsis',
+												overflow: 'hidden'
+											}}>{patient.name}</Col>
+											<Col span={dropDownColumnWidths[2]}>{patient.mobiles.join(', ')}</Col>
+										</Row>
+									</Select.Option>
+								))}
+							</Select.OptGroup>
+							
+							: null
+						}
+					</Select>
+					
+				}
 			</Form.Item>
-			
-			{newPatient ?
-				<Button type="link" onClick={generateNewPatientID}>Generate new</Button>
-				: null
-			}
 		</React.Fragment>
 	);
 };
@@ -57,6 +116,9 @@ const PatientID = (props) => {
 const mapStateToProps = state => {
 	return {
 		maxlengths: state.maxlengths,
+		newPatient: state.patient.newPatient,
+		patientID: state.patient.patientID,
+		loading: state.patient.loading,
 	};
 };
 

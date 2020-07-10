@@ -1,5 +1,5 @@
 import * as actionTypes from './authTypes';
-import {axiosWithoutHeaders} from '../../apis/httpClient';
+import { axiosWithoutHeaders } from 'apis/httpClient';
 import history from '../../history';
 
 // Begin login action-type
