@@ -1,5 +1,5 @@
 import * as actionTypes from './changePassTypes';
-import {axiosWithoutHeaders} from '../../apis/login';
+import {axiosWithoutHeaders} from '../../apis/httpClient';
 import history from '../../history';
 
 
