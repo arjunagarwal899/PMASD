@@ -7,6 +7,7 @@ import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
 import PatientContainer from "./containers/PatientContainer";
+import ExaminationContainer from './containers/ExaminationContainer';
 
 const BaseRouter = (props) => {
 	return (
@@ -24,6 +25,9 @@ const BaseRouter = (props) => {
 					
 					{/* Home route */}
 					<Route exact path="/home/" component={HomeContainer} />
+
+					{/* Examination route */}
+					<Route exact path="/examination" component={ExaminationContainer} />
 					
 					{/*Redirects*/}
 					{!props.isAuthenticated ?

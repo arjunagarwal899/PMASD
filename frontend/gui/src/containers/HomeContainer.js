@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "antd/dist/antd.css";
 import { Layout, Breadcrumb, Row } from "antd";
 
@@ -9,6 +9,10 @@ import SearchAndEdit from "../components/Home/SearchAndEdit";
 const { Footer, Content } = Layout;
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Home | PMASD";
+  }, []);
+
   return (
     <div>
       <Layout>
