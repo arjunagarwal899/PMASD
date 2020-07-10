@@ -28,7 +28,7 @@ const PatientID = (props) => {
 	
 	
 	return (
-		<Form.Item>
+		<React.Fragment>
 			<Form.Item label="Patient ID:"
 			           rules={[{
 				           required: true,
@@ -41,6 +41,7 @@ const PatientID = (props) => {
 				       value={patientID}
 				       onChange={event => setPatientID(event.target.value.toUpperCase())}
 				       disabled={newPatient}
+				       autoFocus={!newPatient}
 				/>
 			</Form.Item>
 			
@@ -48,7 +49,7 @@ const PatientID = (props) => {
 				<Button type="link" onClick={generateNewPatientID}>Generate new</Button>
 				: null
 			}
-		</Form.Item>
+		</React.Fragment>
 	);
 };
 

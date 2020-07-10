@@ -30,7 +30,7 @@ const PersonEmails = props => {
 		           ]}
 		>
 			<Select mode="tags" notFoundContent={null} tokenSeparators={props.tokenSeparators}
-			        placeholder="Enter Email Addresses"
+			        placeholder="Enter Email Addresses" disabled={props.disabled || false}
 			>
 				{null}
 			</Select>
@@ -42,7 +42,7 @@ const PersonEmails = props => {
 const mapStateToProps = state => {
 	return {
 		emailRegEx: state.validators.emailRegEx,
-		tokenSeparators: state.tokenSeparators.selectTokenSeparators,
+		tokenSeparators: state.misc.selectTokenSeparators,
 		maxlengths: state.maxlengths,
 	}
 };

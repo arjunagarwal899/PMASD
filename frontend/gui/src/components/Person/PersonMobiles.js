@@ -30,7 +30,7 @@ const PersonMobiles = props => {
 		           ]}
 		>
 			<Select mode="tags" notFoundContent={null} tokenSeparators={props.tokenSeparators}
-			        placeholder="Enter Mobile Numbers"
+			        placeholder="Enter Mobile Numbers" disabled={props.disabled || false}
 			>
 				{null}
 			</Select>
@@ -42,7 +42,7 @@ const PersonMobiles = props => {
 const mapStateToProps = state => {
 	return {
 		mobileRegEx: state.validators.mobileRegEx,
-		tokenSeparators: state.tokenSeparators.selectTokenSeparators,
+		tokenSeparators: state.misc.selectTokenSeparators,
 		maxlengths: state.maxlengths,
 	}
 };

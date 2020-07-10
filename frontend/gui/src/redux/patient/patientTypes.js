@@ -1,0 +1,3 @@
+export const PATIENT_BEGIN = 'PATIENT_BEGIN';
+export const PATIENT_SUCCESS = 'PATIENT_SUCCESS';
+export const PATIENT_FAIL = 'PATIENT_FAIL';
