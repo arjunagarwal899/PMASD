@@ -1,4 +1,5 @@
 from django.urls import path
+
 from patients.api.views import PatientSearchView, PatientBasicDetailView, PatientHistoryDetailView
 
 urlpatterns = [
