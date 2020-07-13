@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
 import { Button, Form } from "antd";
@@ -9,6 +9,7 @@ import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles,
 
 const PatientContainer = (props) => {
 	
+	const patientIDState = useState(null);
 	const formDisabled = !props.newPatient || props.patientID;
 	const [patientForm] = Form.useForm();
 	
@@ -46,7 +47,7 @@ const PatientContainer = (props) => {
 	
 	return (
 		<Form onFinish={onSubmit} form={patientForm}>
-			<PatientID />
+			<PatientID form={patientForm} patientIDState={patientIDState} />
 			<PersonName onChange={selectGenderBasedOnTitle} disabled={formDisabled} />
 			<PersonDOBAge form={patientForm} disabled={formDisabled} />
 			<PersonGender disabled={formDisabled} />

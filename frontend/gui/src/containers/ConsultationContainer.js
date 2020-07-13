@@ -4,16 +4,16 @@ import { connect } from "react-redux";
 import { Radio } from "antd";
 
 import PatientContainer from "./PatientContainer";
-import { patientExistingPatient, patientNewPatient } from "myredux";
+import { patientSetPatientIDNodeDisabled, patientSetPatientIDNodeType } from "myredux";
 
 
 const ConsultationContainer = props => {
 	
 	const changed = event => {
 		switch(event.target.value){
-			case "New":
+			case "new":
 				props.new(); break;
-			case "Existing":
+			case "existing":
 				props.existing(); break;
 				
 			default:
@@ -23,8 +23,8 @@ const ConsultationContainer = props => {
 	return (
 		<div>
 			<Radio.Group onChange={changed}>
-				<Radio value="New">New Patient</Radio>
-				<Radio value="Existing">Existing Patient</Radio>
+				<Radio value="new">New Patient</Radio>
+				<Radio value="existing">Existing Patient</Radio>
 			</Radio.Group>
 			<PatientContainer />
 		</div>
@@ -33,9 +33,20 @@ const ConsultationContainer = props => {
 
 
 const mapDispatchToProps = dispatch => {
+	
+	const newPatient = () => {
+		dispatch(patientSetPatientIDNodeDisabled(true));
+		dispatch(patientSetPatientIDNodeType('input'));
+	};
+	
+	const existingPatient = () => {
+		dispatch(patientSetPatientIDNodeDisabled(false));
+		dispatch(patientSetPatientIDNodeType('select'));
+	};
+	
 	return {
-		new: () => dispatch(patientNewPatient()),
-		existing: () => dispatch(patientExistingPatient()),
+		new: () => newPatient(),
+		existing: () => existingPatient(),
 	}
 };
 

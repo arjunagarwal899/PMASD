@@ -1,8 +1,15 @@
+from django.contrib.auth.models import User
 from django.db import models
+
 from abstract.models.person import Person, PersonMobile, PersonEmail
 
 
 class Doctor(Person):
+
+    user = models.ForeignKey(
+		'auth.User',
+        on_delete=models.CASCADE,
+    )
 
     qualification = models.CharField(
         max_length=50,

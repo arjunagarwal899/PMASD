@@ -1,51 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 
-import { Col, Form, Input, Row, Select } from "antd";
-import { axiosWithHeaders } from "apis/httpClient";
+import { Alert, Col, Form, Input, Row, Select } from "antd";
+import { LoadingOutlined } from '@ant-design/icons'
+
+import { patientSearch } from "myredux";
 
 
-const dropDownColumnWidths = [3, 6, 13]
+const minLengthForSearching = 3;
+
+
+const dropDownInfo = [
+	{
+		width: 2,
+		heading: 'Patient ID',
+		content: 'patient_id',
+		join: false,
+	},
+	{
+		width: 5,
+		heading: 'Patient Name',
+		content: 'name',
+		join: false,
+	},
+	{
+		width: 4,
+		heading: 'Hospital',
+		content: 'hospital',
+		join: false,
+	},
+	{
+		width: 6,
+		heading: 'Referring Doctors',
+		content: 'doctor_names',
+		join: true,
+		joinConnector: ', ',
+	},
+	{
+		width: 6,
+		heading: 'Mobile Numbers',
+		content: 'mobiles',
+		join: true,
+		joinConnector: ', ',
+	},
+];
 
 
 const PatientID = props => {
-	
-	
-	//Temporary
-	
-	const [patientData, setPatientData] = useState([]);
-	
-	const getPatientData = searchValue => {
-		if (searchValue.length > 3) {
-			axiosWithHeaders
-				.get('api/patient/search', {
-					params: {
-						search: searchValue,
-					}
-				})
-				.then(response => {
-					setPatientData(response.data)
-				})
-				.catch(error => {
-					switch (error.status) {
-						case 401:
-							console.log('Unauthorized');
-							break;
-						case undefined:
-							console.log('Unknown Error');
-							break;
-						
-						default:
-					}
-					
-					setPatientData([]);
-				})
-		} else {
-			setPatientData([]);
-		}
-	};
-	// End of temporary
-	
 	
 	return (
 		<React.Fragment>
@@ -55,48 +56,55 @@ const PatientID = props => {
 				           message: 'Valid Patient ID is required!'
 			           }]}
 			>
-				{props.newPatient ?
-					
-					<Input allowClear placeholder="Enter patient ID"
+				{props.nodeType === 'input' ?
+					<Input placeholder='Enter patient ID'
 					       maxLength={props.maxlengths.patientID}
 					       minLength={5}
-					       value={props.patientID}
-					       disabled={props.newPatient}
-					       autoFocus={!props.newPatient}
+					       disabled={props.disabled}
+					       autoFocus={!props.disabled}
+					       suffix={props.loading ? <LoadingOutlined /> : null}
+					       value={props.patientIDState[0]}
+					       onChange={props.patientIDState[1]}
 					/>
 					
 					:
 					
 					<Select showSearch
-					        showArrow={false}
 					        placeholder="Enter patient ID"
-					        onSearch={getPatientData}
+					        onSearch={value => props.searchPatient(value, minLengthForSearching)}
 					        filterOption={false}
 					        notFoundContent={null}
 					        defaultActiveFirstOption
-					        optionLabelProp="value"
+					        optionLabelProp="patient_id"
 					        loading={props.loading}
+					        disabled={props.disabled}
+					        value={props.patientIDState[0]}
+					        onChange={props.patientIDState[1]}
+					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
+					        showArrow={props.loading ? <LoadingOutlined /> : null}      // Jugaad to show the loading icon, it is actually the arrow to toggle the dropdown
 					>
-						{patientData.length ?
+						{props.showDropdown ?
 							
 							<Select.OptGroup label={
 								<Row>
-									<Col span={dropDownColumnWidths[0]}>Patient ID</Col>
-									<Col span={dropDownColumnWidths[1]}>Patient Name</Col>
-									<Col span={dropDownColumnWidths[2]}>Mobile Numbers</Col>
+									{dropDownInfo.map((col, index) => (
+										<Col span={col.width} key={index}>{col.heading}</Col>
+									))}
 								</Row>
 							}>
-								{patientData.map(patient => (
-									<Select.Option value={patient.patient_id} key={patient.patient_id}>
+								{props.searchData.map(patient => (
+									<Select.Option value={patient['patient_id']} key={patient['patient_id']}>
 										<Row>
 											{/*TODO Apply style={{textOverflow: 'ellipsis', overflow: 'hidden' }}*/}
-											<Col span={dropDownColumnWidths[0]}>{patient.patient_id}</Col>
-											{/*<Col span={dropDownColumnWidths[1]}>{patient.name}</Col>*/}
-											<Col span={dropDownColumnWidths[1]} style={{
-												textOverflow: 'ellipsis',
-												overflow: 'hidden'
-											}}>{patient.name}</Col>
-											<Col span={dropDownColumnWidths[2]}>{patient.mobiles.join(', ')}</Col>
+											{dropDownInfo.map((col, index) => (
+												<Col span={col.width} key={index}>
+													{col.join ?
+														patient[col.content].join(col.joinConnector)
+														:
+														patient[col.content]
+													}
+												</Col>
+											))}
 										</Row>
 									</Select.Option>
 								))}
@@ -107,6 +115,15 @@ const PatientID = props => {
 					</Select>
 					
 				}
+				
+				{props.error ?
+					
+					<Form.Item>
+						<Alert message={props.error} type="error" showIcon />
+					</Form.Item>
+					
+					: null
+				}
 			</Form.Item>
 		</React.Fragment>
 	);
@@ -116,10 +133,29 @@ const PatientID = props => {
 const mapStateToProps = state => {
 	return {
 		maxlengths: state.maxlengths,
-		newPatient: state.patient.newPatient,
-		patientID: state.patient.patientID,
-		loading: state.patient.loading,
+		
+		// For type and props of the Patient ID field
+		loading: state.patient.patientIDLoading,
+		disabled: state.patient.patientIDNodeDisabled,
+		nodeType: state.patient.patientIDNodeType,
+		
+		// In case of errors
+		error: state.patient.transactionError,
+		
+		// While retrieving search data
+		searchData: state.patient.patientSearchSuccessData,
+		showDropdown: state.patient.patientSearchShowDropdown,
+		
+		// While retrieving a new patient ID
+		// TODO add generation of new patient ID from database
 	};
 };
 
-export default connect(mapStateToProps)(PatientID);
+const mapDispatchToProps = dispatch => {
+	return {
+		searchPatient: (searchValue, minLength) => dispatch(patientSearch(searchValue, minLength)),
+	};
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientID);

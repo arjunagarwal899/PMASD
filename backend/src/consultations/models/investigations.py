@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from .basic_data import Consultation
@@ -5,12 +6,19 @@ from .basic_data import Consultation
 
 class InvestigationGroups(models.Model):
 
+    user = models.ForeignKey(
+		'auth.User',
+        on_delete=models.CASCADE,
+    )
+
     investigation = models.CharField(
         max_length=50,
     )
 
     group_name = models.CharField(
         max_length=50,
+        blank=True,
+        null=True,
     )
 
 

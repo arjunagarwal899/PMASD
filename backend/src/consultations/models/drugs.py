@@ -1,10 +1,15 @@
 from django.db import models
 
-from .basic_data import Consultation
 from abstract.fields.fields import PercentageField
+from .basic_data import Consultation
 
 
 class DrugMaster(models.Model):
+
+    user = models.ForeignKey(
+		'auth.User',
+        on_delete=models.CASCADE,
+    )
 
     formulation_choices = [
         ('Tab', 'Tablet'),

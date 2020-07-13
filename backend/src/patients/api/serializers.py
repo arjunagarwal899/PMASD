@@ -24,9 +24,25 @@ class PatientSearchSerializer(serializers.ModelSerializer):
 		slug_field='mobile',
 	)
 
+	doctor_names = serializers.SerializerMethodField()
+	def get_doctor_names(self, patient):
+		doctor_names = []
+		last_consultation = patient.last_consultation
+		if last_consultation:
+			referrals = last_consultation.referred_from.all()
+			for referral in referrals:
+				doctor_names.append(referral.doctor_id.name)
+
+		return doctor_names
+
+	hospital = serializers.SerializerMethodField()
+	def get_hospital(self, patient):
+		return "add hospital capabilities"        # TODO Add hospital in consultation
+
+
 	class Meta:
 		model = Patient
-		fields = ['patient_id', 'name', 'mobiles']
+		fields = ['patient_id', 'name', 'doctor_names', 'hospital', 'mobiles']
 
 
 class PatientBasicDetailSerializer(serializers.ModelSerializer):

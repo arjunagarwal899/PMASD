@@ -5,6 +5,11 @@ from .basic_data import Consultation
 
 class ExaminationMaster(models.Model):
 
+    user = models.ForeignKey(
+		'auth.User',
+        on_delete=models.CASCADE,
+    )
+
     examination_heading = models.CharField(
         max_length=50,
     )

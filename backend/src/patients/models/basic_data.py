@@ -1,50 +1,57 @@
 from django.db import models
+
 from abstract.models.person import Person, PersonMobile, PersonEmail
 
+
 class Patient(Person):
+	user = models.ForeignKey(
+		'auth.User',
+		on_delete=models.CASCADE,
+	)
 
-    patient_id = models.CharField(
-        primary_key=True,
-        max_length=6,
-    )
+	patient_id = models.CharField(
+		max_length=6,
+	)
 
-    last_consultation = models.OneToOneField(
-        'consultations.Consultation',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        related_name='last_consultation_for_patient',
-    )
+	last_consultation = models.OneToOneField(
+		'consultations.Consultation',
+		on_delete=models.SET_NULL,
+		blank=True,
+		null=True,
+		related_name='last_consultation_for_patient',
+	)
+
+	class Meta:
+		unique_together = ['user', 'patient_id']
 
 
 class PatientMobile(PersonMobile):
-    patient = models.ForeignKey(
-        Patient,
-        on_delete=models.CASCADE,
-        related_name='mobiles'
-    )
+	patient = models.ForeignKey(
+		Patient,
+		on_delete=models.CASCADE,
+		related_name='mobiles'
+	)
 
-    def __str__(self):
-        return '%s (%s)' % (self.patient, self.mobile)
+	def __str__(self):
+		return '%s (%s)' % (self.patient, self.mobile)
 
-    class Meta:
-        verbose_name = 'Patient (Mobile)'
-        verbose_name_plural = 'Patient (Mobiles)'
-        unique_together = ['patient', 'mobile']
+	class Meta:
+		verbose_name = 'Patient (Mobile)'
+		verbose_name_plural = 'Patient (Mobiles)'
+		unique_together = ['patient', 'mobile']
 
 
 class PatientEmail(PersonEmail):
-    patient = models.ForeignKey(
-        Patient,
-        on_delete=models.CASCADE,
-        related_name='emails'
-    )
+	patient = models.ForeignKey(
+		Patient,
+		on_delete=models.CASCADE,
+		related_name='emails'
+	)
 
-    def __str__(self):
-        return '%s (%s)' % (self.patient, self.email)
+	def __str__(self):
+		return '%s (%s)' % (self.patient, self.email)
 
-    class Meta:
-        verbose_name = 'Patient (Email)'
-        verbose_name_plural = 'Patient (Emails)'
-        unique_together = ['patient', 'email']
-
+	class Meta:
+		verbose_name = 'Patient (Email)'
+		verbose_name_plural = 'Patient (Emails)'
+		unique_together = ['patient', 'email']

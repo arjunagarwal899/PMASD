@@ -5,41 +5,31 @@ from patients.models.basic_data import Patient
 
 
 class Consultation(models.Model):
-    # TODO: Edit to save patient data for each consultation
-    patient = models.ForeignKey(
-        Patient,
-        on_delete=models.PROTECT,
-        related_name='consultations',
-    )
+	user = models.ForeignKey(
+		'auth.User',
+		on_delete=models.CASCADE,
+	)
 
-    consultation_date = models.DateField(
-        default=django_now,
-    )
+	# TODO: Edit model to save patient data for each consultation rather than a ForeignKey
+	patient = models.ForeignKey(
+		Patient,
+		on_delete=models.PROTECT,
+		related_name='consultations',
+	)
 
-    prescription_printed = models.BooleanField(
-        verbose_name='Prescription to be printed? (as opposed to a digital copy)'
-    )
+	consultation_date = models.DateField(
+		default=django_now,
+	)
 
-    # letterhead_template = models.ForeignKey(
-    #     ,
-    #     on_delete=models.PROTECT,
-    #     related_name='consultaitons',
-    # )
+	prescription_printed = models.BooleanField(
+		verbose_name='Prescription to be printed? (as opposed to a digital copy)'
+	)
 
+	# letterhead_template = models.ForeignKey(
+	#     ,
+	#     on_delete=models.PROTECT,
+	#     related_name='consultaitons',
+	# )
 
-    def __str__(self):
-        return '(%s) %s' % (self.consultation_date, self.patient)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	def __str__(self):
+		return '(%s) %s' % (self.consultation_date, self.patient)
