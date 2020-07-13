@@ -81,7 +81,8 @@ const PatientID = props => {
 					        value={props.patientIDState[0]}
 					        onChange={props.patientIDState[1]}
 					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
-					        showArrow={props.loading ? <LoadingOutlined /> : null}      // Jugaad to show the loading icon, it is actually the arrow to toggle the dropdown
+					        showArrow={props.loading ?
+						        <LoadingOutlined /> : null}      // Jugaad to show the loading icon, it is actually the arrow to toggle the dropdown
 					>
 						{props.showDropdown ?
 							

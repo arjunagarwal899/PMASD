@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {Card, Col, Row, Spin} from 'antd';
+import { Card, Col, Row, Spin } from 'antd';
 
 import AuthLogin from '../components/AuthLogin';
 import AuthLoggedIn from '../components/AuthLoggedIn';
@@ -13,32 +13,32 @@ import ChangePassword from "../components/ChangePassword";
 const AuthContainer = (props) => {
 	return (
 		<React.Fragment>
-			<div className="bg-image" ></div>
+			<div className="bg-image"></div>
 			<div className="login-container">
 				<Row justify="center" align="middle">
 					<Col span={24}>
-
-
+						
+						
 						<Spin spinning={props.loading}>
-							<Card style={{textAlign: "center"}}>
-
+							<Card style={{ textAlign: "center" }}>
+								
 								{props.changePass || false ?
-
-									<ChangePassword defaultUsername="Raj"/>
-
+									
+									<ChangePassword defaultUsername="Raj" />
+									
 									:
-
+									
 									(!props.isAuthenticated ?
-											<AuthLogin defaultUsername="Raj"/>        // If user has to be authenticated
+											<AuthLogin defaultUsername="Raj" />        // If user has to be authenticated
 											:
-											<AuthLoggedIn/>       // If user is already authenticated
+											<AuthLoggedIn />       // If user is already authenticated
 									)
 								}
-
+							
 							</Card>
 						</Spin>
-
-
+					
+					
 					</Col>
 				</Row>
 			</div>

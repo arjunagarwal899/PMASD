@@ -18,11 +18,11 @@ const BaseRouter = (props) => {
 					<Route exact path="/login/" component={AuthContainer} />
 					<Route exact path="/logout/" component={Logout} />
 					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true} />} />
-
+					
 					{/*Data management routes*/}
 					<Route exact path="/patient/" component={PatientContainer} />
 					<Route exact path="/consultation/" component={ConsultationContainer} />
-
+					
 					{/* Home route */}
 					<Route exact path="/home/" component={HomeContainer} />
 					

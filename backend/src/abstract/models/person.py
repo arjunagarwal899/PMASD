@@ -1,7 +1,9 @@
-from django.db import models
-from abstract.fields.fields import MobileField
-from django.core.validators import MinLengthValidator
 from datetime import date
+
+from django.core.validators import MinLengthValidator
+from django.db import models
+
+from abstract.fields.fields import MobileField
 
 
 class PersonAddress(models.Model):
