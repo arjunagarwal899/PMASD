@@ -1,28 +1,38 @@
 import React, { useEffect } from 'react';
+import { connect } from "react-redux";
 
 import { Button, Form } from "antd";
 
-import { PatientID } from "../components/Person/Patient";
-import {
-	PersonName,
-	PersonDOBAge,
-	PersonGender,
-	PersonMobiles,
-	PersonEmails,
-	PersonAddress
-} from "../components/Person";
+import { PatientID } from "components/Person/Patient";
+import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles, PersonName } from "components/Person";
 
-
-// TODO Add automatic selection of gender based on title
 
 const PatientContainer = (props) => {
 	
-	const {newPatient} = props || false;
+	const [patientIDState, setPatientIDState] = props.patientIDState;
+	const formDisabled = !patientIDState;
 	const [patientForm] = Form.useForm();
 	
 	useEffect(() => {
 		document.title = 'Patient | PMASD'
 	}, []);
+	
+	
+	const selectGenderBasedOnTitle = value => {
+		switch (value) {
+			case 'Mr':
+			case 'Mas':
+				patientForm.setFieldsValue({ gender: 'M' });
+				break;
+			
+			case 'Mrs':
+			case 'Ms':
+				patientForm.setFieldsValue({ gender: 'F' });
+				break;
+			
+			default:
+		}
+	};
 	
 	
 	const onSubmit = values => {
@@ -32,17 +42,32 @@ const PatientContainer = (props) => {
 	
 	return (
 		<Form onFinish={onSubmit} form={patientForm}>
-			<PatientID newPatient={newPatient} />
-			<PersonName />
-			<PersonDOBAge />
-			<PersonGender />
-			<PersonMobiles />
-			<PersonEmails />
-			<PersonAddress />
+			<PatientID form={patientForm} patientIDState={[patientIDState, setPatientIDState]} />
+			<PersonName onChange={selectGenderBasedOnTitle} disabled={formDisabled} />
+			<PersonDOBAge form={patientForm} disabled={formDisabled} />
+			<PersonGender disabled={formDisabled} />
+			<PersonMobiles disabled={formDisabled} />
+			<PersonEmails disabled={formDisabled} />
+			<PersonAddress disabled={formDisabled} />
 			
-			<Form.Item><Button type="primary" htmlType="submit">Submit</Button></Form.Item>
+			<Form.Item>
+				<Button type="primary" htmlType="submit">
+					{props ?        // Check state and update
+						'Add New'
+						:
+						'Update'
+					}
+				</Button>
+			</Form.Item>
 		</Form>
 	);
 };
 
-export default PatientContainer;
+
+const mapStateToProps = state => {
+	return {
+		loading: state.patient.patientIDLoading,
+	};
+};
+
+export default connect(mapStateToProps)(PatientContainer);
