@@ -1,5 +1,5 @@
 import React from "react";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
 import { Layout, Breadcrumb, Row } from "antd";
 
 import Reports from "../components/Home/Reports";
