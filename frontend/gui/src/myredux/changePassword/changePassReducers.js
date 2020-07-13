@@ -58,5 +58,5 @@ const changePasswordReducer = (state = initialState, action) => {
 	}
 }
 
-export {changePasswordReset};
+export { changePasswordReset };
 export default changePasswordReducer;

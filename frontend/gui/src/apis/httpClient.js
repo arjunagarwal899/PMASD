@@ -26,4 +26,4 @@ const axiosWithHeaders = axios.create({
 });
 
 
-export {axiosWithoutHeaders, axiosWithHeaders};
+export { axiosWithoutHeaders, axiosWithHeaders };

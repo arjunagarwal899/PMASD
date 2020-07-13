@@ -11,7 +11,7 @@ const PersonGender = props => {
 			           message: 'Patient Gender needs to be selected!'
 		           }]}
 		>
-			<Radio.Group optionType="button" buttonStyle="solid" disabled={props.disabled || false} >
+			<Radio.Group optionType="button" buttonStyle="solid" disabled={props.disabled || false}>
 				<Radio.Button value="M">Male</Radio.Button>
 				<Radio.Button value="F">Female</Radio.Button>
 			</Radio.Group>

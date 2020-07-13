@@ -1,6 +1,6 @@
-from patients.models import *
 from rest_framework import serializers
 
+from patients.models import *
 from .abstract.related_fields import HistoryField
 
 

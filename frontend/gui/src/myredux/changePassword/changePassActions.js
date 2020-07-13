@@ -1,5 +1,5 @@
 import * as actionTypes from './changePassTypes';
-import {axiosWithoutHeaders} from '../../apis/httpClient';
+import { axiosWithoutHeaders } from '../../apis/httpClient';
 import history from '../../history';
 
 
@@ -19,16 +19,16 @@ const changePasswordSuccess = () => {
 
 // Change password failed action type
 const changePasswordFail = (error, errorType) => {
-
+	
 	let recordError = error.message;
-
+	
 	switch (error.response) {
 		case undefined:
 			if (error.defaultError === null || error.defaultError) {
 				recordError = 'Server not functioning. Please restart system.';
 			}
 			break;
-
+		
 		default:
 			switch (error.response.status) {
 				case 400:
@@ -39,18 +39,18 @@ const changePasswordFail = (error, errorType) => {
 						case 'password_restrictions':
 							const errorsObject = error.response.data.new_password2;
 							const errorsArray = Object.keys(errorsObject).map(key => errorsObject[key]);
-
+							
 							recordError = errorsArray.join(' ');
-
+							
 							break;
 						default:
 					}
 					break;
-
+				
 				default:
 			}
 	}
-
+	
 	return {
 		type: actionTypes.CHANGE_PASS_FAIL,
 		error: recordError,
@@ -69,7 +69,7 @@ const changePasswordReset = () => {
 const changePassword = (username = 'admin', old_password, new_password1, new_password2) => {
 	return (dispatch) => {
 		dispatch(changePasswordBegin());
-
+		
 		axiosWithoutHeaders
 			.post('/auth/login/', {
 				username: username,
@@ -91,7 +91,7 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 						.then((response) => {
 							// Password change success
 							dispatch(changePasswordSuccess());
-
+							
 							// Doing programmatic navigation after getting a correct response to redirect back to the login page
 							history.push('/login/');
 						})
@@ -99,7 +99,7 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 							dispatch(changePasswordFail(error, 'password_restrictions'));
 						});
 				} else {
-					dispatch(changePasswordFail({message: 'Unknown error', defaultError: false}));
+					dispatch(changePasswordFail({ message: 'Unknown error', defaultError: false }));
 				}
 			})
 			.catch((error) => {
@@ -108,4 +108,4 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 	};
 };
 
-export {changePassword, changePasswordReset};
+export { changePassword, changePasswordReset };

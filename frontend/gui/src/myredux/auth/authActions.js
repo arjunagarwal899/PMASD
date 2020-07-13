@@ -20,22 +20,22 @@ const authSuccess = (token) => {
 // Fail login action-type
 const authFail = (error) => {
 	let recordError = error.message;
-
+	
 	switch (error.response) {
 		case undefined:
 			recordError = 'Server not functioning. Please restart system.';
 			break;
-
+		
 		default:
 			switch (error.response.status) {
 				case 400:
 					recordError = 'User credentials invalid. Please try again.';
 					break;
-
+				
 				default:
 			}
 	}
-
+	
 	return {
 		type: actionTypes.AUTH_FAIL,
 		error: recordError,
@@ -53,7 +53,7 @@ const authLogin = (username, password) => {
 			})
 			.then((response) => {
 				const token = response.data.key;
-
+				
 				// Setting token to session storage
 				sessionStorage.setItem('token', token);
 				// Login success
@@ -73,4 +73,4 @@ const authLogout = () => {
 	};
 };
 
-export {authLogin, authLogout};
+export { authLogin, authLogout };
