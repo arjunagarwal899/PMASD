@@ -56,7 +56,7 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 					));
 				})
 				.catch(error => {
-					switch (error.status) {
+					switch (error.response.status) {
 						case 401:
 							console.log('Unauthorized');
 							break;
@@ -67,7 +67,7 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 						default:
 					}
 					
-					patientSearchFail(error.message);
+					dispatch(patientSearchFail(error.message));
 				})
 		} else {
 			dispatch(patientSearchSetDropdownVisibility(false));

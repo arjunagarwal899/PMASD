@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 
 import { Button, Form } from "antd";
@@ -9,8 +9,8 @@ import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles,
 
 const PatientContainer = (props) => {
 	
-	const patientIDState = useState(null);
-	const formDisabled = !props.newPatient || props.patientID;
+	const [patientIDState, setPatientIDState] = props.patientIDState;
+	const formDisabled = !patientIDState;
 	const [patientForm] = Form.useForm();
 	
 	useEffect(() => {
@@ -37,17 +37,12 @@ const PatientContainer = (props) => {
 	
 	const onSubmit = values => {
 		console.log(values);
-		if (props.newPatient) {
-		
-		} else {
-		
-		}
 	};
 	
 	
 	return (
 		<Form onFinish={onSubmit} form={patientForm}>
-			<PatientID form={patientForm} patientIDState={patientIDState} />
+			<PatientID form={patientForm} patientIDState={[patientIDState, setPatientIDState]} />
 			<PersonName onChange={selectGenderBasedOnTitle} disabled={formDisabled} />
 			<PersonDOBAge form={patientForm} disabled={formDisabled} />
 			<PersonGender disabled={formDisabled} />
@@ -57,8 +52,8 @@ const PatientContainer = (props) => {
 			
 			<Form.Item>
 				<Button type="primary" htmlType="submit">
-					{props ?
-						'Add'
+					{props ?        // Check state and update
+						'Add New'
 						:
 						'Update'
 					}
@@ -71,10 +66,7 @@ const PatientContainer = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.patient.loading,
-		error: state.patient.loading,
-		patientID: state.patient.patientID,
-		newPatient: state.patient.newPatient,
+		loading: state.patient.patientIDLoading,
 	};
 };
 

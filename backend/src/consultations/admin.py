@@ -20,4 +20,5 @@ admin.site.register(DrugPrescribed)
 
 admin.site.register(FollowUp)
 admin.site.register(ReferredTo)
+admin.site.register(ReferredFrom)
 admin.site.register(Remark)

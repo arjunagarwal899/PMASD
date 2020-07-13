@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 
 import { Radio } from "antd";
@@ -9,13 +9,17 @@ import { patientSetPatientIDNodeDisabled, patientSetPatientIDNodeType } from "my
 
 const ConsultationContainer = props => {
 	
+	const [patientIDState, setPatientIDState] = useState(null);         // SHift to Redux later
+	
 	const changed = event => {
-		switch(event.target.value){
+		switch (event.target.value) {
 			case "new":
-				props.new(); break;
+				props.new();
+				break;
 			case "existing":
-				props.existing(); break;
-				
+				props.existing();
+				break;
+			
 			default:
 		}
 	};
@@ -26,7 +30,7 @@ const ConsultationContainer = props => {
 				<Radio value="new">New Patient</Radio>
 				<Radio value="existing">Existing Patient</Radio>
 			</Radio.Group>
-			<PatientContainer />
+			<PatientContainer patientIDState={[patientIDState, setPatientIDState]} />
 		</div>
 	);
 };
