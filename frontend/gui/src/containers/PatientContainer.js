@@ -1,23 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from "react-redux";
 
 import { Button, Form } from "antd";
 
-import { PatientID } from "../components/Person/Patient";
-import {
-	PersonName,
-	PersonDOBAge,
-	PersonGender,
-	PersonMobiles,
-	PersonEmails,
-	PersonAddress
-} from "../components/Person";
-import { connect } from "react-redux";
+import { PatientID } from "components/Person/Patient";
+import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles, PersonName } from "components/Person";
 
 
-const PatientContainer = props => {
+const PatientContainer = (props) => {
 	
-	const { newPatient } = props || false;
-	const formDisabled = !newPatient || props.patientID;
+	const patientIDState = useState(null);
+	const formDisabled = !props.newPatient || props.patientID;
 	const [patientForm] = Form.useForm();
 	
 	useEffect(() => {
@@ -44,7 +37,7 @@ const PatientContainer = props => {
 	
 	const onSubmit = values => {
 		console.log(values);
-		if (newPatient) {
+		if (props.newPatient) {
 		
 		} else {
 		
@@ -54,8 +47,7 @@ const PatientContainer = props => {
 	
 	return (
 		<Form onFinish={onSubmit} form={patientForm}>
-			{/* TODO: <PatientSearch/>*/}
-			<PatientID newPatient={newPatient} />
+			<PatientID form={patientForm} patientIDState={patientIDState} />
 			<PersonName onChange={selectGenderBasedOnTitle} disabled={formDisabled} />
 			<PersonDOBAge form={patientForm} disabled={formDisabled} />
 			<PersonGender disabled={formDisabled} />
@@ -65,7 +57,7 @@ const PatientContainer = props => {
 			
 			<Form.Item>
 				<Button type="primary" htmlType="submit">
-					{newPatient ?
+					{props ?
 						'Add'
 						:
 						'Update'
@@ -82,6 +74,7 @@ const mapStateToProps = state => {
 		loading: state.patient.loading,
 		error: state.patient.loading,
 		patientID: state.patient.patientID,
+		newPatient: state.patient.newPatient,
 	};
 };
 

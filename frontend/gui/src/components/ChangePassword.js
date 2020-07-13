@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {Button, Form, Input, Alert} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 
-import {authLogout, changePassword} from '../redux';
+import {authLogout, changePassword} from '../myredux';
 
 
 const ChangePassword = (props) => {

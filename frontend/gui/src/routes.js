@@ -7,6 +7,7 @@ import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
 import PatientContainer from "./containers/PatientContainer";
+import ConsultationContainer from "./containers/ConsultationContainer";
 
 const BaseRouter = (props) => {
 	return (
@@ -20,11 +21,12 @@ const BaseRouter = (props) => {
 
 					{/*Data management routes*/}
 					<Route exact path="/patient/" component={PatientContainer} />
-					<Route exact path="/patient2/" render={() => <PatientContainer newPatient={true} />} />
+					<Route exact path="/consultation/" component={ConsultationContainer} />
 
 					{/* Home route */}
 					<Route exact path="/home/" component={HomeContainer} />
-
+					
+					
 					{/*Redirects*/}
 					{!props.isAuthenticated ?
 						<Redirect to="/login/" />
