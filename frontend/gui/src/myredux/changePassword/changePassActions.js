@@ -1,5 +1,5 @@
 import * as actionTypes from './changePassTypes';
-import { axiosWithoutHeaders } from '../../apis/httpClient';
+import { axiosWithoutHeaders } from 'apis/httpClient';
 import history from '../../history';
 
 
@@ -71,14 +71,14 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 		dispatch(changePasswordBegin());
 		
 		axiosWithoutHeaders
-			.post('/auth/login/', {
+			.post('auth/login/', {
 				username: username,
 				password: old_password,
 			})
 			.then((response) => {
 				if (response.data.key) {
 					axiosWithoutHeaders
-						.post('/auth/password/change/', {
+						.post('auth/password/change/', {
 							old_password: old_password,
 							new_password1: new_password1,
 							new_password2: new_password2,
@@ -93,7 +93,7 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 							dispatch(changePasswordSuccess());
 							
 							// Doing programmatic navigation after getting a correct response to redirect back to the login page
-							history.push('/login/');
+							history.push('login/');
 						})
 						.catch((error) => {
 							dispatch(changePasswordFail(error, 'password_restrictions'));

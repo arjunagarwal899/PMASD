@@ -7,4 +7,5 @@ urlpatterns = [
 
 	# Custom API endpoints
 	path('api/patient/', include('patients.api.urls')),
+	path('', include('misc.api.urls')),
 ]

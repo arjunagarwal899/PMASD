@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Alert, Col, Form, Input, Row, Select } from "antd";
 import { LoadingOutlined } from '@ant-design/icons'
 
-import { patientSearch } from "myredux";
+import { patientSearch, patientSetFormData } from "myredux";
 
 
 const minLengthForSearching = 3;
@@ -12,7 +12,7 @@ const minLengthForSearching = 3;
 
 const dropDownInfo = [
 	{
-		width: 2,
+		width: 3,
 		heading: 'Patient ID',
 		content: 'patient_id',
 		join: false,
@@ -24,20 +24,20 @@ const dropDownInfo = [
 		join: false,
 	},
 	{
-		width: 4,
+		width: 5,
 		heading: 'Hospital',
 		content: 'hospital',
 		join: false,
 	},
 	{
-		width: 6,
+		width: 5,
 		heading: 'Referring Doctors',
 		content: 'doctor_names',
 		join: true,
 		joinConnector: ', ',
 	},
 	{
-		width: 6,
+		width: 5,
 		heading: 'Mobile Numbers',
 		content: 'mobiles',
 		join: true,
@@ -63,8 +63,8 @@ const PatientID = props => {
 					       disabled={props.disabled}
 					       autoFocus={!props.disabled}
 					       suffix={props.loading ? <LoadingOutlined /> : null}
-					       value={props.patientIDState[0]}
-					       onChange={props.patientIDState[1]}
+					       value={props.formData.patientID}
+					       onChange={value => props.setFormData('patientID', value)}
 					/>
 					
 					:
@@ -75,11 +75,11 @@ const PatientID = props => {
 					        filterOption={false}
 					        notFoundContent={null}
 					        defaultActiveFirstOption
-					        optionLabelProp="patient_id"
+					        optionLabelProp="ud_patient_id"
 					        loading={props.loading}
 					        disabled={props.disabled}
-					        value={props.patientIDState[0]}
-					        onChange={props.patientIDState[1]}
+					        value={props.formData.patientID}
+					        onChange={value => props.setFormData('patientID', value)}
 					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
 					        showArrow={props.loading ?
 						        <LoadingOutlined /> : null}      // Jugaad to show the loading icon, it is actually the arrow to toggle the dropdown
@@ -136,7 +136,7 @@ const mapStateToProps = state => {
 		maxlengths: state.maxlengths,
 		
 		// For type and props of the Patient ID field
-		loading: state.patient.patientIDLoading,
+		loading: state.patient.patientIDLoading || state.patient.patientRetrieveBegun,
 		disabled: state.patient.patientIDNodeDisabled,
 		nodeType: state.patient.patientIDNodeType,
 		
@@ -147,6 +147,9 @@ const mapStateToProps = state => {
 		searchData: state.patient.patientSearchSuccessData,
 		showDropdown: state.patient.patientSearchShowDropdown,
 		
+		// For storing form data
+		formData: state.patient.patientFormData,
+		
 		// While retrieving a new patient ID
 		// TODO add generation of new patient ID from database
 	};
@@ -155,6 +158,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		searchPatient: (searchValue, minLength) => dispatch(patientSearch(searchValue, minLength)),
+		
+		setFormData: (field, value) => dispatch(patientSetFormData(field, value)),
 	};
 };
 

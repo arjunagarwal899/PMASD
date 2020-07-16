@@ -5,36 +5,86 @@ const initialState = {
 	patientIDNodeType: 'select' || 'input',
 	patientIDNodeDisabled: false,
 	
+	patientType: 'existing' || 'new',
+	patientFormData: {
+		patientID: null,
+		title: null,
+		name: null,
+		dob: null,
+		age: null,
+		gender: null,
+		mobiles: [],
+		emails: [],
+		building_details: null,
+		lane: null,
+		area: null,
+		city: null,
+		pincode: null,
+	},
+	
 	patientIDLoading: false,
 	transactionError: null,
 	
-	patientAddNewBegun: false,
 	patientAddNewSuccess: false,
 	
-	patientRetrieveBegun: false,
-	patientRetrieveSuccessData: null,
-	
-	patientSearchBegun: false,
 	patientSearchSuccessData: null,
 	patientSearchShowDropdown: false,
 	
-	patientUpdateBegun: false,
 	patientUpdateSuccess: false,
 };
 
 
-const patientSetPatientIDNodeType = (state, action) => {
+const patientSetPatientIDNodeTypeState = (state, action) => {
 	return {
 		...state,
-		patientIDNodeType: action.patientIDNodeType || 'input',
+		patientIDNodeType: (action.patientIDNodeType === 'input' || action.patientIDNodeType === 'select') ? action.patientIDNodeType : state.patientIDNodeType,
 	};
 };
 
-
-const patientSetPatientIDNodeDisabled = (state, action) => {
+const patientSetPatientIDNodeDisabledState = (state, action) => {
 	return {
 		...state,
 		patientIDNodeDisabled: action.patientIDNodeDisabled || false,
+	};
+};
+
+const patientSetPatientTypeState = (state, action) => {
+	return {
+		...initialState,
+		patientType: (action.patientType === 'existing' || action.patientType === 'new') ? action.patientType : state.patientType,
+	}
+};
+
+
+const patientSetFormDataState = (state, action) => {
+	switch (action.dataType) {
+		case 'complete':
+			return {
+				...state,
+				patientFormData: {
+					...action.formData,
+					patientID: state.patientFormData.patientID,
+				}
+			};
+		
+		case 'partial':
+			return {
+				...state,
+				patientFormData: {
+					...state.patientFormData,
+					...action.formData,
+				}
+			};
+		
+		default:
+			return state;
+	}
+};
+
+const patientResetFormDataState = (state, action) => {
+	return {
+		...state,
+		patientFormData: initialState.patientFormData,
 	};
 };
 
@@ -42,20 +92,14 @@ const patientSetPatientIDNodeDisabled = (state, action) => {
 // Adding a new patient
 const patientAddNewBeginState = (state, action) => {
 	return {
-		...initialState,
-		patientIDNodeType: state.patientIDNodeType,
-		patientIDNodeDisabled: state.patientIDNodeDisabled,
-		
-		patientIDLoading: true,
+		...state,
 		transactionError: null,
-		patientAddNewBegun: true,
 	};
 };
 
 const patientAddNewSuccessState = (state, action) => {
 	return {
 		...state,
-		patientIDLoading: false,
 		patientAddNewSuccess: true,
 	};
 };
@@ -63,7 +107,6 @@ const patientAddNewSuccessState = (state, action) => {
 const patientAddNewFailState = (state, action) => {
 	return {
 		...state,
-		patientIDLoading: false,
 		transactionError: action.errorMessage,
 	};
 };
@@ -72,13 +115,9 @@ const patientAddNewFailState = (state, action) => {
 // Retrieving patient details
 const patientRetrieveBeginState = (state, action) => {
 	return {
-		...initialState,
-		patientIDNodeType: state.patientIDNodeType,
-		patientIDNodeDisabled: state.patientIDNodeDisabled,
-		
+		...state,
 		patientIDLoading: true,
 		transactionError: null,
-		patientRetrieveBegun: true,
 	};
 };
 
@@ -86,7 +125,6 @@ const patientRetrieveSuccessState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: false,
-		patientRetrieveSuccessData: action.payload,
 	};
 };
 
@@ -102,16 +140,9 @@ const patientRetrieveFailState = (state, action) => {
 // Searching for a patient
 const patientSearchBeginState = (state, action) => {
 	return {
-		...initialState,
-		patientIDNodeType: state.patientIDNodeType,
-		patientIDNodeDisabled: state.patientIDNodeDisabled,
-		
-		patientSearchSuccessData: state.patientSearchSuccessData,
-		patientSearchShowDropdown: state.patientSearchShowDropdown,
-		
+		...state,
 		patientIDLoading: true,
 		transactionError: null,
-		patientSearchBegun: true,
 	};
 };
 
@@ -142,20 +173,14 @@ const patientSearchSetDropdownVisibility = (state, action) => {
 // Updating a patient's details
 const patientUpdateBeginState = (state, action) => {
 	return {
-		...initialState,
-		patientIDNodeType: state.patientIDNodeType,
-		patientIDNodeDisabled: state.patientIDNodeDisabled,
-		
-		patientIDLoading: true,
+		...state,
 		transactionError: null,
-		patientUpdateBegun: true,
 	};
 };
 
 const patientUpdateSuccessState = (state, action) => {
 	return {
 		...state,
-		patientIDLoading: false,
 		patientUpdateSuccess: true,
 	};
 };
@@ -163,7 +188,6 @@ const patientUpdateSuccessState = (state, action) => {
 const patientUpdateFailState = (state, action) => {
 	return {
 		...state,
-		patientIDLoading: false,
 		transactionError: action.errorMessage,
 	};
 };
@@ -175,9 +199,16 @@ const patientReducer = (state = initialState, action) => {
 			return initialState;
 		
 		case actionTypes.PATIENT_SET_PATIENT_ID_TYPE:
-			return patientSetPatientIDNodeType(state, action);
+			return patientSetPatientIDNodeTypeState(state, action);
 		case actionTypes.PATIENT_SET_PATIENT_ID_DISABLED:
-			return patientSetPatientIDNodeDisabled(state, action);
+			return patientSetPatientIDNodeDisabledState(state, action);
+		case actionTypes.PATIENT_SET_PATIENT_TYPE:
+			return patientSetPatientTypeState(state, action);
+		
+		case actionTypes.PATIENT_SET_FORM_DATA:
+			return patientSetFormDataState(state, action);
+		case actionTypes.PATIENT_RESET_FORM_DATA:
+			return patientResetFormDataState(state, action);
 		
 		case actionTypes.PATIENT_ADD_NEW_BEGIN:
 			return patientAddNewBeginState(state, action);

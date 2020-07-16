@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 
 import { Radio } from "antd";
 
 import PatientContainer from "./PatientContainer";
-import { patientSetPatientIDNodeDisabled, patientSetPatientIDNodeType } from "myredux";
+import {
+	patientGenerateID,
+	patientResetState,
+	patientSetPatientIDNodeDisabled,
+	patientSetPatientIDNodeType,
+	patientSetPatientType
+} from "myredux";
+
+
+const defaultPatientType = 'existing';
 
 
 const ConsultationContainer = props => {
 	
-	const [patientIDState, setPatientIDState] = useState(null);         // SHift to Redux later
+	useEffect(() => {
+		changed();
+	}, []);         // eslint-disable-line
 	
-	const changed = event => {
-		switch (event.target.value) {
+	
+	const changed = (event = null) => {
+		const switchValue = (event === null) ? defaultPatientType : (event.target.value || defaultPatientType);
+		
+		switch (switchValue) {
 			case "new":
-				props.new();
+				props.newPatient();
 				break;
 			case "existing":
-				props.existing();
+				props.resetFormData();
+				props.existingPatient();
 				break;
 			
 			default:
@@ -26,11 +41,11 @@ const ConsultationContainer = props => {
 	
 	return (
 		<div>
-			<Radio.Group onChange={changed}>
+			<Radio.Group onChange={changed} defaultValue={defaultPatientType}>
 				<Radio value="new">New Patient</Radio>
 				<Radio value="existing">Existing Patient</Radio>
 			</Radio.Group>
-			<PatientContainer patientIDState={[patientIDState, setPatientIDState]} />
+			<PatientContainer />
 		</div>
 	);
 };
@@ -39,18 +54,23 @@ const ConsultationContainer = props => {
 const mapDispatchToProps = dispatch => {
 	
 	const newPatient = () => {
+		dispatch(patientSetPatientType('new'));
 		dispatch(patientSetPatientIDNodeDisabled(true));
 		dispatch(patientSetPatientIDNodeType('input'));
+		dispatch(patientGenerateID());
 	};
 	
 	const existingPatient = () => {
+		dispatch(patientSetPatientType('existing'));
 		dispatch(patientSetPatientIDNodeDisabled(false));
 		dispatch(patientSetPatientIDNodeType('select'));
 	};
 	
 	return {
-		new: () => newPatient(),
-		existing: () => existingPatient(),
+		newPatient: () => newPatient(),
+		existingPatient: () => existingPatient(),
+		
+		resetFormData: () => dispatch(patientResetState()),
 	}
 };
 

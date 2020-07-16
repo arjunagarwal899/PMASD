@@ -19,9 +19,8 @@ const BaseRouter = (props) => {
 					<Route exact path="/logout/" component={Logout} />
 					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true} />} />
 					
-					{/*Data management routes*/}
-					<Route exact path="/patient/" component={PatientContainer} />
 					<Route exact path="/consultation/" component={ConsultationContainer} />
+					<Route exact path="/patient/" component={PatientContainer} />
 					
 					{/* Home route */}
 					<Route exact path="/home/" component={HomeContainer} />

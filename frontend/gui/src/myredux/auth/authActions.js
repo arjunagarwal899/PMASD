@@ -1,5 +1,5 @@
 import * as actionTypes from './authTypes';
-import { axiosWithoutHeaders } from 'apis/httpClient';
+import { axiosWithHeaders, axiosWithoutHeaders } from 'apis/httpClient';
 import history from '../../history';
 
 // Begin login action-type
@@ -47,7 +47,7 @@ const authLogin = (username, password) => {
 	return (dispatch) => {
 		dispatch(authBegin());
 		axiosWithoutHeaders
-			.post('/auth/login/', {
+			.post('auth/login/', {
 				username: username,
 				password: password,
 			})
@@ -67,6 +67,7 @@ const authLogin = (username, password) => {
 
 // Logout action-type
 const authLogout = () => {
+	axiosWithHeaders.delete('auth/delete_token/')
 	sessionStorage.removeItem('token');
 	return {
 		type: actionTypes.AUTH_LOGOUT,

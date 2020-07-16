@@ -1,0 +1,51 @@
+INSERT INTO patients_patient (id,
+                              user_id,
+                              ud_patient_id,
+                              title,
+                              name,
+                              gender,
+                              dob)
+VALUES (1,
+        2,
+        '100001',
+        'Mr',
+        'Arjun Agarwal',
+        'M',
+        '1999-08-04'),
+       (2,
+        2,
+        '100002',
+        'Mas',
+        'Ayush Agarwal',
+        'M',
+        '2003-12-09'),
+       (3,
+        2,
+        '000001',
+        'Mrs',
+        'Manisha Agarwal',
+        'F',
+        '1976-03-23'),
+       (4,
+        1,
+        '100001',
+        'Mr',
+        'Raj Agarwal',
+        'M',
+        '1968-06-03');
+
+INSERT INTO patients_patientmobile (mobile, patient_id, synced_with_contacts, hide_from_user)
+VALUES (9930019819, 1, false, false),
+       (9823087807, 1, false, false),
+       (9930019814, 2, false, false),
+       (9930598761, 3, false, false),
+       (9820017779, 4, false, false)
+
+INSERT INTO patients_patientemail (email, patient_id, synced_with_contacts, hide_from_user)
+VALUES ('arjunagarwal899@gmail.com', 1, false, false),
+       ('f20170285@goa.bits-pilani.ac.in', 1, false, false),
+       ('ayush.agarwal912@gmail.com', 2, false, false),
+       ('agarwalmani@hotmail.com', 3, false, false),
+       ('rajkishore.agarwal@gmail.com', 4, false, false)
+
+

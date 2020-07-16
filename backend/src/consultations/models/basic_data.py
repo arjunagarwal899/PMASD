@@ -32,6 +32,5 @@ class Consultation(models.Model):
 #     related_name='consultaitons',
 # )
 
-
-def __str__(self):
-	return '(%s) %s' % (self.consultation_date, self.patient)
+	def __str__(self):
+		return '(%s) %s' % (self.consultation_date, self.patient)
