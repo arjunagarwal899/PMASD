@@ -1,5 +1,7 @@
 import * as actionTypes from './patientTypes';
+import { PATIENT_SET_FORM_DATA } from './patientTypes';
 import { axiosWithHeaders } from "apis/httpClient";
+import { parsePatientInfo } from "myredux/patient/util";
 
 
 const patientResetState = () => {
@@ -22,6 +24,40 @@ const patientSetPatientIDNodeDisabled = patientIDNodeDisabled => {
 	};
 };
 
+const patientSetPatientType = patientType => {
+	return {
+		type: actionTypes.PATIENT_SET_PATIENT_TYPE,
+		patientType: patientType,
+	}
+}
+
+// Either pass (field, value) pair or pass formData
+const patientSetFormData = (field, value, formData = null, dataType = 'complete') => {
+	if (formData === null) {
+		formData = {};
+		formData[field] = value;
+		
+		return {
+			type: PATIENT_SET_FORM_DATA,
+			dataType: 'partial',
+			formData: formData,
+		};
+	}
+	
+	return {
+		type: PATIENT_SET_FORM_DATA,
+		dataType: dataType,
+		formData: formData,
+	};
+	
+};
+
+const patientResetFormData = () => {
+	return {
+		type: actionTypes.PATIENT_RESET_FORM_DATA,
+	}
+}
+
 
 const patientAddNew = newPatientData => {
 	return dispatch => {
@@ -32,7 +68,22 @@ const patientAddNew = newPatientData => {
 
 const patientRetrieve = patientID => {
 	return dispatch => {
-	
+		dispatch(patientRetrieveBegin());
+		axiosWithHeaders
+			.get(`api/patient/basic/${patientID}/`)
+			.then(response => {
+				let data = response.data;
+				
+				dispatch(patientRetrieveSuccess(data));
+				
+				data = parsePatientInfo(data, 'js');
+				
+				dispatch(patientSetFormData(null, null, data));
+			})
+			.catch(error => {
+				dispatch(patientResetFormData());
+				dispatch(patientRetrieveFail(error.message));
+			});
 	};
 }
 
@@ -43,7 +94,7 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 			dispatch(patientSearchBegin());
 			
 			axiosWithHeaders
-				.get('api/patient/search', {
+				.get('api/patient/search/', {
 					params: {
 						search: searchValue,
 					}
@@ -56,17 +107,7 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 					));
 				})
 				.catch(error => {
-					switch (error.response.status) {
-						case 401:
-							console.log('Unauthorized');
-							break;
-						case undefined:
-							console.log('Unknown Error');
-							break;
-						
-						default:
-					}
-					
+					dispatch(patientResetFormData());
 					dispatch(patientSearchFail(error.message));
 				})
 		} else {
@@ -76,20 +117,50 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 }
 
 
-const patientUpdate = (patientID, patientData) => {
+const patientUpdate = (patientData) => {
 	return dispatch => {
-	
+		dispatch(patientUpdateBegin());
+		
+		patientData = parsePatientInfo(patientData, 'py');
+		
+		axiosWithHeaders
+			.put(`api/patient/basic/${patientData['patient_id']}/`, patientData)
+			.then(response => {
+				dispatch(patientUpdateSuccess());
+			})
+			.catch(error => {
+				dispatch(patientUpdateFail(error.message));
+			});
 	};
 }
+
+
+const patientGenerateID = () => {
+	return dispatch => {
+		axiosWithHeaders
+			.get('api/patient/newid/')
+			.then(response => {
+				dispatch(patientSetFormData('patientID', response.data['new_patient_id']))
+			})
+			.catch(error => {
+				console.log(error);
+			})
+	};
+};
+
 
 export {
 	patientResetState,
 	patientSetPatientIDNodeType,
 	patientSetPatientIDNodeDisabled,
+	patientSetPatientType,
+	patientSetFormData,
+	patientResetFormData,
 	patientAddNew,
 	patientRetrieve,
 	patientSearch,
-	patientUpdate
+	patientUpdate,
+	patientGenerateID
 };
 
 
@@ -122,15 +193,17 @@ const patientRetrieveBegin = () => {
 	};
 };
 
-const patientRetrieveSuccess = () => {
+const patientRetrieveSuccess = patientFormData => {
 	return {
 		type: actionTypes.PATIENT_RETRIEVE_SUCCESS,
+		payload: patientFormData,
 	};
 };
 
-const patientRetrieveFail = () => {
+const patientRetrieveFail = errorMessage => {
 	return {
 		type: actionTypes.PATIENT_RETRIEVE_FAIL,
+		errorMessage: errorMessage,
 	};
 }
 
@@ -173,12 +246,13 @@ const patientUpdateBegin = () => {
 
 const patientUpdateSuccess = () => {
 	return {
-		type: actionTypes.PATIENT_RETRIEVE_SUCCESS,
+		type: actionTypes.PATIENT_UPDATE_SUCCESS,
 	};
 };
 
-const patientUpdateFail = () => {
+const patientUpdateFail = errorMessage => {
 	return {
 		type: actionTypes.PATIENT_UPDATE_FAIL,
+		errorMessage,
 	};
 };

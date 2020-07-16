@@ -5,17 +5,30 @@ import { Button, Form } from "antd";
 
 import { PatientID } from "components/Person/Patient";
 import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles, PersonName } from "components/Person";
+import { patientRetrieve, patientSetFormData, patientUpdate } from "myredux";
 
 
-const PatientContainer = (props) => {
+const PatientContainer = props => {
 	
-	const [patientIDState, setPatientIDState] = props.patientIDState;
-	const formDisabled = !patientIDState;
+	const patientID = props.formData.patientID;
+	const formDisabled = patientID === null || patientID === undefined || patientID === '';
 	const [patientForm] = Form.useForm();
 	
 	useEffect(() => {
 		document.title = 'Patient | PMASD'
 	}, []);
+	
+	useEffect(() => {
+		patientForm.setFieldsValue(props.formData);
+	}, [props.formData]);        // eslint-disable-line
+	
+	useEffect(() => {
+		if (patientID !== null && patientID.length > 0) {
+			if (props.patientType === 'existing') {
+				props.retrievePatientData(patientID);
+			}
+		}
+	}, [patientID]);            // eslint-disable-line
 	
 	
 	const selectGenderBasedOnTitle = value => {
@@ -36,14 +49,19 @@ const PatientContainer = (props) => {
 	
 	
 	const onSubmit = values => {
-		console.log(values);
+		console.log(props.setFormData(values));
+		
+		if (props.patientType === 'existing') {
+			console.log(props.formData);
+			props.updatePatientData(props.formData);
+		}
 	};
 	
 	
 	return (
 		<Form onFinish={onSubmit} form={patientForm}>
-			<PatientID form={patientForm} patientIDState={[patientIDState, setPatientIDState]} />
-			<PersonName onChange={selectGenderBasedOnTitle} disabled={formDisabled} />
+			<PatientID />
+			<PersonName disabled={formDisabled} onChange={selectGenderBasedOnTitle} />
 			<PersonDOBAge form={patientForm} disabled={formDisabled} />
 			<PersonGender disabled={formDisabled} />
 			<PersonMobiles disabled={formDisabled} />
@@ -52,7 +70,7 @@ const PatientContainer = (props) => {
 			
 			<Form.Item>
 				<Button type="primary" htmlType="submit">
-					{props ?        // Check state and update
+					{props.patientType === 'new' ?        // Check state and update
 						'Add New'
 						:
 						'Update'
@@ -66,8 +84,18 @@ const PatientContainer = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.patient.patientIDLoading,
+		patientType: state.patient.patientType,
+		formData: state.patient.patientFormData,
 	};
 };
 
-export default connect(mapStateToProps)(PatientContainer);
+const mapDispatchToProps = dispatch => {
+	return {
+		setFormData: formData => dispatch(patientSetFormData(null, null, formData)),
+		
+		retrievePatientData: patientID => dispatch(patientRetrieve(patientID)),
+		updatePatientData: patientData => dispatch(patientUpdate(patientData)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientContainer);

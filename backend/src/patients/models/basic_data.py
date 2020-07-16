@@ -9,9 +9,10 @@ class Patient(Person):
 		on_delete=models.CASCADE,
 	)
 
+	# Patient ID is not the primary key as they can be the same for two different users
 	patient_id = models.CharField(
-		primary_key=True,
 		max_length=6,
+		verbose_name='Patient ID',
 	)
 
 	last_consultation = models.OneToOneField(
@@ -21,6 +22,9 @@ class Patient(Person):
 		null=True,
 		related_name='last_consultation_for_patient',
 	)
+
+	class Meta:
+		unique_together = [('user', 'patient_id')]
 
 
 class PatientMobile(PersonMobile):
