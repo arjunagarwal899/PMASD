@@ -1,6 +1,8 @@
 import * as actionTypes from './authTypes';
-import { axiosWithHeaders, axiosWithoutHeaders } from 'apis/httpClient';
+import * as urls from 'constants/urls';
+import { axiosWithHeaders, axiosWithoutHeaders } from 'util/httpClient';
 import history from '../../history';
+import { parseAxiosError } from "util/requestManagement";
 
 // Begin login action-type
 const authBegin = () => {
@@ -19,26 +21,19 @@ const authSuccess = (token) => {
 
 // Fail login action-type
 const authFail = (error) => {
-	let recordError = error.message;
+	let parsedError = parseAxiosError(error);
 	
-	switch (error.response) {
-		case undefined:
-			recordError = 'Server not functioning. Please restart system.';
+	switch (error.status) {
+		case 400:
+			parsedError.message = 'User credentials invalid. Please try again.';
 			break;
 		
 		default:
-			switch (error.response.status) {
-				case 400:
-					recordError = 'User credentials invalid. Please try again.';
-					break;
-				
-				default:
-			}
 	}
 	
 	return {
 		type: actionTypes.AUTH_FAIL,
-		error: recordError,
+		error: parsedError.message,
 	};
 };
 
@@ -59,7 +54,7 @@ const authLogin = (username, password) => {
 				// Login success
 				dispatch(authSuccess(token));
 				// Do programmatic navigation to home page
-				history.push('/');
+				history.push(urls.home);
 			})
 			.catch((error) => dispatch(authFail(error)));
 	};
@@ -67,7 +62,7 @@ const authLogin = (username, password) => {
 
 // Logout action-type
 const authLogout = () => {
-	axiosWithHeaders.delete('auth/delete_token/')
+	axiosWithHeaders.delete('auth/delete_token/');
 	sessionStorage.removeItem('token');
 	return {
 		type: actionTypes.AUTH_LOGOUT,

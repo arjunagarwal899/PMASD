@@ -5,7 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { Alert, Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
-import { authLogout, changePassword } from '../myredux';
+import { authLogout, changePassword } from 'myredux';
+import * as urls from 'constants/urls';
 
 
 const ChangePassword = (props) => {
@@ -97,7 +98,7 @@ const ChangePassword = (props) => {
 				</Button>
 			</Form.Item>
 			
-			<NavLink to="/login" style={{ color: 'darkgrey' }}>Go Back To Login</NavLink>
+			<NavLink to={urls.login} style={{ color: 'darkgrey' }}>Go Back To Login</NavLink>
 		</Form>
 	);
 };

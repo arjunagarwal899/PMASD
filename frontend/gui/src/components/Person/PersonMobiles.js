@@ -1,7 +1,8 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 import { Form, Select } from "antd";
+import tokenSeparators from "constants/tokenSeparators";
+import validators from "constants/validators";
 
 
 const PersonMobiles = props => {
@@ -16,7 +17,7 @@ const PersonMobiles = props => {
 				           validator (rule, value) {
 					           if (value) {
 						           for (let mobile of value) {
-							           if (!props.mobileRegEx.test(mobile)) {
+							           if (!validators.mobileRegEx.test(mobile)) {
 								           return Promise.reject('Please enter valid mobile numbers!');
 							           } else if (mobile.length && mobile.charAt(0) === '+') {
 								           return Promise.reject('No need to add the country code!')
@@ -29,7 +30,7 @@ const PersonMobiles = props => {
 			           }),
 		           ]}
 		>
-			<Select mode="tags" notFoundContent={null} tokenSeparators={props.tokenSeparators}
+			<Select mode="tags" notFoundContent={null} tokenSeparators={tokenSeparators.selectTokenSeparators}
 			        placeholder="Enter Mobile Numbers" disabled={props.disabled || false}
 			>
 				{null}
@@ -39,12 +40,4 @@ const PersonMobiles = props => {
 };
 
 
-const mapStateToProps = state => {
-	return {
-		mobileRegEx: state.validators.mobileRegEx,
-		tokenSeparators: state.misc.selectTokenSeparators,
-		maxlengths: state.maxlengths,
-	}
-};
-
-export default connect(mapStateToProps)(PersonMobiles);
+export default PersonMobiles;

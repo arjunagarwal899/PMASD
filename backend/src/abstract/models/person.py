@@ -92,17 +92,21 @@ class Person(PersonAddress):
 	)
 
 	def get_age(self):
-		today = date.today()
-		try:
-			birthday = self.dob.replace(year=today.year)  # Checking if DOB is 29th Feb
-		except ValueError:
-			birthday = self.dob.replace(year=today.year,
-			                            month=self.dob.month + 1, day=1)
+		if self.dob:
+			today = date.today()
+			try:
+				birthday = self.dob.replace(year=today.year)  # Checking if DOB is 29th Feb
+			except ValueError:
+				birthday = self.dob.replace(year=today.year,
+				                            month=self.dob.month + 1, day=1)
 
-		if birthday > today:
-			return today.year - self.dob.year - 1
-		else:
-			return today.year - self.dob.year
+			if birthday > today:
+				return today.year - self.dob.year - 1
+			else:
+				return today.year - self.dob.year
+
+		return None
+
 
 	def __str__(self):
 		return '%s %s' % (self.get_title_display(), self.name,)

@@ -1,7 +1,9 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 import { Form, Input } from "antd";
+
+import maxlengths from "constants/maxlengths";
+import validators from "constants/validators";
 
 
 const PersonAddress = props => {
@@ -9,7 +11,7 @@ const PersonAddress = props => {
 		<Form.Item label="Address">
 			<Form.Item name="building_details" label="Building Details:">
 				<Input.TextArea allowClear placeholder="Enter Building Details"
-				                maxLength={props.maxlengths.addressBuildingDetails}
+				                maxLength={maxlengths.addressBuildingDetails}
 				                autoSize={{ minRows: 1, maxRows: 2 }}
 				                disabled={props.disabled || false}
 				/>
@@ -17,7 +19,7 @@ const PersonAddress = props => {
 			
 			<Form.Item name="lane" label="Lane:">
 				<Input.TextArea allowClear placeholder="Enter Lane"
-				                maxLength={props.maxlengths.addressLane}
+				                maxLength={maxlengths.addressLane}
 				                autoSize={{ minRows: 1, maxRows: 2 }}
 				                disabled={props.disabled || false}
 				/>
@@ -25,21 +27,25 @@ const PersonAddress = props => {
 			
 			<Form.Item name="area" label="Area:">
 				<Input allowClear placeholder="Enter Area"
-				       maxLength={props.maxlengths.addressArea}
+				       maxLength={maxlengths.addressArea}
 				       disabled={props.disabled || false}
 				/>
 			</Form.Item>
 			
 			<Form.Item name="city" label="City:">
 				<Input allowClear placeholder="Enter City"
-				       maxLength={props.maxlengths.addressCity}
+				       maxLength={maxlengths.addressCity}
 				       disabled={props.disabled || false}
 				/>
 			</Form.Item>
 			
-			<Form.Item name="pincode" label="Pincode:">
+			<Form.Item name="pincode" label="Pincode:"
+			           rules={[{
+				           pattern: validators.positiveNumberRegEx,
+				           message: 'Pincode has to be numeric.',
+			           }]}>
 				<Input allowClear placeholder="Enter Pincode"
-				       maxLength={props.maxlengths.addressPincode}
+				       maxLength={maxlengths.addressPincode}
 				       disabled={props.disabled || false}
 				/>
 			</Form.Item>
@@ -47,11 +53,4 @@ const PersonAddress = props => {
 	);
 };
 
-
-const mapStateToProps = state => {
-	return {
-		maxlengths: state.maxlengths,
-	}
-};
-
-export default connect(mapStateToProps)(PersonAddress);
+export default PersonAddress;

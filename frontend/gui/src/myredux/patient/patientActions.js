@@ -1,7 +1,8 @@
 import * as actionTypes from './patientTypes';
 import { PATIENT_SET_FORM_DATA } from './patientTypes';
-import { axiosWithHeaders } from "apis/httpClient";
+import { axiosWithHeaders } from "util/httpClient";
 import { parsePatientInfo } from "myredux/patient/util";
+import { handleAxiosError, parseAxiosError } from "util/requestManagement";
 
 
 const patientResetState = () => {
@@ -61,7 +62,22 @@ const patientResetFormData = () => {
 
 const patientAddNew = newPatientData => {
 	return dispatch => {
-	
+		dispatch(patientAddNewBegin());
+		
+		newPatientData = parsePatientInfo(newPatientData, 'py');
+		
+		return axiosWithHeaders
+			.post('api/patient/basic/', newPatientData)
+			.then(response => {
+				dispatch(patientAddNewSuccess());
+				
+				return Promise.resolve(response);
+			})
+			.catch(error => {
+				dispatch(patientAddNewFail(error));
+				
+				return Promise.reject(error);
+			});
 	};
 };
 
@@ -69,7 +85,7 @@ const patientAddNew = newPatientData => {
 const patientRetrieve = patientID => {
 	return dispatch => {
 		dispatch(patientRetrieveBegin());
-		axiosWithHeaders
+		return axiosWithHeaders
 			.get(`api/patient/basic/${patientID}/`)
 			.then(response => {
 				let data = response.data;
@@ -79,10 +95,14 @@ const patientRetrieve = patientID => {
 				data = parsePatientInfo(data, 'js');
 				
 				dispatch(patientSetFormData(null, null, data));
+				
+				return Promise.resolve(response);
 			})
 			.catch(error => {
 				dispatch(patientResetFormData());
-				dispatch(patientRetrieveFail(error.message));
+				dispatch(patientRetrieveFail(error));
+				
+				return Promise.reject(error);
 			});
 	};
 }
@@ -90,10 +110,10 @@ const patientRetrieve = patientID => {
 
 const patientSearch = (searchValue, minLengthCheck = 0) => {
 	return dispatch => {
-		if (searchValue.length > minLengthCheck) {
+		if (searchValue && searchValue.length > minLengthCheck) {
 			dispatch(patientSearchBegin());
 			
-			axiosWithHeaders
+			return axiosWithHeaders
 				.get('api/patient/search/', {
 					params: {
 						search: searchValue,
@@ -105,10 +125,14 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 					dispatch(patientSearchSetDropdownVisibility(
 						Object.keys(response.data).length > 0
 					));
+					
+					return Promise.resolve(response);
 				})
 				.catch(error => {
 					dispatch(patientResetFormData());
-					dispatch(patientSearchFail(error.message));
+					dispatch(patientSearchFail(error));
+					
+					return Promise.reject(error);
 				})
 		} else {
 			dispatch(patientSearchSetDropdownVisibility(false));
@@ -123,13 +147,17 @@ const patientUpdate = (patientData) => {
 		
 		patientData = parsePatientInfo(patientData, 'py');
 		
-		axiosWithHeaders
+		return axiosWithHeaders
 			.put(`api/patient/basic/${patientData['patient_id']}/`, patientData)
 			.then(response => {
 				dispatch(patientUpdateSuccess());
+				
+				return Promise.resolve(response);
 			})
 			.catch(error => {
-				dispatch(patientUpdateFail(error.message));
+				dispatch(patientUpdateFail(error));
+				
+				return Promise.reject(error);
 			});
 	};
 }
@@ -137,13 +165,17 @@ const patientUpdate = (patientData) => {
 
 const patientGenerateID = () => {
 	return dispatch => {
-		axiosWithHeaders
+		return axiosWithHeaders
 			.get('api/patient/newid/')
 			.then(response => {
 				dispatch(patientSetFormData('patientID', response.data['new_patient_id']))
+				
+				return Promise.resolve(response);
 			})
 			.catch(error => {
-				console.log(error);
+				let parsedError = parseAxiosError(error);
+				handleAxiosError(parsedError);
+				return Promise.reject(error);
 			})
 	};
 };
@@ -179,9 +211,13 @@ const patientAddNewSuccess = () => {
 	};
 };
 
-const patientAddNewFail = () => {
+const patientAddNewFail = error => {
+	let parsedError = parseAxiosError(error);
+	handleAxiosError(parsedError);
+	
 	return {
 		type: actionTypes.PATIENT_ADD_NEW_FAIL,
+		errorMessage: parsedError.message,
 	};
 }
 
@@ -200,10 +236,13 @@ const patientRetrieveSuccess = patientFormData => {
 	};
 };
 
-const patientRetrieveFail = errorMessage => {
+const patientRetrieveFail = error => {
+	let parsedError = parseAxiosError(error);
+	handleAxiosError(parsedError);
+	
 	return {
 		type: actionTypes.PATIENT_RETRIEVE_FAIL,
-		errorMessage: errorMessage,
+		errorMessage: parsedError.message,
 	};
 }
 
@@ -222,10 +261,13 @@ const patientSearchSuccess = searchData => {
 	};
 };
 
-const patientSearchFail = errorMessage => {
+const patientSearchFail = error => {
+	let parsedError = parseAxiosError(error);
+	handleAxiosError(parsedError);
+	
 	return {
 		type: actionTypes.PATIENT_SEARCH_FAIL,
-		errorMessage: errorMessage,
+		errorMessage: parsedError.message,
 	};
 };
 
@@ -250,9 +292,13 @@ const patientUpdateSuccess = () => {
 	};
 };
 
-const patientUpdateFail = errorMessage => {
+const patientUpdateFail = error => {
+	let parsedError = parseAxiosError(error);
+	console.log(parsedError);
+	handleAxiosError(parsedError);
+	
 	return {
 		type: actionTypes.PATIENT_UPDATE_FAIL,
-		errorMessage,
+		errorMessage: parsedError.message,
 	};
 };

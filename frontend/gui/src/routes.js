@@ -2,35 +2,42 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
 
+import * as urls from 'constants/urls';
 import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
-import PatientContainer from "./containers/PatientContainer";
-import ConsultationContainer from "./containers/ConsultationContainer";
+import PatientContainer from "containers/PatientContainer/PatientContainer";
+import Consultation from "containers/Consultation";
 
-const BaseRouter = (props) => {
+const BaseRouter = props => {
 	return (
 		<React.Fragment>
 			<Router history={history}>
 				<Switch>
-					{/*Authentication routes*/}
-					<Route exact path="/login/" component={AuthContainer} />
-					<Route exact path="/logout/" component={Logout} />
-					<Route exact path="/changepassword/" render={() => <AuthContainer changePass={true} />} />
-					
-					<Route exact path="/consultation/" component={ConsultationContainer} />
-					<Route exact path="/patient/" component={PatientContainer} />
-					
-					{/* Home route */}
-					<Route exact path="/home/" component={HomeContainer} />
-					
-					
-					{/*Redirects*/}
 					{!props.isAuthenticated ?
-						<Redirect to="/login/" />
+						<>
+							<Route exact path={urls.login} component={AuthContainer} />
+							<Route exact path={urls.changePassword}
+							       render={() => <AuthContainer changePass={true} />} />
+							
+							{/*Redirects*/}
+							<Redirect to={urls.login} />
+						</>
 						:
-						<Redirect from="/" to="/home/" />
+						<>
+							{/*Authentication routes*/}
+							<Route exact path={urls.logout} component={Logout} />
+							
+							<Route exact path={urls.consultation} component={Consultation} />
+							<Route exact path="/patient/" component={PatientContainer} />
+							
+							{/* Home route */}
+							<Route exact path={urls.home} component={HomeContainer} />
+							
+							{/*Redirects*/}
+							<Route exact path="/"> <Redirect to={urls.home} /> </Route>
+						</>
 					}
 				</Switch>
 			</Router>
@@ -39,7 +46,7 @@ const BaseRouter = (props) => {
 };
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	return {
 		isAuthenticated: state.auth.isAuthenticated,
 	};

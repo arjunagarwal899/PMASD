@@ -1,4 +1,3 @@
-from django.core.validators import MaxValueValidator
 from django.db import models
 
 class Profile(models.Model):
@@ -6,6 +5,7 @@ class Profile(models.Model):
 	user = models.OneToOneField(
 		'auth.User',
 		on_delete=models.CASCADE,
+		related_name='profile',
 	)
 
 	last_patient_id = models.CharField(

@@ -1,7 +1,8 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 import { Form, Input, Select } from "antd";
+
+import maxlengths from "constants/maxlengths";
 
 
 const PersonName = props => {
@@ -29,7 +30,7 @@ const PersonName = props => {
 					                  message: 'Patient Title is required!'
 				                  }]}
 				       >
-					       <Select showSearch placeholder="Select title"
+					       <Select placeholder="Select title"
 					               style={{ minWidth: 100 }}
 					               optionFilterProp="children"
 					               onChange={titleChange}
@@ -44,17 +45,11 @@ const PersonName = props => {
 					       </Select>
 				       </Form.Item>
 			       }
-			       maxLength={props.maxlengths.personName}
+			       maxLength={maxlengths.personName}
 			/>
 		</Form.Item>
 	);
 };
 
 
-const mapStateToProps = state => {
-	return {
-		maxlengths: state.maxlengths,
-	}
-};
-
-export default connect(mapStateToProps)(PersonName);
+export default PersonName;

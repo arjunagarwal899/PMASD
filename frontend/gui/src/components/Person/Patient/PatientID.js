@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import { Alert, Col, Form, Input, Row, Select } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import { LoadingOutlined } from '@ant-design/icons'
 
 import { patientSearch, patientSetFormData } from "myredux";
+import maxlengths from "constants/maxlengths";
 
 
 const minLengthForSearching = 3;
@@ -58,7 +59,7 @@ const PatientID = props => {
 			>
 				{props.nodeType === 'input' ?
 					<Input placeholder='Enter patient ID'
-					       maxLength={props.maxlengths.patientID}
+					       maxLength={maxlengths.patientID}
 					       minLength={5}
 					       disabled={props.disabled}
 					       autoFocus={!props.disabled}
@@ -72,14 +73,18 @@ const PatientID = props => {
 					<Select showSearch
 					        placeholder="Enter patient ID"
 					        onSearch={value => props.searchPatient(value, minLengthForSearching)}
+					        onFocus={() => props.searchPatient(props.patientID, minLengthForSearching)}
 					        filterOption={false}
 					        notFoundContent={null}
 					        defaultActiveFirstOption
-					        optionLabelProp="ud_patient_id"
+					        optionLabelProp="patient_id"
 					        loading={props.loading}
 					        disabled={props.disabled}
 					        value={props.formData.patientID}
-					        onChange={value => props.setFormData('patientID', value)}
+					        onChange={value => {
+						        props.setFormData('patientID', value);
+						        props.searchPatient(value, minLengthForSearching);
+					        }}
 					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
 					        showArrow={props.loading ?
 						        <LoadingOutlined /> : null}      // Jugaad to show the loading icon, it is actually the arrow to toggle the dropdown
@@ -116,15 +121,6 @@ const PatientID = props => {
 					</Select>
 					
 				}
-				
-				{props.error ?
-					
-					<Form.Item>
-						<Alert message={props.error} type="error" showIcon />
-					</Form.Item>
-					
-					: null
-				}
 			</Form.Item>
 		</React.Fragment>
 	);
@@ -133,19 +129,15 @@ const PatientID = props => {
 
 const mapStateToProps = state => {
 	return {
-		maxlengths: state.maxlengths,
-		
 		// For type and props of the Patient ID field
-		loading: state.patient.patientIDLoading || state.patient.patientRetrieveBegun,
+		loading: state.patient.patientIDLoading,
 		disabled: state.patient.patientIDNodeDisabled,
 		nodeType: state.patient.patientIDNodeType,
-		
-		// In case of errors
-		error: state.patient.transactionError,
 		
 		// While retrieving search data
 		searchData: state.patient.patientSearchSuccessData,
 		showDropdown: state.patient.patientSearchShowDropdown,
+		patientID: state.patient.patientFormData.patientID,
 		
 		// For storing form data
 		formData: state.patient.patientFormData,

@@ -63,7 +63,6 @@ const patientSetFormDataState = (state, action) => {
 				...state,
 				patientFormData: {
 					...action.formData,
-					patientID: state.patientFormData.patientID,
 				}
 			};
 		
