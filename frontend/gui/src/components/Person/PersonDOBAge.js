@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from "react-redux";
 import moment from "moment";
 
 import { DatePicker, Form, Input, InputNumber } from "antd";
+
+import misc from "constants/misc";
 
 
 const disableDOBDates = current => {
@@ -32,7 +33,7 @@ const PersonDOBAge = props => {
 	return (
 		<Input.Group compact>
 			<Form.Item name="dob" label="Date of Birth:">
-				<DatePicker format={props.dateFormats} disabledDate={disableDOBDates} onChange={dobChange} allowClear
+				<DatePicker format={misc.dateFormats} disabledDate={disableDOBDates} onChange={dobChange} allowClear
 				            showToday={false} disabled={props.disabled || false} />
 			</Form.Item>
 			
@@ -45,10 +46,4 @@ const PersonDOBAge = props => {
 };
 
 
-const mapStateToProps = state => {
-	return {
-		dateFormats: state.misc.dateFormats,
-	}
-};
-
-export default connect(mapStateToProps)(PersonDOBAge);
+export default PersonDOBAge;

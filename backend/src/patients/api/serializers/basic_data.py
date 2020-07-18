@@ -86,7 +86,6 @@ class PatientBasicDetailSerializer(serializers.ModelSerializer):
 class PatientBasicDetailCreateSerializer(PatientBasicDetailSerializer):
 
 	def create(self, validated_data):
-		print(validated_data)
 		mobiles = []
 		if 'mobiles' in validated_data.keys(): mobiles = validated_data.pop('mobiles')
 
@@ -100,6 +99,10 @@ class PatientBasicDetailCreateSerializer(PatientBasicDetailSerializer):
 
 		for email in emails:
 			PatientEmail(patient_id=patient.pk, **email).save()
+
+		user_profile = validated_data['user'].profile
+		user_profile.last_patient_id = validated_data['patient_id']
+		user_profile.save()
 
 		return patient
 
@@ -135,20 +138,18 @@ class PatientBasicDetailRetrieveUpdateSerializer(PatientBasicDetailSerializer):
 
 		patient = super().update(instance, validated_data)
 
+		existing_mobiles = PatientMobile.objects.filter(patient_id=instance.pk)
+		existing_mobiles.delete()
+		del existing_mobiles
 		if mobiles:
-			existing_mobiles = PatientMobile.objects.filter(patient_id=instance.pk)
-			existing_mobiles.delete()
-			del existing_mobiles
-
 			for mobile in mobiles:
 				new_mobile = PatientMobile(patient_id=instance.pk, **mobile)
 				new_mobile.save()
 
+		existing_emails = PatientEmail.objects.filter(patient_id=instance.pk)
+		existing_emails.delete()
+		del existing_emails
 		if emails:
-			existing_emails = PatientEmail.objects.filter(patient_id=instance.pk)
-			existing_emails.delete()
-			del existing_emails
-
 			for email in emails:
 				new_email = PatientEmail(patient_id=instance.pk, **email)
 				new_email.save()

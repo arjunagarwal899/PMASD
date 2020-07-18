@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 
-import { Button, Form } from "antd";
+import { Button, Form, message } from "antd";
 
 import { PatientID } from "components/Person/Patient";
 import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles, PersonName } from "components/Person";
-import { patientRetrieve, patientSetFormData, patientUpdate } from "myredux";
+import { patientAddNew, patientRetrieve, patientSetFormData, patientUpdate } from "myredux";
 
 
 const PatientContainer = props => {
@@ -49,35 +49,46 @@ const PatientContainer = props => {
 	
 	
 	const onSubmit = values => {
-		console.log(props.setFormData(values));
+		values['patientID'] = props.formData.patientID;         // Because patientID is being controlled by me manually and not through the Ant Design
+		
+		props.setFormData(values);
 		
 		if (props.patientType === 'existing') {
-			console.log(props.formData);
-			props.updatePatientData(props.formData);
+			props.updatePatientData(values)
+				.then(() => {
+					message.success('Patient details updated successfully.');
+				});
+		} else if (props.patientType === 'new') {
+			props.addNewPatient(values)
+				.then(() => {
+					message.success('Patient added successfully.');
+				})
 		}
 	};
 	
 	
 	return (
-		<Form onFinish={onSubmit} form={patientForm}>
-			<PatientID />
-			<PersonName disabled={formDisabled} onChange={selectGenderBasedOnTitle} />
-			<PersonDOBAge form={patientForm} disabled={formDisabled} />
-			<PersonGender disabled={formDisabled} />
-			<PersonMobiles disabled={formDisabled} />
-			<PersonEmails disabled={formDisabled} />
-			<PersonAddress disabled={formDisabled} />
-			
-			<Form.Item>
-				<Button type="primary" htmlType="submit">
-					{props.patientType === 'new' ?        // Check state and update
-						'Add New'
-						:
-						'Update'
-					}
-				</Button>
-			</Form.Item>
-		</Form>
+		<React.Fragment>
+			<Form onFinish={onSubmit} form={patientForm}>
+				<PatientID />
+				<PersonName disabled={formDisabled} onChange={selectGenderBasedOnTitle} />
+				<PersonDOBAge form={patientForm} disabled={formDisabled} />
+				<PersonGender disabled={formDisabled} />
+				<PersonMobiles disabled={formDisabled} />
+				<PersonEmails disabled={formDisabled} />
+				<PersonAddress disabled={formDisabled} />
+				
+				<Form.Item>
+					<Button type="primary" htmlType="submit">
+						{props.patientType === 'new' ?        // Check state and update
+							'Add New'
+							:
+							'Update'
+						}
+					</Button>
+				</Form.Item>
+			</Form>
+		</React.Fragment>
 	);
 };
 
@@ -86,6 +97,8 @@ const mapStateToProps = state => {
 	return {
 		patientType: state.patient.patientType,
 		formData: state.patient.patientFormData,
+		
+		transactionError: state.patient.transactionError,
 	};
 };
 
@@ -95,6 +108,7 @@ const mapDispatchToProps = dispatch => {
 		
 		retrievePatientData: patientID => dispatch(patientRetrieve(patientID)),
 		updatePatientData: patientData => dispatch(patientUpdate(patientData)),
+		addNewPatient: newPatientData => dispatch(patientAddNew(newPatientData)),
 	};
 };
 

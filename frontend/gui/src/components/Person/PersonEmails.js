@@ -1,7 +1,10 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 import { Form, Select } from "antd";
+
+import maxlengths from "constants/maxlengths";
+import tokenSeparators from "constants/tokenSeparators";
+import validators from "constants/validators";
 
 
 const PersonEmails = props => {
@@ -16,9 +19,9 @@ const PersonEmails = props => {
 				           validator (rule, value) {
 					           if (value) {
 						           for (let email of value) {
-							           if (!props.emailRegEx.test(email)) {
+							           if (!validators.emailRegEx.test(email)) {
 								           return Promise.reject(' Please enter valid email addresses!');
-							           } else if (email.length > props.maxlengths.personEmail) {
+							           } else if (email.length > maxlengths.personEmail) {
 								           return Promise.reject('Email Addresses cannot be greater than 100 characters!');
 							           }
 						           }
@@ -29,7 +32,7 @@ const PersonEmails = props => {
 			           }),
 		           ]}
 		>
-			<Select mode="tags" notFoundContent={null} tokenSeparators={props.tokenSeparators}
+			<Select mode="tags" notFoundContent={null} tokenSeparators={tokenSeparators.selectTokenSeparators}
 			        placeholder="Enter Email Addresses" disabled={props.disabled || false}
 			>
 				{null}
@@ -39,12 +42,4 @@ const PersonEmails = props => {
 };
 
 
-const mapStateToProps = state => {
-	return {
-		emailRegEx: state.validators.emailRegEx,
-		tokenSeparators: state.misc.selectTokenSeparators,
-		maxlengths: state.maxlengths,
-	}
-};
-
-export default connect(mapStateToProps)(PersonEmails);
+export default PersonEmails;

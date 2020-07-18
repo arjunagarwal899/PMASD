@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { Radio } from "antd";
 
-import PatientContainer from "./PatientContainer";
+import PatientContainer from "containers/PatientContainer/PatientContainer";
 import {
 	patientGenerateID,
 	patientResetState,
@@ -16,9 +16,11 @@ import {
 const defaultPatientType = 'existing';
 
 
-const ConsultationContainer = props => {
+const BasePatientContainer = props => {
 	
 	useEffect(() => {
+		document.title = 'Patient Container | PMASD';
+		
 		changed();
 	}, []);         // eslint-disable-line
 	
@@ -74,4 +76,4 @@ const mapDispatchToProps = dispatch => {
 	}
 };
 
-export default connect(null, mapDispatchToProps)(ConsultationContainer);
+export default connect(null, mapDispatchToProps)(BasePatientContainer);

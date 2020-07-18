@@ -10,7 +10,7 @@ function parsePatientInfo (data, convertToType) {
 		case 'py':
 			patientID = data['patientID'];
 			
-			dob = data['dob'].format('YYYY-MM-DD');
+			if (data['dob']) dob = data['dob'].format('YYYY-MM-DD');
 			
 			for (let email of data['emails']) {
 				emails.push({
@@ -31,7 +31,7 @@ function parsePatientInfo (data, convertToType) {
 		case 'js':
 			patientID = data['patient_id'];
 			
-			dob = moment(data['dob'], 'YYYY-MM-DD');
+			if (data['dob']) dob = moment(data['dob'], 'YYYY-MM-DD');
 			
 			for (let email of data['emails']) {
 				emails.push(email['email']);

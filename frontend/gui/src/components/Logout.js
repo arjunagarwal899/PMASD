@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { authLogout } from "../myredux";
+import { authLogout } from "myredux";
+import * as urls from 'constants/urls';
 
-const MyComponent = (props) => {
+const Logout = (props) => {
 	
 	useEffect(() => {
 		document.title = 'Logout | PMASD';
@@ -13,7 +14,7 @@ const MyComponent = (props) => {
 	}, []);             // eslint-disable-line
 	
 	return (
-		<Redirect to={props.redirect ? props.redirect : "/"} />
+		<Redirect to={props.redirect ? props.redirect : urls.login} />
 	);
 };
 
@@ -24,4 +25,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(null, mapDispatchToProps)(MyComponent);
+export default connect(null, mapDispatchToProps)(Logout);

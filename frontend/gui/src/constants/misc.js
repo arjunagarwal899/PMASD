@@ -21,14 +21,10 @@ function getDateFormats () {
 }
 
 
-const initialState = {
+const misc = {
 	selectTokenSeparators: [',', ' '],
 	dateFormats: getDateFormats(),
 };
 
-
-const misc = (state = initialState) => {
-	return state;
-};
 
 export default misc;
