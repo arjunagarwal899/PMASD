@@ -9,12 +9,15 @@ import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
 import PatientContainer from "containers/PatientContainer/PatientContainer";
 import Consultation from "containers/Consultation";
+import ExaminationContainer from "containers/ExaminationContainer";
 
 const BaseRouter = props => {
 	return (
 		<React.Fragment>
 			<Router history={history}>
 				<Switch>
+					{/* Examination route, separate couse I wanted to check only the rendering part */}
+					<Route exact path={urls.examination} component={ExaminationContainer} />
 					{!props.isAuthenticated ?
 						<>
 							<Route exact path={urls.login} component={AuthContainer} />
