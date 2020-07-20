@@ -7,8 +7,8 @@ import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
-import PatientContainer from "containers/PatientContainer/PatientContainer";
-import Consultation from "containers/Consultation";
+import PatientContainer from "containers/PatientContainer/DisplayPatientContainer";
+import ConsultationContainer from "containers/ConsultationContainer";
 import ExaminationContainer from "containers/ExaminationContainer";
 
 const BaseRouter = props => {
@@ -16,30 +16,27 @@ const BaseRouter = props => {
 		<React.Fragment>
 			<Router history={history}>
 				<Switch>
+					<Route exact path={urls.login} component={AuthContainer} />
+					<Route exact path={urls.changePassword}
+					       render={() => <AuthContainer changePass={true} />} />
+					
 					{/* Examination route, separate couse I wanted to check only the rendering part */}
 					<Route exact path={urls.examination} component={ExaminationContainer} />
 					{!props.isAuthenticated ?
-						<>
-							<Route exact path={urls.login} component={AuthContainer} />
-							<Route exact path={urls.changePassword}
-							       render={() => <AuthContainer changePass={true} />} />
-							
-							{/*Redirects*/}
-							<Redirect to={urls.login} />
-						</>
+						<Redirect to={urls.login} />
 						:
 						<>
 							{/*Authentication routes*/}
 							<Route exact path={urls.logout} component={Logout} />
 							
-							<Route exact path={urls.consultation} component={Consultation} />
+							<Route exact path={urls.consultation} component={ConsultationContainer} />
 							<Route exact path="/patient/" component={PatientContainer} />
 							
 							{/* Home route */}
 							<Route exact path={urls.home} component={HomeContainer} />
 							
 							{/*Redirects*/}
-							<Route exact path="/"> <Redirect to={urls.home} /> </Route>
+							<Route exact path="/"><Redirect to={urls.home} /></Route>
 						</>
 					}
 				</Switch>

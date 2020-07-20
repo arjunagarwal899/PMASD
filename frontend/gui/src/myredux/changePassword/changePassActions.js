@@ -1,7 +1,5 @@
 import * as actionTypes from './changePassTypes';
-import * as urls from 'constants/urls';
 import { axiosWithoutHeaders } from 'util/httpClient';
-import history from '../../history';
 import { parseAxiosError } from "util/requestManagement";
 
 
@@ -63,7 +61,7 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 	return (dispatch) => {
 		dispatch(changePasswordBegin());
 		
-		axiosWithoutHeaders
+		return axiosWithoutHeaders
 			.post('auth/login/', {
 				username: username,
 				password: old_password,
@@ -85,11 +83,12 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 							// Password change success
 							dispatch(changePasswordSuccess());
 							
-							// Doing programmatic navigation after getting a correct response to redirect back to the login page
-							history.push(urls.login);
+							return Promise.resolve();
 						})
 						.catch((error) => {
 							dispatch(changePasswordFail(error, 'password_restrictions'));
+							
+							return Promise.reject();
 						});
 				} else {
 					dispatch(changePasswordFail({ message: 'Unknown error', defaultError: false }));
@@ -97,6 +96,7 @@ const changePassword = (username = 'admin', old_password, new_password1, new_pas
 			})
 			.catch((error) => {
 				dispatch(changePasswordFail(error, 'authentication_error'));
+				return Promise.reject();
 			});
 	};
 };

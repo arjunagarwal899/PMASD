@@ -24,7 +24,7 @@ function getDateFormats () {
 const misc = {
 	selectTokenSeparators: [',', ' '],
 	dateFormats: getDateFormats(),
+	minLengthOfPatientIDForSearching: 3,
 };
-
 
 export default misc;

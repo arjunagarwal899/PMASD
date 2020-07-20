@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from "react-router-dom";
 
-import { Alert, Avatar, Button, Form, Input, notification, Space } from 'antd';
+import { Alert, Avatar, Button, Form, Input, Space } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { authLogin, changePasswordReset } from '../myredux';
@@ -22,16 +22,7 @@ const AuthLogin = (props) => {
 	
 	useEffect(() => {
 		document.title = 'Login | PMASD';
-		
-		if (props.passwordChanged) {
-			notification['success']({
-				message: 'Change Password',
-				description: 'Your password has been successfully changed',
-			});
-			
-			props.resetPasswordChange();
-		}
-	}, []);             // eslint-disable-line
+	}, []);
 	
 	
 	return (
