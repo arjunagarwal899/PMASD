@@ -12,6 +12,7 @@ function parseAxiosError (error, type, info = 'null') {
 	let parsedError = {
 		message: null,
 		status: null,
+		...info,
 	}, parseSuccess = true;
 	
 	switch (type) {
@@ -29,6 +30,7 @@ function parseAxiosError (error, type, info = 'null') {
 								message: 'Bad request. (Status code 400)',
 								status: 400,
 								errorMessage: error.message,
+								...info,
 							}
 							break;
 						
@@ -38,6 +40,7 @@ function parseAxiosError (error, type, info = 'null') {
 								status: 401,
 								errorMessage: error.message,
 								redirect: urls.logout,
+								...info,
 							}
 							break;
 						
@@ -46,6 +49,7 @@ function parseAxiosError (error, type, info = 'null') {
 								message: 'Request denied. (Status code 403)',
 								status: 403,
 								errorMessage: error.message,
+								...info,
 							}
 							break;
 						
@@ -55,6 +59,7 @@ function parseAxiosError (error, type, info = 'null') {
 								message: 'Requested resource could not be found. (Status code 404)',
 								status: 404,
 								errorMessage: error.message,
+								...info,
 							}
 							break;
 						
@@ -63,6 +68,7 @@ function parseAxiosError (error, type, info = 'null') {
 								message: 'Unexpected error. (Status code 500)',
 								status: 500,
 								errorMessage: error.message,
+								...info,
 							}
 							break;
 						
@@ -79,12 +85,14 @@ function parseAxiosError (error, type, info = 'null') {
 					parsedError = {
 						message: 'Backend server is not functioning. Please restart system.',
 						status: errorCodes.networkError,
+						...info,
 					};
 					break;
 				
 				default:
 					parsedError = {
 						message: error,
+						...info,
 					};
 			}
 			break;
@@ -93,6 +101,7 @@ function parseAxiosError (error, type, info = 'null') {
 			parsedError = {
 				message: `Error with code ${error}.`,
 				status: error,
+				...info,
 			}
 			break;
 		

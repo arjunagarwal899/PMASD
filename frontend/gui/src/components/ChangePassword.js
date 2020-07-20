@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { Alert, Button, Form, Input } from 'antd';
+import { Alert, Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { authLogout, changePassword } from 'myredux';
 import * as urls from 'constants/urls';
+import history from "../history";
 
 
 const ChangePassword = (props) => {
@@ -19,7 +20,12 @@ const ChangePassword = (props) => {
 			values.old_password,
 			values.new_password1,
 			values.new_password2,
-		);
+		)
+			.then(() => {
+				// Doing programmatic navigation after getting a correct response to redirect back to the login page
+				history.push(urls.login);
+				message.success('Password successfully changed.');
+			});
 	};
 	
 	

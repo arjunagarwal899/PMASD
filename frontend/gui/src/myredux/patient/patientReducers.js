@@ -23,14 +23,9 @@ const initialState = {
 	},
 	
 	patientIDLoading: false,
-	transactionError: null,
-	
-	patientAddNewSuccess: false,
 	
 	patientSearchSuccessData: null,
 	patientSearchShowDropdown: false,
-	
-	patientUpdateSuccess: false,
 };
 
 
@@ -92,21 +87,18 @@ const patientResetFormDataState = (state, action) => {
 const patientAddNewBeginState = (state, action) => {
 	return {
 		...state,
-		transactionError: null,
 	};
 };
 
 const patientAddNewSuccessState = (state, action) => {
 	return {
 		...state,
-		patientAddNewSuccess: true,
 	};
 };
 
 const patientAddNewFailState = (state, action) => {
 	return {
 		...state,
-		transactionError: action.errorMessage,
 	};
 };
 
@@ -116,7 +108,6 @@ const patientRetrieveBeginState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: true,
-		transactionError: null,
 	};
 };
 
@@ -131,7 +122,6 @@ const patientRetrieveFailState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: false,
-		transactionError: action.errorMessage,
 	};
 };
 
@@ -141,7 +131,6 @@ const patientSearchBeginState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: true,
-		transactionError: null,
 	};
 };
 
@@ -157,7 +146,6 @@ const patientSearchFailState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: false,
-		transactionError: action.errorMessage,
 	};
 };
 
@@ -173,21 +161,18 @@ const patientSearchSetDropdownVisibility = (state, action) => {
 const patientUpdateBeginState = (state, action) => {
 	return {
 		...state,
-		transactionError: null,
 	};
 };
 
 const patientUpdateSuccessState = (state, action) => {
 	return {
 		...state,
-		patientUpdateSuccess: true,
 	};
 };
 
 const patientUpdateFailState = (state, action) => {
 	return {
 		...state,
-		transactionError: action.errorMessage,
 	};
 };
 

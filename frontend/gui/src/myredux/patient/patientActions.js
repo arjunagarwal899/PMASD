@@ -3,14 +3,16 @@ import { PATIENT_SET_FORM_DATA } from './patientTypes';
 import { axiosWithHeaders } from "util/httpClient";
 import { parsePatientInfo } from "myredux/patient/util";
 import { handleAxiosError, parseAxiosError } from "util/requestManagement";
+import misc from "constants/misc";
 
-
+// Action creator to reset entire patient store to initial state
 const patientResetState = () => {
 	return {
 		type: actionTypes.PATIENT_RESET_STATE,
 	};
 };
 
+// Function to change the type of patientID component (input type or select type)
 const patientSetPatientIDNodeType = patientIDNodeType => {
 	return {
 		type: actionTypes.PATIENT_SET_PATIENT_ID_TYPE,
@@ -18,6 +20,7 @@ const patientSetPatientIDNodeType = patientIDNodeType => {
 	};
 };
 
+// Function to disable or enable the patient ID component
 const patientSetPatientIDNodeDisabled = patientIDNodeDisabled => {
 	return {
 		type: actionTypes.PATIENT_SET_PATIENT_ID_DISABLED,
@@ -25,6 +28,7 @@ const patientSetPatientIDNodeDisabled = patientIDNodeDisabled => {
 	};
 };
 
+// Function to switch between patient type (new or existing)
 const patientSetPatientType = patientType => {
 	return {
 		type: actionTypes.PATIENT_SET_PATIENT_TYPE,
@@ -32,19 +36,8 @@ const patientSetPatientType = patientType => {
 	}
 }
 
-// Either pass (field, value) pair or pass formData
-const patientSetFormData = (field, value, formData = null, dataType = 'complete') => {
-	if (formData === null) {
-		formData = {};
-		formData[field] = value;
-		
-		return {
-			type: PATIENT_SET_FORM_DATA,
-			dataType: 'partial',
-			formData: formData,
-		};
-	}
-	
+// Function to update store values of form data with the user entered values
+const patientSetFormData = (formData, dataType = 'complete') => {
 	return {
 		type: PATIENT_SET_FORM_DATA,
 		dataType: dataType,
@@ -53,6 +46,7 @@ const patientSetFormData = (field, value, formData = null, dataType = 'complete'
 	
 };
 
+// Function to reset patient form data
 const patientResetFormData = () => {
 	return {
 		type: actionTypes.PATIENT_RESET_FORM_DATA,
@@ -60,6 +54,7 @@ const patientResetFormData = () => {
 }
 
 
+// Function to add a new patient to the database
 const patientAddNew = newPatientData => {
 	return dispatch => {
 		dispatch(patientAddNewBegin());
@@ -82,6 +77,7 @@ const patientAddNew = newPatientData => {
 };
 
 
+// FUnction to retrieve patient details from the database
 const patientRetrieve = patientID => {
 	return dispatch => {
 		dispatch(patientRetrieveBegin());
@@ -94,7 +90,7 @@ const patientRetrieve = patientID => {
 				
 				data = parsePatientInfo(data, 'js');
 				
-				dispatch(patientSetFormData(null, null, data));
+				dispatch(patientSetFormData(data));
 				
 				return Promise.resolve(response);
 			})
@@ -108,7 +104,9 @@ const patientRetrieve = patientID => {
 }
 
 
-const patientSearch = (searchValue, minLengthCheck = 0) => {
+// Function to search for patients based on patient ID, name, referring doctor of last consultation,
+// hospital of last consultation and mobile numbers
+const patientSearch = (searchValue, minLengthCheck = misc.minLengthOfPatientIDForSearching) => {
 	return dispatch => {
 		if (searchValue && searchValue.length > minLengthCheck) {
 			dispatch(patientSearchBegin());
@@ -141,6 +139,7 @@ const patientSearch = (searchValue, minLengthCheck = 0) => {
 }
 
 
+// Function to update a patient's details
 const patientUpdate = (patientData) => {
 	return dispatch => {
 		dispatch(patientUpdateBegin());
@@ -163,12 +162,13 @@ const patientUpdate = (patientData) => {
 }
 
 
+// Function to generate a new patient ID
 const patientGenerateID = () => {
 	return dispatch => {
 		return axiosWithHeaders
 			.get('api/patient/newid/')
 			.then(response => {
-				dispatch(patientSetFormData('patientID', response.data['new_patient_id']))
+				dispatch(patientSetFormData({ patientID: response.data['new_patient_id'] }));
 				
 				return Promise.resolve(response);
 			})
@@ -276,7 +276,7 @@ const patientSearchSetDropdownVisibility = visible => {
 		type: actionTypes.PATIENT_SEARCH_SET_DROPDOWN_VISIBILITY,
 		visible: visible,
 	};
-};
+};      // Function to change the visibility of of the drop down while searching
 
 
 // Updating an existing patient
