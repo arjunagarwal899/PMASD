@@ -10,7 +10,7 @@ const axiosWithoutHeaders = axios.create({
 });
 
 // If axios is being used after logging in
-const default_headers = {
+const defaultHeaders = {
 	"Content-Type": "application/json",
 	Authorization: "Token " + store.getState().auth.token
 };
@@ -18,10 +18,10 @@ const default_headers = {
 const axiosWithHeaders = axios.create({
 	baseURL: baseURL,
 	headers: {
-		get: default_headers,
-		post: default_headers,
-		put: default_headers,
-		delete: default_headers,
+		get: defaultHeaders,
+		post: defaultHeaders,
+		put: defaultHeaders,
+		delete: defaultHeaders,
 	}
 });
 

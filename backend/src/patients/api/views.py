@@ -47,12 +47,23 @@ class GeneratePatientIDView(APIView):
 		profile = Profile.objects.get(user=request.user)
 
 		if not profile.last_patient_id.isnumeric():
+			while True:
+				random_patient_id = str(uuid.uuid4()).upper()[:6]
+				if not Patient.objects.filter(patient_id=random_patient_id).exists():
+					break
+
 			return Response({
-				'new_patient_id': str(uuid.uuid4()).upper()[:6],
+				'new_patient_id': random_patient_id,
 			})
 
+		new_patient_id = '{0:06d}'.format(int(profile.last_patient_id))
+		while True:
+			new_patient_id = '{0:06d}'.format((int(new_patient_id) + 1))
+			if not Patient.objects.filter(patient_id=new_patient_id).exists():
+				break
+
 		return Response({
-			'new_patient_id': '{0:06d}'.format((int(profile.last_patient_id) + 1)),
+			'new_patient_id': new_patient_id,
 		})
 
 

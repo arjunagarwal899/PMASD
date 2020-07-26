@@ -8,9 +8,7 @@ import { patientSearch, patientSetFormData } from "myredux";
 import maxlengths from "constants/maxlengths";
 
 
-const minLengthForSearching = 3;
-
-
+// Drop down headings and other details
 const dropDownInfo = [
 	{
 		width: 3,
@@ -72,8 +70,8 @@ const PatientID = props => {
 					
 					<Select showSearch
 					        placeholder="Enter patient ID"
-					        onSearch={value => props.searchPatient(value, minLengthForSearching)}
-					        onFocus={() => props.searchPatient(props.patientID, minLengthForSearching)}
+					        onSearch={value => props.searchPatient(value)}
+					        onFocus={() => props.searchPatient(props.patientID)}
 					        filterOption={false}
 					        notFoundContent={null}
 					        defaultActiveFirstOption
@@ -83,7 +81,7 @@ const PatientID = props => {
 					        value={props.formData.patientID}
 					        onChange={value => {
 						        props.setFormData('patientID', value);
-						        props.searchPatient(value, minLengthForSearching);
+						        props.searchPatient(value);
 					        }}
 					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
 					        showArrow={props.loading ?
@@ -141,9 +139,6 @@ const mapStateToProps = state => {
 		
 		// For storing form data
 		formData: state.patient.patientFormData,
-		
-		// While retrieving a new patient ID
-		// TODO add generation of new patient ID from database
 	};
 };
 
@@ -151,7 +146,12 @@ const mapDispatchToProps = dispatch => {
 	return {
 		searchPatient: (searchValue, minLength) => dispatch(patientSearch(searchValue, minLength)),
 		
-		setFormData: (field, value) => dispatch(patientSetFormData(field, value)),
+		setFormData: (field, value) => {
+			let formData = {};
+			formData[field] = value;
+			
+			return dispatch(patientSetFormData(formData, 'partial'));
+		},
 	};
 };
 
