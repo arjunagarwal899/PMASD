@@ -65,11 +65,6 @@ const patientHistoryCreateSuccess = (state, action, loadingData) => {
 };
 
 
-const patientHistoryUpdateSuccess = (state, action, loadingData) => {
-
-};
-
-
 const patientHistoryDeleteSuccess = (state, action, loadingData) => {
 	let newHistoryData = { ...state.historyData };
 	

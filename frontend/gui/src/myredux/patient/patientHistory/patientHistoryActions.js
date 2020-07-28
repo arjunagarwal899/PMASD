@@ -41,22 +41,6 @@ const patientHistoryCreate = (historyType, patientID, historyData) => {
 };
 
 
-const patientHistoryUpdate = (historyType, patientID, newHistoryData) => {
-	return dispatch => {
-		dispatch(patientHistoryUpdateBegin());
-		
-		return axiosWithHeaders
-			.patch(`api/patient/history/${patientID}/${historyType}/`, newHistoryData)
-			.then(response => {
-				dispatch(patientHistoryUpdateSuccess());
-			})
-			.catch(error => {
-				dispatch(patientHistoryUpdateFail());
-			});
-	};
-};
-
-
 const patientHistoryDelete = (historyType, patientID, historyKey) => {
 	return dispatch => {
 		dispatch(patientHistoryDeleteBegin(historyType, historyKey));
@@ -86,7 +70,6 @@ const patientHistoryReset = (historyType) => {
 export {
 	patientHistoryList,
 	patientHistoryCreate,
-	patientHistoryUpdate,
 	patientHistoryDelete,
 	patientHistoryReset,
 };
@@ -166,19 +149,6 @@ const patientHistoryCreateFail = (historyType, error) => {
 		type: actionTypes.PATIENT_HISTORY_CREATE_FAIL,
 		historyType,
 	}
-};
-
-
-const patientHistoryUpdateBegin = historyType => {
-
-};
-
-const patientHistoryUpdateSuccess = (historyType, response) => {
-
-};
-
-const patientHistoryUpdateFail = (historyType, error) => {
-
 };
 
 

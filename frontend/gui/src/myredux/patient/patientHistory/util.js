@@ -1,12 +1,11 @@
-import { isEqual } from "util/comparison";
-
+import _ from 'lodash';
 
 const deleteLoading = (oldLoading, loadingData) => {
 	let newLoading = [...oldLoading];
 	let index = null;
 	
 	for (let counter = 0; counter < newLoading.length; counter++) {
-		if (isEqual(newLoading[counter], loadingData)) {
+		if (_.isEqual(newLoading[counter], loadingData)) {
 			index = counter;
 			break;
 		}

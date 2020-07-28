@@ -99,9 +99,9 @@ class PatientHistoryRetrieveUpdateViewSet(ModelViewSet):
 		serializer.save(patient=patient)
 
 
-	# Updating a single history item of a particular history type
-	def partial_update(self, request, *args, **kwargs):
-		return super().partial_update(request, *args, **kwargs)
+	# # Updating a single history item of a particular history type. Followinf functionality can be added later if needed.
+	# def partial_update(self, request, *args, **kwargs):
+	# 	return super().partial_update(request, *args, **kwargs)
 
 
 	# Deleting a certain history item of a particular history type

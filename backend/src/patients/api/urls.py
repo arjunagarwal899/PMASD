@@ -21,7 +21,7 @@ urlpatterns = [
 
 	path('history/<str:patient_id>/<str:history_type>/<int:pk>/',
 	     PatientHistoryRetrieveUpdateViewSet.as_view({
-		     'patch': 'partial_update',
+		     # 'patch': 'partial_update',
 		     'delete': 'destroy',
 	     }),
 	     name='patient_history_update_delete'),
