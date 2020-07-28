@@ -1,4 +1,4 @@
-import * as actionTypes from './patientTypes'
+import * as actionTypes from 'myredux/patient/patientBasic/patientBasicTypes'
 
 
 const initialState = {
@@ -51,7 +51,7 @@ const patientSetPatientTypeState = (state, action) => {
 };
 
 
-const patientSetFormDataState = (state, action) => {
+const patientBasicSetFormDataState = (state, action) => {
 	switch (action.dataType) {
 		case 'complete':
 			return {
@@ -75,7 +75,7 @@ const patientSetFormDataState = (state, action) => {
 	}
 };
 
-const patientResetFormDataState = (state, action) => {
+const patientBasicResetFormDataState = (state, action) => {
 	return {
 		...state,
 		patientFormData: initialState.patientFormData,
@@ -104,21 +104,21 @@ const patientAddNewFailState = (state, action) => {
 
 
 // Retrieving patient details
-const patientRetrieveBeginState = (state, action) => {
+const patientBasicRetrieveBeginState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: true,
 	};
 };
 
-const patientRetrieveSuccessState = (state, action) => {
+const patientBasicRetrieveSuccessState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: false,
 	};
 };
 
-const patientRetrieveFailState = (state, action) => {
+const patientBasicRetrieveFailState = (state, action) => {
 	return {
 		...state,
 		patientIDLoading: false,
@@ -158,28 +158,28 @@ const patientSearchSetDropdownVisibility = (state, action) => {
 
 
 // Updating a patient's details
-const patientUpdateBeginState = (state, action) => {
+const patientBasicUpdateBeginState = (state, action) => {
 	return {
 		...state,
 	};
 };
 
-const patientUpdateSuccessState = (state, action) => {
+const patientBasicUpdateSuccessState = (state, action) => {
 	return {
 		...state,
 	};
 };
 
-const patientUpdateFailState = (state, action) => {
+const patientBasicUpdateFailState = (state, action) => {
 	return {
 		...state,
 	};
 };
 
 
-const patientReducer = (state = initialState, action) => {
+const patientBasicReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case actionTypes.PATIENT_RESET_STATE:
+		case actionTypes.PATIENT_BASIC_RESET_STATE:
 			return initialState;
 		
 		case actionTypes.PATIENT_SET_PATIENT_ID_TYPE:
@@ -189,10 +189,10 @@ const patientReducer = (state = initialState, action) => {
 		case actionTypes.PATIENT_SET_PATIENT_TYPE:
 			return patientSetPatientTypeState(state, action);
 		
-		case actionTypes.PATIENT_SET_FORM_DATA:
-			return patientSetFormDataState(state, action);
-		case actionTypes.PATIENT_RESET_FORM_DATA:
-			return patientResetFormDataState(state, action);
+		case actionTypes.PATIENT_BASIC_SET_FORM_DATA:
+			return patientBasicSetFormDataState(state, action);
+		case actionTypes.PATIENT_BASIC_RESET_FORM_DATA:
+			return patientBasicResetFormDataState(state, action);
 		
 		case actionTypes.PATIENT_ADD_NEW_BEGIN:
 			return patientAddNewBeginState(state, action);
@@ -201,12 +201,12 @@ const patientReducer = (state = initialState, action) => {
 		case actionTypes.PATIENT_ADD_NEW_FAIL:
 			return patientAddNewFailState(state, action);
 		
-		case actionTypes.PATIENT_RETRIEVE_BEGIN:
-			return patientRetrieveBeginState(state, action);
-		case actionTypes.PATIENT_RETRIEVE_SUCCESS:
-			return patientRetrieveSuccessState(state, action);
-		case actionTypes.PATIENT_RETRIEVE_FAIL:
-			return patientRetrieveFailState(state, action);
+		case actionTypes.PATIENT_BASIC_RETRIEVE_BEGIN:
+			return patientBasicRetrieveBeginState(state, action);
+		case actionTypes.PATIENT_BASIC_RETRIEVE_SUCCESS:
+			return patientBasicRetrieveSuccessState(state, action);
+		case actionTypes.PATIENT_BASIC_RETRIEVE_FAIL:
+			return patientBasicRetrieveFailState(state, action);
 		
 		case actionTypes.PATIENT_SEARCH_BEGIN:
 			return patientSearchBeginState(state, action);
@@ -217,12 +217,12 @@ const patientReducer = (state = initialState, action) => {
 		case actionTypes.PATIENT_SEARCH_SET_DROPDOWN_VISIBILITY:
 			return patientSearchSetDropdownVisibility(state, action);
 		
-		case actionTypes.PATIENT_UPDATE_BEGIN:
-			return patientUpdateBeginState(state, action);
-		case actionTypes.PATIENT_UPDATE_SUCCESS:
-			return patientUpdateSuccessState(state, action);
-		case actionTypes.PATIENT_UPDATE_FAIL:
-			return patientUpdateFailState(state, action);
+		case actionTypes.PATIENT_BASIC_UPDATE_BEGIN:
+			return patientBasicUpdateBeginState(state, action);
+		case actionTypes.PATIENT_BASIC_UPDATE_SUCCESS:
+			return patientBasicUpdateSuccessState(state, action);
+		case actionTypes.PATIENT_BASIC_UPDATE_FAIL:
+			return patientBasicUpdateFailState(state, action);
 		
 		default:
 			return state
@@ -230,4 +230,4 @@ const patientReducer = (state = initialState, action) => {
 };
 
 
-export default patientReducer;
+export default patientBasicReducer;

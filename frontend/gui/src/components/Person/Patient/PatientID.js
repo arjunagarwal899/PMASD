@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Col, Form, Input, Row, Select } from "antd";
 import { LoadingOutlined } from '@ant-design/icons'
 
-import { patientSearch, patientSetFormData } from "myredux";
+import { patientBasicSetFormData, patientSearch } from "myredux";
 import maxlengths from "constants/maxlengths";
 
 
@@ -81,7 +81,7 @@ const PatientID = props => {
 					        value={props.formData.patientID}
 					        onChange={value => {
 						        props.setFormData('patientID', value);
-						        props.searchPatient(value);
+						        // props.searchPatient(value);
 					        }}
 					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
 					        showArrow={props.loading ?
@@ -128,17 +128,17 @@ const PatientID = props => {
 const mapStateToProps = state => {
 	return {
 		// For type and props of the Patient ID field
-		loading: state.patient.patientIDLoading,
-		disabled: state.patient.patientIDNodeDisabled,
-		nodeType: state.patient.patientIDNodeType,
+		loading: state.patientBasic.patientIDLoading,
+		disabled: state.patientBasic.patientIDNodeDisabled,
+		nodeType: state.patientBasic.patientIDNodeType,
 		
 		// While retrieving search data
-		searchData: state.patient.patientSearchSuccessData,
-		showDropdown: state.patient.patientSearchShowDropdown,
-		patientID: state.patient.patientFormData.patientID,
+		searchData: state.patientBasic.patientSearchSuccessData,
+		showDropdown: state.patientBasic.patientSearchShowDropdown,
+		patientID: state.patientBasic.patientFormData.patientID,
 		
 		// For storing form data
-		formData: state.patient.patientFormData,
+		formData: state.patientBasic.patientFormData,
 	};
 };
 
@@ -150,7 +150,7 @@ const mapDispatchToProps = dispatch => {
 			let formData = {};
 			formData[field] = value;
 			
-			return dispatch(patientSetFormData(formData, 'partial'));
+			return dispatch(patientBasicSetFormData(formData, 'partial'));
 		},
 	};
 };

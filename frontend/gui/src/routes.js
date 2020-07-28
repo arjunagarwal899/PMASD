@@ -7,7 +7,7 @@ import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
-import PatientContainer from "containers/PatientContainer/DisplayPatientContainer";
+import PatientContainer from "containers/PatientBasicContainer/ExistingPatientContainer";
 import ConsultationContainer from "containers/ConsultationContainer";
 import ExaminationContainer from "containers/ExaminationContainer";
 

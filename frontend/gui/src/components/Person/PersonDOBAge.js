@@ -1,9 +1,8 @@
 import React from 'react';
 import moment from "moment";
 
-import { DatePicker, Form, Input, InputNumber } from "antd";
-
-import misc from "constants/misc";
+import { Form, Input, InputNumber } from "antd";
+import MyDatePicker from "components/MyDatePicker";
 
 
 const disableDOBDates = current => {
@@ -33,8 +32,8 @@ const PersonDOBAge = props => {
 	return (
 		<Input.Group compact>
 			<Form.Item name="dob" label="Date of Birth:">
-				<DatePicker format={misc.dateFormats} disabledDate={disableDOBDates} onChange={dobChange} allowClear
-				            showToday={false} disabled={props.disabled || false} />
+				<MyDatePicker disabledDate={disableDOBDates} onChange={dobChange} allowClear
+				              showToday={false} disabled={props.disabled || false} />
 			</Form.Item>
 			
 			<Form.Item name="age" label="Age:">

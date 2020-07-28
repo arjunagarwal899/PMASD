@@ -1,2 +1,4 @@
 from .basic_data import PatientMobileSerializer, PatientEmailSerializer, PatientSearchSerializer, \
 	PatientBasicDetailCreateSerializer, PatientBasicDetailRetrieveUpdateSerializer
+from .history_data import PatientFamilyHistorySerializer, PatientOBGYNHistorySerializer, \
+	PatientPastHistorySerializer, PatientPersonalHistorySerializer, PatientPresentHistorySerializer

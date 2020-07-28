@@ -11,7 +11,7 @@ class PatientHistory(models.Model):
 		related_name='%(class)s',
 	)
 
-	timestamp = models.DateTimeField(
+	created = models.DateTimeField(
 		auto_now_add=True,
 	)
 
@@ -32,7 +32,7 @@ class PatientHistory(models.Model):
 	)
 
 	def __str__(self):
-		return '(%s) %s - %s' % (self.timestamp.date(), self.patient, self.history)
+		return '(%s) %s - %s' % (self.created.date(), self.patient, self.history)
 
 	class Meta:
 		abstract = True
