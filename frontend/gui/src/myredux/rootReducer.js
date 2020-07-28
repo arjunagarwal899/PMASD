@@ -2,13 +2,15 @@ import { combineReducers } from "redux";
 
 import authReducer from "./auth/authReducers";
 import changePasswordReducer from './changePassword/changePassReducers';
-import patientReducer from "./patient/patientReducers";
+import patientBasicReducer from "myredux/patient/patientBasic/patientBasicReducers";
+import patientHistoryReducer from "myredux/patient/patientHistory/patientHistoryReducer";
 
 
 const rootReducer = combineReducers({
 	auth: authReducer,
 	changePassword: changePasswordReducer,
-	patient: patientReducer,
+	patientBasic: patientBasicReducer,
+	patientHistory: patientHistoryReducer,
 });
 
 

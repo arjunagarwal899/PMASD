@@ -21,6 +21,7 @@ const axiosWithHeaders = axios.create({
 		get: defaultHeaders,
 		post: defaultHeaders,
 		put: defaultHeaders,
+		patch: defaultHeaders,
 		delete: defaultHeaders,
 	}
 });

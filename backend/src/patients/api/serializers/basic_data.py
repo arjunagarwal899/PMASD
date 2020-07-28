@@ -100,10 +100,6 @@ class PatientBasicDetailCreateSerializer(PatientBasicDetailSerializer):
 		for email in emails:
 			PatientEmail(patient_id=patient.pk, **email).save()
 
-		user_profile = validated_data['user'].profile
-		user_profile.last_patient_id = validated_data['patient_id']
-		user_profile.save()
-
 		return patient
 
 
@@ -121,15 +117,12 @@ class PatientBasicDetailCreateSerializer(PatientBasicDetailSerializer):
 
 
 class PatientBasicDetailRetrieveUpdateSerializer(PatientBasicDetailSerializer):
-
 	age = serializers.IntegerField(
 		source='get_age',
 		read_only=True,
 	)
 
 	def update(self, instance, validated_data):
-		print(validated_data)
-
 		mobiles = []
 		if 'mobiles' in validated_data.keys(): mobiles = validated_data.pop('mobiles')
 
@@ -173,7 +166,6 @@ class PatientBasicDetailRetrieveUpdateSerializer(PatientBasicDetailSerializer):
 
 
 class PatientUpdateLastConsultation(serializers.ModelSerializer):
-
 	class Meta:
 		model = Patient
 		fields = ['last_consultation']

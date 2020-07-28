@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 
 import { Collapse } from "antd";
 
-import PatientContainer from "containers/PatientContainer/PatientContainer";
+import PatientContainerWithOptions from "containers/PatientBasicContainer/PatientContainerWithOptions";
 import BaseContainer from "containers/BaseContainer";
+import PatientHistoryContainer from "containers/PatientHistoryContainer";
 
 
 const ConsultationContainer = () => {
@@ -16,9 +17,10 @@ const ConsultationContainer = () => {
 		<BaseContainer>
 			<Collapse defaultActiveKey="patient-basic">
 				<Collapse.Panel key="patient-basic" header="Patient Details">
-					<PatientContainer />
+					<PatientContainerWithOptions />
 				</Collapse.Panel>
 			</Collapse>
+			<PatientHistoryContainer />
 		</BaseContainer>
 	);
 };

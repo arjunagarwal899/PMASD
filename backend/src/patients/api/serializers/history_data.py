@@ -1,43 +1,37 @@
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 
-from patients.api.abstract.related_fields import HistoryField
-from patients.models import PatientPastHistory, PatientPersonalHistory, PatientFamilyHistory, PatientPresentHistory, \
-	PatientOBGYNHistory, Patient
+from patients.models import PatientPastHistory, PatientFamilyHistory, PatientPresentHistory, PatientOBGYNHistory, \
+	PatientPersonalHistory
 
 
-class PatientHistoryDetailSerializer(serializers.ModelSerializer):
-	patientpasthistory = HistoryField(
-		queryset=PatientPastHistory.objects.all(),
-		many=True,
-	)
+default_history_fields = ['id', 'created', 'history', 'duration', 'description']
 
-	patientpersonalhistory = HistoryField(
-		queryset=PatientPersonalHistory.objects.all(),
-		many=True,
-	)
 
-	patientfamilyhistory = HistoryField(
-		queryset=PatientFamilyHistory.objects.all(),
-		many=True,
-	)
-
-	patientpresenthistory = HistoryField(
-		queryset=PatientPresentHistory.objects.all(),
-		many=True,
-	)
-
-	patientobgynhistory = HistoryField(
-		queryset=PatientOBGYNHistory.objects.all(),
-		many=True,
-	)
-
+class PatientPastHistorySerializer(ModelSerializer):
 	class Meta:
-		model = Patient
-		fields = [
-			'patient_id',
-			'patientpasthistory',
-			'patientpersonalhistory',
-			'patientfamilyhistory',
-			'patientpresenthistory',
-			'patientobgynhistory',
-		]
+		model = PatientPastHistory
+		fields = default_history_fields
+
+
+class PatientPersonalHistorySerializer(ModelSerializer):
+	class Meta:
+		model = PatientPersonalHistory
+		fields = default_history_fields
+
+
+class PatientPresentHistorySerializer(ModelSerializer):
+	class Meta:
+		model = PatientPresentHistory
+		fields = default_history_fields
+
+
+class PatientFamilyHistorySerializer(ModelSerializer):
+	class Meta:
+		model = PatientFamilyHistory
+		fields = default_history_fields
+
+
+class PatientOBGYNHistorySerializer(ModelSerializer):
+	class Meta:
+		model = PatientOBGYNHistory
+		fields = default_history_fields

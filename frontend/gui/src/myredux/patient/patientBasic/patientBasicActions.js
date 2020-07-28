@@ -1,14 +1,14 @@
-import * as actionTypes from './patientTypes';
-import { PATIENT_SET_FORM_DATA } from './patientTypes';
+import * as actionTypes from 'myredux/patient/patientBasic/patientBasicTypes';
+import { PATIENT_BASIC_SET_FORM_DATA } from 'myredux/patient/patientBasic/patientBasicTypes';
 import { axiosWithHeaders } from "util/httpClient";
-import { parsePatientInfo } from "myredux/patient/util";
+import { parsePatientInfo } from "myredux/patient/patientBasic/util";
 import { handleAxiosError, parseAxiosError } from "util/requestManagement";
 import misc from "constants/misc";
 
 // Action creator to reset entire patient store to initial state
-const patientResetState = () => {
+const patientBasicResetState = () => {
 	return {
-		type: actionTypes.PATIENT_RESET_STATE,
+		type: actionTypes.PATIENT_BASIC_RESET_STATE,
 	};
 };
 
@@ -37,19 +37,18 @@ const patientSetPatientType = patientType => {
 }
 
 // Function to update store values of form data with the user entered values
-const patientSetFormData = (formData, dataType = 'complete') => {
+const patientBasicSetFormData = (formData, dataType = 'complete') => {
 	return {
-		type: PATIENT_SET_FORM_DATA,
+		type: PATIENT_BASIC_SET_FORM_DATA,
 		dataType: dataType,
 		formData: formData,
 	};
-	
 };
 
 // Function to reset patient form data
-const patientResetFormData = () => {
+const patientBasicResetFormData = () => {
 	return {
-		type: actionTypes.PATIENT_RESET_FORM_DATA,
+		type: actionTypes.PATIENT_BASIC_RESET_FORM_DATA,
 	}
 }
 
@@ -78,25 +77,25 @@ const patientAddNew = newPatientData => {
 
 
 // FUnction to retrieve patient details from the database
-const patientRetrieve = patientID => {
+const patientBasicRetrieve = patientID => {
 	return dispatch => {
-		dispatch(patientRetrieveBegin());
+		dispatch(patientBasicRetrieveBegin());
 		return axiosWithHeaders
 			.get(`api/patient/basic/${patientID}/`)
 			.then(response => {
 				let data = response.data;
 				
-				dispatch(patientRetrieveSuccess(data));
+				dispatch(patientBasicRetrieveSuccess(data));
 				
 				data = parsePatientInfo(data, 'js');
 				
-				dispatch(patientSetFormData(data));
+				dispatch(patientBasicSetFormData(data));
 				
 				return Promise.resolve(response);
 			})
 			.catch(error => {
-				dispatch(patientResetFormData());
-				dispatch(patientRetrieveFail(error));
+				dispatch(patientBasicResetFormData());
+				dispatch(patientBasicRetrieveFail(error));
 				
 				return Promise.reject(error);
 			});
@@ -127,7 +126,7 @@ const patientSearch = (searchValue, minLengthCheck = misc.minLengthOfPatientIDFo
 					return Promise.resolve(response);
 				})
 				.catch(error => {
-					dispatch(patientResetFormData());
+					dispatch(patientBasicResetFormData());
 					dispatch(patientSearchFail(error));
 					
 					return Promise.reject(error);
@@ -140,21 +139,21 @@ const patientSearch = (searchValue, minLengthCheck = misc.minLengthOfPatientIDFo
 
 
 // Function to update a patient's details
-const patientUpdate = (patientData) => {
+const patientBasicUpdate = (patientData) => {
 	return dispatch => {
-		dispatch(patientUpdateBegin());
+		dispatch(patientBasicUpdateBegin());
 		
 		patientData = parsePatientInfo(patientData, 'py');
 		
 		return axiosWithHeaders
 			.put(`api/patient/basic/${patientData['patient_id']}/`, patientData)
 			.then(response => {
-				dispatch(patientUpdateSuccess());
+				dispatch(patientBasicUpdateSuccess());
 				
 				return Promise.resolve(response);
 			})
 			.catch(error => {
-				dispatch(patientUpdateFail(error));
+				dispatch(patientBasicUpdateFail(error));
 				
 				return Promise.reject(error);
 			});
@@ -168,7 +167,7 @@ const patientGenerateID = () => {
 		return axiosWithHeaders
 			.get('api/patient/newid/')
 			.then(response => {
-				dispatch(patientSetFormData({ patientID: response.data['new_patient_id'] }));
+				dispatch(patientBasicSetFormData({ patientID: response.data['new_patient_id'] }));
 				
 				return Promise.resolve(response);
 			})
@@ -182,16 +181,16 @@ const patientGenerateID = () => {
 
 
 export {
-	patientResetState,
+	patientBasicResetState,
 	patientSetPatientIDNodeType,
 	patientSetPatientIDNodeDisabled,
 	patientSetPatientType,
-	patientSetFormData,
-	patientResetFormData,
+	patientBasicSetFormData,
+	patientBasicResetFormData,
 	patientAddNew,
-	patientRetrieve,
+	patientBasicRetrieve,
 	patientSearch,
-	patientUpdate,
+	patientBasicUpdate,
 	patientGenerateID
 };
 
@@ -223,25 +222,25 @@ const patientAddNewFail = error => {
 
 
 // Retrieving patient details
-const patientRetrieveBegin = () => {
+const patientBasicRetrieveBegin = () => {
 	return {
-		type: actionTypes.PATIENT_RETRIEVE_BEGIN,
+		type: actionTypes.PATIENT_BASIC_RETRIEVE_BEGIN,
 	};
 };
 
-const patientRetrieveSuccess = patientFormData => {
+const patientBasicRetrieveSuccess = patientFormData => {
 	return {
-		type: actionTypes.PATIENT_RETRIEVE_SUCCESS,
+		type: actionTypes.PATIENT_BASIC_RETRIEVE_SUCCESS,
 		payload: patientFormData,
 	};
 };
 
-const patientRetrieveFail = error => {
+const patientBasicRetrieveFail = error => {
 	let parsedError = parseAxiosError(error);
 	handleAxiosError(parsedError);
 	
 	return {
-		type: actionTypes.PATIENT_RETRIEVE_FAIL,
+		type: actionTypes.PATIENT_BASIC_RETRIEVE_FAIL,
 		errorMessage: parsedError.message,
 	};
 }
@@ -280,25 +279,24 @@ const patientSearchSetDropdownVisibility = visible => {
 
 
 // Updating an existing patient
-const patientUpdateBegin = () => {
+const patientBasicUpdateBegin = () => {
 	return {
-		type: actionTypes.PATIENT_UPDATE_BEGIN,
+		type: actionTypes.PATIENT_BASIC_UPDATE_BEGIN,
 	};
 };
 
-const patientUpdateSuccess = () => {
+const patientBasicUpdateSuccess = () => {
 	return {
-		type: actionTypes.PATIENT_UPDATE_SUCCESS,
+		type: actionTypes.PATIENT_BASIC_UPDATE_SUCCESS,
 	};
 };
 
-const patientUpdateFail = error => {
+const patientBasicUpdateFail = error => {
 	let parsedError = parseAxiosError(error);
-	console.log(parsedError);
 	handleAxiosError(parsedError);
 	
 	return {
-		type: actionTypes.PATIENT_UPDATE_FAIL,
+		type: actionTypes.PATIENT_BASIC_UPDATE_FAIL,
 		errorMessage: parsedError.message,
 	};
 };

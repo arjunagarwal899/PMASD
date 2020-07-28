@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 
 import { Radio } from "antd";
 
-import DisplayPatientContainer from "containers/PatientContainer/DisplayPatientContainer";
+import DisplayPatientContainer from "containers/PatientBasicContainer/ExistingPatientContainer";
 import {
+	patientBasicResetState,
 	patientGenerateID,
-	patientResetState,
 	patientSetPatientIDNodeDisabled,
 	patientSetPatientIDNodeType,
 	patientSetPatientType
@@ -16,7 +16,7 @@ import {
 const defaultPatientType = 'existing';
 
 
-const PatientContainer = props => {
+const PatientContainerWithOptions = props => {
 	
 	// Set form state to the preffered patient type when component renders for the first time
 	useEffect(() => {
@@ -72,8 +72,8 @@ const mapDispatchToProps = dispatch => {
 		newPatient: () => newPatient(),
 		existingPatient: () => existingPatient(),
 		
-		resetFormData: () => dispatch(patientResetState()),
+		resetFormData: () => dispatch(patientBasicResetState()),
 	}
 };
 
-export default connect(null, mapDispatchToProps)(PatientContainer);
+export default connect(null, mapDispatchToProps)(PatientContainerWithOptions);

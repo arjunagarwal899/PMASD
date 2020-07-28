@@ -5,10 +5,10 @@ import { Button, Form, message } from "antd";
 
 import { PatientID } from "components/Person/Patient";
 import { PersonAddress, PersonDOBAge, PersonEmails, PersonGender, PersonMobiles, PersonName } from "components/Person";
-import { patientAddNew, patientRetrieve, patientSetFormData, patientUpdate } from "myredux";
+import { patientAddNew, patientBasicRetrieve, patientBasicSetFormData, patientBasicUpdate } from "myredux";
 
 
-const DisplayPatientContainer = props => {
+const ExistingPatientContainer = props => {
 	
 	const patientID = props.formData.patientID;
 	const formDisabled = patientID === null || patientID === undefined || patientID === '';
@@ -88,7 +88,7 @@ const DisplayPatientContainer = props => {
 				<Form.Item>
 					<Button type="primary" htmlType="submit">
 						{props.patientType === 'new' ?        // Check state and update
-							'Add New'
+							'Add'
 							:
 							'Update'
 						}
@@ -102,19 +102,19 @@ const DisplayPatientContainer = props => {
 
 const mapStateToProps = state => {
 	return {
-		patientType: state.patient.patientType,
-		formData: state.patient.patientFormData,
+		patientType: state.patientBasic.patientType,
+		formData: state.patientBasic.patientFormData,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setFormData: formData => dispatch(patientSetFormData(null, null, formData)),
+		setFormData: formData => dispatch(patientBasicSetFormData(formData)),
 		
-		retrievePatientData: patientID => dispatch(patientRetrieve(patientID)),
-		updatePatientData: patientData => dispatch(patientUpdate(patientData)),
+		retrievePatientData: patientID => dispatch(patientBasicRetrieve(patientID)),
+		updatePatientData: patientData => dispatch(patientBasicUpdate(patientData)),
 		addNewPatient: newPatientData => dispatch(patientAddNew(newPatientData)),
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayPatientContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ExistingPatientContainer);
