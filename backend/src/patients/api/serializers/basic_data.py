@@ -15,7 +15,6 @@ class PatientEmailSerializer(serializers.ModelSerializer):
 		fields = ['email', 'synced_with_contacts', 'hide_from_user']
 
 
-# TODO 4-Jul: Add docstrings
 class PatientSearchSerializer(serializers.ModelSerializer):
 	mobiles = serializers.SlugRelatedField(
 		many=True,

@@ -2,15 +2,16 @@ import React from 'react';
 
 import { Layout, Menu, Typography } from "antd";
 
+// A base container in which the webpage content is present
 const BaseContainer = props => {
 	return (
 		<div>
 			<Layout>
-				<Layout.Header style={{ background: '#17252A', height: '50px' }}>
+				<Layout.Header>
 					<Typography.Title style={{ color: 'white', padding: '10px 0' }} level={4}>PMASD</Typography.Title>
 				</Layout.Header>
 				<Layout>
-					<Layout.Sider collapsible style={{ background: '#17252A' }}>
+					<Layout.Sider collapsible defaultCollapsed={true}>
 						<Menu
 							defaultSelectedKeys={['Dashboard']}
 							mode="inline"
@@ -20,7 +21,7 @@ const BaseContainer = props => {
 							</Menu.Item>
 						</Menu>
 					</Layout.Sider>
-					<Layout.Content style={{ padding: '0 50px' }}>
+					<Layout.Content>
 						{props.children}
 						<Layout.Footer style={{ textAlign: 'center' }}>Created by PMASD</Layout.Footer>
 					</Layout.Content>
