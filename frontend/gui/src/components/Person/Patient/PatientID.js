@@ -99,7 +99,6 @@ const PatientID = props => {
 								{props.searchData.map(patient => (
 									<Select.Option value={patient['patient_id']} key={patient['patient_id']}>
 										<Row>
-											{/*TODO Apply style={{textOverflow: 'ellipsis', overflow: 'hidden' }}*/}
 											{dropDownInfo.map((col, index) => (
 												<Col span={col.width} key={index}>
 													{col.join ?
@@ -128,17 +127,17 @@ const PatientID = props => {
 const mapStateToProps = state => {
 	return {
 		// For type and props of the Patient ID field
-		loading: state.patientBasic.patientIDLoading,
-		disabled: state.patientBasic.patientIDNodeDisabled,
-		nodeType: state.patientBasic.patientIDNodeType,
+		loading: state.patient.basic.patientIDLoading,
+		disabled: state.patient.basic.patientIDNodeDisabled,
+		nodeType: state.patient.basic.patientIDNodeType,
 		
 		// While retrieving search data
-		searchData: state.patientBasic.patientSearchSuccessData,
-		showDropdown: state.patientBasic.patientSearchShowDropdown,
-		patientID: state.patientBasic.patientFormData.patientID,
+		searchData: state.patient.basic.patientSearchSuccessData,
+		showDropdown: state.patient.basic.patientSearchShowDropdown,
+		patientID: state.patient.basic.patientFormData.patientID,
 		
 		// For storing form data
-		formData: state.patientBasic.patientFormData,
+		formData: state.patient.basic.patientFormData,
 	};
 };
 

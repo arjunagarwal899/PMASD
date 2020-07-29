@@ -102,8 +102,8 @@ const ExistingPatientContainer = props => {
 
 const mapStateToProps = state => {
 	return {
-		patientType: state.patientBasic.patientType,
-		formData: state.patientBasic.patientFormData,
+		patientType: state.patient.basic.patientType,
+		formData: state.patient.basic.patientFormData,
 	};
 };
 

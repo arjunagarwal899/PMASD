@@ -3,6 +3,7 @@ import { deleteLoading } from "./util";
 
 
 const initialState = {
+	// object to store history data for each type in use
 	historyData: {
 		past: [],
 		personal: [],
@@ -11,6 +12,7 @@ const initialState = {
 		obgyn: [],
 	},
 	
+	// array to store all possible transactions which may be in progress
 	loading: [],        // Will contain objects having keys: historyType (compulsary), actionType (compulsary), historyKey (only when updateing or deleting)
 };
 

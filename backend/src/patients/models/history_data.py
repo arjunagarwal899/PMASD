@@ -3,7 +3,6 @@ from django.db import models
 from .basic_data import Patient
 
 
-# TODO: Add docstrings
 class PatientHistory(models.Model):
 	patient = models.ForeignKey(
 		Patient,
