@@ -37,14 +37,18 @@ class PatientSearchSerializer(serializers.ModelSerializer):
 	hospital = serializers.SerializerMethodField()
 
 	def get_hospital(self, patient):
-		return "add hospital capabilities"  # TODO Add hospital in consultation
+		hospital = None
+		last_consultation = patient.last_consultation
+		if last_consultation:
+			hospital = last_consultation.hospital
+		return hospital
 
 	class Meta:
 		model = Patient
 		fields = ['patient_id', 'name', 'doctor_names', 'hospital', 'mobiles']
 
 
-class PatientBasicDetailSerializer(serializers.ModelSerializer):
+class PatientBasicSerializer(serializers.ModelSerializer):
 	mobiles = PatientMobileSerializer(
 		many=True,
 		required=False,
@@ -54,6 +58,12 @@ class PatientBasicDetailSerializer(serializers.ModelSerializer):
 		many=True,
 		required=False,
 	)
+
+	def to_representation(self, instance):
+		json = super().to_representation(instance)
+		json['title'] = instance.get_title_display()
+		return json
+
 
 	@staticmethod
 	def vet_data(data):
@@ -82,9 +92,10 @@ class PatientBasicDetailSerializer(serializers.ModelSerializer):
 		model = Patient
 
 
-class PatientBasicDetailCreateSerializer(PatientBasicDetailSerializer):
+class PatientBasicCreateSerializer(PatientBasicSerializer):
 
 	def create(self, validated_data):
+		print(validated_data)
 		mobiles = []
 		if 'mobiles' in validated_data.keys(): mobiles = validated_data.pop('mobiles')
 
@@ -103,19 +114,19 @@ class PatientBasicDetailCreateSerializer(PatientBasicDetailSerializer):
 
 
 	def to_internal_value(self, data):
-		data = PatientBasicDetailSerializer.vet_data(data)
+		data = PatientBasicSerializer.vet_data(data)
 		return super().to_internal_value(data)
 
 
-	class Meta(PatientBasicDetailSerializer.Meta):
+	class Meta(PatientBasicSerializer.Meta):
 		fields = [
-			'patient_id', 'user', 'title', 'name', 'dob', 'gender',
+			'patient_id', 'title', 'name', 'dob', 'gender',
 			'building_details', 'lane', 'area', 'city', 'pincode', 'last_consultation',
 			'mobiles', 'emails',
 		]
 
 
-class PatientBasicDetailRetrieveUpdateSerializer(PatientBasicDetailSerializer):
+class PatientBasicRetrieveUpdateSerializer(PatientBasicSerializer):
 	age = serializers.IntegerField(
 		source='get_age',
 		read_only=True,
@@ -150,12 +161,11 @@ class PatientBasicDetailRetrieveUpdateSerializer(PatientBasicDetailSerializer):
 
 
 	def to_internal_value(self, data):
-		data = PatientBasicDetailSerializer.vet_data(data)
-
+		data = PatientBasicSerializer.vet_data(data)
 		return super().to_internal_value(data)
 
 
-	class Meta(PatientBasicDetailSerializer.Meta):
+	class Meta(PatientBasicSerializer.Meta):
 		fields = [
 			'patient_id', 'title', 'name', 'dob', 'age', 'gender',
 			'building_details', 'lane', 'area', 'city', 'pincode', 'last_consultation',

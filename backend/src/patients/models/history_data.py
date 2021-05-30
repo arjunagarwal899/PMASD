@@ -1,5 +1,6 @@
 from django.db import models
 
+from constants.maxlengths import maxlengths
 from .basic_data import Patient
 
 
@@ -15,17 +16,17 @@ class PatientHistory(models.Model):
 	)
 
 	history = models.CharField(
-		max_length=100,
+		max_length=maxlengths['person']['patient']['history']['history'],
 	)
 
 	duration = models.CharField(
-		max_length=100,
+		max_length=maxlengths['person']['patient']['history']['duration'],
 		blank=True,
 		null=True,
 	)
 
 	description = models.TextField(
-		max_length=500,
+		max_length=maxlengths['person']['patient']['history']['description'],
 		blank=True,
 		null=True,
 	)

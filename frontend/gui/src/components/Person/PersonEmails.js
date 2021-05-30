@@ -21,7 +21,7 @@ const PersonEmails = props => {
 						           for (let email of value) {
 							           if (!validators.emailRegEx.test(email)) {
 								           return Promise.reject(' Please enter valid email addresses!');
-							           } else if (email.length > maxlengths.personEmail) {
+							           } else if (email.length > maxlengths.person.email) {
 								           return Promise.reject('Email Addresses cannot be greater than 100 characters!');
 							           }
 						           }

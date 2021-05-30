@@ -1,6 +1,7 @@
 from django.db import models
 
 from abstract.fields.fields import PercentageField
+from constants.maxlengths import maxlengths
 from .basic_data import Consultation
 
 
@@ -18,34 +19,34 @@ class DrugMaster(models.Model):
 		('Inj', 'Injection')
 	]
 	formulation = models.CharField(
-		max_length=3,
+		max_length=maxlengths['medication']['formulation'],
 		choices=formulation_choices,
 	)
 
 	brand_name = models.CharField(
-		max_length=100,
+		max_length=maxlengths['medication']['brand_name'],
 	)
 
 	generic_name = models.CharField(
-		max_length=500,
+		max_length=maxlengths['medication']['generic_name'],
 	)
 
 	strength = models.CharField(
-		max_length=50,
+		max_length=maxlengths['medication']['strength'],
 	)
 
 	route = models.CharField(
-		max_length=50,
+		max_length=maxlengths['medication']['route'],
 	)
 
 	dosage_default = models.CharField(
-		max_length=20,
+		max_length=maxlengths['medication']['dosage'],
 		blank=True,
 		null=True,
 	)
 
 	meal_relation_default = models.CharField(
-		max_length=50,
+		max_length=maxlengths['medication']['meal_relation'],
 		blank=True,
 		null=True,
 	)
@@ -55,13 +56,13 @@ class DrugMaster(models.Model):
 	)
 
 	company_name = models.CharField(
-		max_length=100,
+		max_length=maxlengths['medication']['company_name'],
 		blank=True,
 		null=True,
 	)
 
 	company_division = models.CharField(
-		max_length=100,
+		max_length=maxlengths['medication']['company_division'],
 		blank=True,
 		null=True,
 	)
@@ -101,25 +102,25 @@ class DrugPrescribed(models.Model):
 	)
 
 	dosage = models.CharField(
-		max_length=20,
+		max_length=maxlengths['medication']['dosage'],
 		blank=True,
 		null=True,
 	)
 
 	meal_relation = models.CharField(
-		max_length=50,
+		max_length=maxlengths['medication']['meal_relation'],
 		blank=True,
 		null=True,
 	)
 
 	duration = models.CharField(
-		max_length=100,
+		max_length=maxlengths['medication']['duration'],
 		blank=True,
 		null=True,
 	)
 
 	remarks = models.TextField(
-		max_length=150,
+		max_length=maxlengths['medication']['remarks'],
 		blank=True,
 		null=True,
 	)

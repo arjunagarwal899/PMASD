@@ -11,7 +11,7 @@ const PersonAddress = props => {
 		<Form.Item label="Address">
 			<Form.Item name="building_details" label="Building Details:">
 				<Input.TextArea allowClear placeholder="Enter Building Details"
-				                maxLength={maxlengths.addressBuildingDetails}
+				                maxLength={maxlengths.person.address.buildingDetails}
 				                autoSize={{ minRows: 1, maxRows: 2 }}
 				                disabled={props.disabled || false}
 				/>
@@ -19,7 +19,7 @@ const PersonAddress = props => {
 			
 			<Form.Item name="lane" label="Lane:">
 				<Input.TextArea allowClear placeholder="Enter Lane"
-				                maxLength={maxlengths.addressLane}
+				                maxLength={maxlengths.person.address.lane}
 				                autoSize={{ minRows: 1, maxRows: 2 }}
 				                disabled={props.disabled || false}
 				/>
@@ -27,14 +27,14 @@ const PersonAddress = props => {
 			
 			<Form.Item name="area" label="Area:">
 				<Input allowClear placeholder="Enter Area"
-				       maxLength={maxlengths.addressArea}
+				       maxLength={maxlengths.person.address.area}
 				       disabled={props.disabled || false}
 				/>
 			</Form.Item>
 			
 			<Form.Item name="city" label="City:">
 				<Input allowClear placeholder="Enter City"
-				       maxLength={maxlengths.addressCity}
+				       maxLength={maxlengths.person.address.city}
 				       disabled={props.disabled || false}
 				/>
 			</Form.Item>
@@ -45,7 +45,7 @@ const PersonAddress = props => {
 				           message: 'Pincode has to be numeric.',
 			           }]}>
 				<Input allowClear placeholder="Enter Pincode"
-				       maxLength={maxlengths.addressPincode}
+				       maxLength={maxlengths.person.address.pincode}
 				       disabled={props.disabled || false}
 				/>
 			</Form.Item>

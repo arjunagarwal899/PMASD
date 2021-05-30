@@ -1,6 +1,6 @@
 INSERT INTO patients_patient (id,
                               user_id,
-                              ud_patient_id,
+                              patient_id,
                               title,
                               name,
                               gender,

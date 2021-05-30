@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 
+from constants.maxlengths import maxlengths
+
 """
     # Custom field to store mobile numbers in the database. Derived from CharField
 """
@@ -10,7 +12,7 @@ class MobileField(models.CharField):
 	description = 'Mobile number in Indian format'
 
 	def __init__(self, *args, **kwargs):
-		kwargs['max_length'] = 11  # 11 digits and not 10 because 022 26255848 (Ignore space)
+		kwargs['max_length'] = maxlengths['person']['mobile']  # 11 digits and not 10 because 022 26255848 (Ignore space)
 		super().__init__(*args, **kwargs)
 		self.validators.append(MobileField.check_if_mobile_number)
 

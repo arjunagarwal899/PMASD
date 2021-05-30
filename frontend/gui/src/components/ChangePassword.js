@@ -8,6 +8,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { authLogout, changePassword } from 'myredux';
 import * as urls from 'constants/urls';
 import history from "../history";
+import project from 'constants/project.json';
 
 
 const ChangePassword = (props) => {
@@ -30,6 +31,8 @@ const ChangePassword = (props) => {
 	
 	
 	useEffect(() => {
+		document.title = `Change Password | ${project.projectNick}`;
+		
 		props.logout();
 	}, []);             // eslint-disable-line
 	

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1b9b8ec4-be10-462c-b60c-98112d55fb3a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/constants/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/constants/maxlengths.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/api/serializers/examination.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/api/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/api/views/examination.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/migrations/0004_auto_20200730_1831.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/migrations/0005_auto_20200730_1848.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/consultations/migrations/0006_auto_20200730_1851.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/doctors/migrations/0002_auto_20200730_1848.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/misc/migrations/0006_auto_20200730_1831.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/misc/migrations/0007_hospital_professionalservice.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/misc/models/hospitals.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/misc/models/professional_services.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/patients/migrations/0007_auto_20200730_1848.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/gui/src/constants/maxlengths.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/gui/src/constants/project.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Working Documentation/Database Tables and API endpoints.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Working Documentation/Database Tables and API endpoints.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/PMASD/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/PMASD/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/PMASD/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/PMASD/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/abstract/fields/fields.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/abstract/fields/fields.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/abstract/models/person.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/abstract/models/person.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/basic_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/basic_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/diagnosis.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/diagnosis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/drugs.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/drugs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/examination.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/examination.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/general_advice.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/general_advice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/investigations.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/investigations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/consultations/models/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/consultations/models/misc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/doctors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/doctors/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/misc/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/misc/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/misc/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/misc/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/misc/models/profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/misc/models/profiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/patients/api/serializers/basic_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/patients/api/serializers/basic_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/patients/api/views/basic_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/patients/api/views/basic_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/patients/api/views/history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/patients/api/views/history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/patients/models/basic_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/patients/models/basic_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/patients/models/history_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/patients/models/history_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/temporary/addDummyData.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/temporary/addDummyData.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/components/Person/Patient/PatientHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/components/Person/Patient/PatientHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/components/Person/Patient/PatientID.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/components/Person/Patient/PatientID.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/components/Person/PersonAddress.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/components/Person/PersonAddress.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/components/Person/PersonEmails.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/components/Person/PersonEmails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/components/Person/PersonName.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/components/Person/PersonName.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/constants/maxlengths.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/containers/AuthContainer.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/containers/AuthContainer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/containers/AuthContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/containers/AuthContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/containers/BaseContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/containers/BaseContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/containers/ConsultationContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/containers/ConsultationContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/containers/PatientBasicContainer/ExistingPatientContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/containers/PatientBasicContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/containers/PatientBasicContainer/PatientContainerWithOptions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/myredux/auth/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/myredux/auth/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/myredux/patient/patientBasic/patientBasicActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/myredux/patient/patientBasic/patientBasicActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/myredux/patient/patientBasic/patientBasicReducers.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/myredux/patient/patientBasic/patientBasicReducers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/myredux/patient/patientBasic/patientBasicTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/myredux/patient/patientBasic/patientBasicTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/gui/src/util/requestManagement/parseAxiosError.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gui/src/util/requestManagement/parseAxiosError.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="76762f80-230e-4b1d-aa24-38c276c05462" />
+  <component name="ProjectId" id="1fVWnk4oKi3YJFHoBqKEafwjS6W" />
+  <component name="ProjectViewState">
+    <option name="foldersAlwaysOnTop" value="false" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b9b8ec4-be10-462c-b60c-98112d55fb3a" name="Default Changelist" comment="" />
+      <created>1596303912550</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596303912550</updated>
+      <workItem from="1596303913650" duration="18000" />
+    </task>
+    <servers />
+  </component>
+</project>

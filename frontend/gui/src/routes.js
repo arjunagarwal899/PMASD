@@ -7,7 +7,7 @@ import history from './history';
 import AuthContainer from "./containers/AuthContainer";
 import Logout from './components/Logout';
 import HomeContainer from './containers/HomeContainer';
-import PatientContainer from "containers/PatientBasicContainer/ExistingPatientContainer";
+import PatientContainer from "containers/PatientBasicContainer";
 import ConsultationContainer from "containers/ConsultationContainer";
 import ExaminationContainer from "containers/ExaminationContainer";
 
@@ -30,7 +30,7 @@ const BaseRouter = props => {
 							<Route exact path={urls.logout} component={Logout} />
 							
 							<Route exact path={urls.consultation} component={ConsultationContainer} />
-							<Route exact path="/patient/" component={PatientContainer} />
+							<Route exact path="/patient/" render={() => <PatientContainer patientType="new"/>} />
 							
 							{/* Home route */}
 							<Route exact path={urls.home} component={HomeContainer} />

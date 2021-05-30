@@ -20,7 +20,9 @@ const AuthContainer = (props) => {
 						
 						
 						<Spin spinning={props.loading}>
-							<Card style={{ textAlign: "center" }}>
+							<Card className="auth-card-container"
+							      bordered={false}
+							>
 								
 								{props.changePass || false ?
 									

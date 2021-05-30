@@ -1,7 +1,9 @@
 from django.db import models
 
-class Profile(models.Model):
+from constants.maxlengths import maxlengths
 
+
+class Profile(models.Model):
 	user = models.OneToOneField(
 		'auth.User',
 		on_delete=models.CASCADE,
@@ -9,7 +11,7 @@ class Profile(models.Model):
 	)
 
 	last_patient_id = models.CharField(
-		max_length=6,
+		max_length=maxlengths['person']['patient']['patient_id'],
 		default='000000',
 	)
 
@@ -17,4 +19,4 @@ class Profile(models.Model):
 		return self.user.username
 
 	class Meta:
-		pass
+		db_table = 'userprofile'

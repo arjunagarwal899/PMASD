@@ -1,5 +1,6 @@
 from django.db import models
 
+from constants.maxlengths import maxlengths
 from .basic_data import Consultation
 
 
@@ -10,11 +11,11 @@ class InvestigationGroups(models.Model):
 	)
 
 	investigation = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['investigation'],
 	)
 
 	group_name = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['group_name'],
 		blank=True,
 		null=True,
 	)
@@ -34,7 +35,7 @@ class InvestigationDone(models.Model):
 	)
 
 	investigation = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['investigation'],
 	)
 
 	date_done = models.DateField(
@@ -43,7 +44,7 @@ class InvestigationDone(models.Model):
 	)
 
 	investigation_result = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['result'],
 	)
 
 	hide_from_chart = models.BooleanField(
@@ -66,17 +67,17 @@ class InvestigationPrescribed(models.Model):
 	)
 
 	investigation = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['investigation'],
 	)
 
 	when_to_do = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['when_to_do'],
 		blank=True,
 		null=True,
 	)
 
 	where_to_do = models.CharField(
-		max_length=50,
+		max_length=maxlengths['investigation']['where_to_do'],
 		blank=True,
 		null=True,
 	)

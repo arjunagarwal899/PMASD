@@ -112,6 +112,7 @@ STATIC_URL = '/static/'
 # djangorestframework setup with the api
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
+		'rest_framework.authentication.BasicAuthentication',        # TODO Eliminate Basic Authentication when putting in production
 		'rest_framework.authentication.TokenAuthentication',
 	],
 

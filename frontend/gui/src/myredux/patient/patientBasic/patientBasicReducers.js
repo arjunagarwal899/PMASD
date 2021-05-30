@@ -5,7 +5,6 @@ const initialState = {
 	patientIDNodeType: 'select' || 'input',
 	patientIDNodeDisabled: false,
 	
-	patientType: 'existing' || 'new',
 	patientFormData: {
 		patientID: null,
 		title: null,
@@ -41,13 +40,6 @@ const patientSetPatientIDNodeDisabledState = (state, action) => {
 		...state,
 		patientIDNodeDisabled: action.patientIDNodeDisabled || false,
 	};
-};
-
-const patientSetPatientTypeState = (state, action) => {
-	return {
-		...initialState,
-		patientType: (action.patientType === 'existing' || action.patientType === 'new') ? action.patientType : state.patientType,
-	}
 };
 
 
@@ -186,8 +178,6 @@ const patientBasicReducer = (state = initialState, action) => {
 			return patientSetPatientIDNodeTypeState(state, action);
 		case actionTypes.PATIENT_SET_PATIENT_ID_DISABLED:
 			return patientSetPatientIDNodeDisabledState(state, action);
-		case actionTypes.PATIENT_SET_PATIENT_TYPE:
-			return patientSetPatientTypeState(state, action);
 		
 		case actionTypes.PATIENT_BASIC_SET_FORM_DATA:
 			return patientBasicSetFormDataState(state, action);

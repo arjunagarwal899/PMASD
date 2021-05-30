@@ -20,25 +20,21 @@
 	align-items: center;
 }
 
-.ant-card {
+.auth-card-container {
+	text-align: center;
+
+	padding: 20px 30px;
+
 	background: rgba(39, 39, 39, 0.80);
 	z-index: 2;
+
 	-webkit-box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
 	-moz-box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
 	box-shadow: 3px 2px 19px 9px rgba(0, 0, 0, 0.363);
-	backdrop-filter: blur(5px);
-}
 
-.ant-card-bordered {
-	border: none;
-	border-radius: 0px;
-	padding: 3rem;
+	backdrop-filter: blur(5px);
 }
 
 .avatar-img {
 	margin-bottom: 2rem;
-}
-
-.ant-card-body {
-	padding: 0rem;
 }

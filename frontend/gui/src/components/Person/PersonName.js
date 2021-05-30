@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Form, Input, Select } from "antd";
 
-import maxlengths from "constants/maxlengths";
+import maxlengths from "constants/maxlengths.json";
 
 
 const PersonName = props => {
@@ -37,15 +37,15 @@ const PersonName = props => {
 					               disabled={props.disabled || false}
 					               autoFocus={!props.disabled}
 					       >
-						       <Select.Option value="Mr">Mr.</Select.Option>
-						       <Select.Option value="Mrs">Mrs.</Select.Option>
-						       <Select.Option value="Mas">Master</Select.Option>
-						       <Select.Option value="Ms">Miss</Select.Option>
-						       <Select.Option value="Dr">Dr.</Select.Option>
+						       <Select.Option value="Mr.">Mr.</Select.Option>
+						       <Select.Option value="Mrs.">Mrs.</Select.Option>
+						       <Select.Option value="Master">Master</Select.Option>
+						       <Select.Option value="Ms.">Miss</Select.Option>
+						       <Select.Option value="Dr.">Dr.</Select.Option>
 					       </Select>
 				       </Form.Item>
 			       }
-			       maxLength={maxlengths.personName}
+			       maxLength={maxlengths.person.name}
 			/>
 		</Form.Item>
 	);

@@ -2,6 +2,7 @@ from datetime import date
 
 from django.db import models
 
+from constants.maxlengths import maxlengths
 from .basic_data import Consultation
 
 
@@ -13,18 +14,18 @@ class Diagnosis(models.Model):
 	)
 
 	diagnosis = models.CharField(
-		max_length=100,
+		max_length=maxlengths['consultation']['diagnosis']['diagnosis'],
 	)
 
 	as_of = models.CharField(
-		max_length=100,
+		max_length=maxlengths['consultation']['diagnosis']['as_of'],
 		blank=True,
 		null=True,
 		default='As of ' + date.today().strftime('%d-%b-%Y')
 	)
 
 	description = models.TextField(
-		max_length=500,
+		max_length=maxlengths['consultation']['diagnosis']['description'],
 		blank=True,
 		null=True,
 	)

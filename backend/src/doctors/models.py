@@ -1,6 +1,7 @@
 from django.db import models
 
 from abstract.models.person import Person, PersonMobile, PersonEmail
+from constants.maxlengths import maxlengths
 
 
 class Doctor(Person):
@@ -10,13 +11,13 @@ class Doctor(Person):
 	)
 
 	qualification = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['qualification'],
 		null=True,
 		blank=True,
 	)
 
 	designation = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['designation'],
 		null=True,
 		blank=True,
 	)

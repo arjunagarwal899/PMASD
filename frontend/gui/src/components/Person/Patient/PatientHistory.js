@@ -8,7 +8,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import { patientHistoryCreate, patientHistoryDelete, patientHistoryList, patientHistoryReset } from "myredux";
 import MyDatePicker from 'components/MyDatePicker';
-import maxlengths from "constants/maxlengths";
+import maxlengths from "constants/maxlengths.json";
 
 
 // A component to display the history details of a particular type of a particular patient in a tabular format.
@@ -146,18 +146,18 @@ const PatientHistory = props => {
 		{
 			key: `add-new-${type}-history`,
 			created: <MyDatePicker disabled={true} value={moment()} suffixIcon={null} />,
-			history: <Input maxLength={maxlengths.patientHistory_History}
+			history: <Input maxLength={maxlengths.person.patient.history.history}
 			                allowClear
 			                disabled={disabled}
 			                ref={newHistoryRef}
 			                value={newHistoryState}
 			                onChange={event => setNewHistoryState(event.target.value)} />,
-			duration: <Input maxLength={maxlengths.patientHistory_Duration}
+			duration: <Input maxLength={maxlengths.person.patient.history.duration}
 			                 allowClear
 			                 disabled={disabled}
 			                 value={newDurationState}
 			                 onChange={event => setNewDurationState(event.target.value)} />,
-			description: <Input.TextArea maxLength={maxlengths.patientHistory_Description}
+			description: <Input.TextArea maxLength={maxlengths.person.patient.history.description}
 			                             allowClear
 			                             disabled={disabled}
 			                             autoSize={{ minRows: 1, maxRows: 3 }}

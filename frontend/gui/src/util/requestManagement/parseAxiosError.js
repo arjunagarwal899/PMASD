@@ -15,12 +15,26 @@ function parseAxiosError (error, type, info = 'null') {
 		...info,
 	}, parseSuccess = true;
 	
+	const backendError = {
+		message: 'Backend server is not functioning. Please restart system.',
+		status: errorCodes.networkError,
+		...info,
+	};
+	
 	switch (type) {
 		case 'object':
 			switch (error.response) {
 				case undefined:
-					parseSuccess = false;
-					parsedError = error;
+					switch (error.isAxiosError) {
+						case true:
+							parsedError = backendError;
+							break;
+						
+						default:
+							parseSuccess = false;
+							parsedError = error;
+							break;
+					}
 					break;
 				
 				default:
@@ -82,11 +96,7 @@ function parseAxiosError (error, type, info = 'null') {
 		case 'string':
 			switch (error) {
 				case 'Network Error':
-					parsedError = {
-						message: 'Backend server is not functioning. Please restart system.',
-						status: errorCodes.networkError,
-						...info,
-					};
+					parsedError = backendError;
 					break;
 				
 				default:

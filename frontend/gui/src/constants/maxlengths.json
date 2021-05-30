@@ -1,0 +1,69 @@
+{
+	"person": {
+		"title": 5,
+		"name": 100,
+		"gender": 1,
+		"mobile": 11,
+		"email": 100,
+		"address": {
+			"buildingDetails": 50,
+			"lane": 50,
+			"area": 50,
+			"city": 50,
+			"pincode": 6
+		},
+		"qualification": 50,
+		"designation": 50,
+		"patient": {
+			"patientID": 6,
+			"history": {
+				"history": 100,
+				"duration": 100,
+				"description": 500
+			}
+		}
+	},
+	"hospital": 100,
+	"consultation": {
+		"professionalService": 100,
+		"examination": {
+			"examinationHeading": 50,
+			"examination": 50,
+			"basicInfo": 50,
+			"reading": 50,
+			"readingUnits": 10,
+			"description": 150
+		},
+		"diagnosis": {
+			"diagnosis": 100,
+			"asOf": 100,
+			"description": 500
+		},
+		"generalAdvice": {
+			"advice": 50,
+			"description": 150
+		},
+		"followUp": 50,
+		"remarks": 300
+	},
+	"investigation": {
+		"groupName": 50,
+		"investigation": 50,
+		"result": 50,
+		"whenToDo": 50,
+		"whereToDo": 50
+	},
+	"medication": {
+		"formulation": 5,
+		"brandName": 100,
+		"genericName": 500,
+		"strength": 50,
+		"route": 50,
+		"dosage": 20,
+		"mealRelation": 50,
+		"duration": 100,
+		"companyName": 100,
+		"companyDivision": 100,
+		"remarks": 150
+	}
+}

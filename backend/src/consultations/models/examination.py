@@ -1,5 +1,6 @@
 from django.db import models
 
+from constants.maxlengths import maxlengths
 from .basic_data import Consultation
 
 
@@ -10,11 +11,11 @@ class ExaminationMaster(models.Model):
 	)
 
 	examination_heading = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['examination']['examination_heading'],
 	)
 
 	examination = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['examination']['examination'],
 	)
 
 	enable_basic_data_field = models.BooleanField()
@@ -22,7 +23,7 @@ class ExaminationMaster(models.Model):
 	enable_reading_field = models.BooleanField()
 
 	units = models.CharField(
-		max_length=10,
+		max_length=maxlengths['consultation']['examination']['reading_units'],
 		blank=True,
 		null=True,
 	)
@@ -46,33 +47,33 @@ class ExaminationDone(models.Model):
 	)
 
 	examination_heading = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['examination']['examination_heading'],
 	)
 
 	examination = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['examination']['examination'],
 	)
 
 	basic_info = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['examination']['basic_info'],
 		blank=True,
 		null=True,
 	)
 
 	reading = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['examination']['reading'],
 		blank=True,
 		null=True,
 	)
 
 	units = models.CharField(
-		max_length=10,
+		max_length=maxlengths['consultation']['examination']['reading_units'],
 		blank=True,
 		null=True,
 	)
 
 	description = models.TextField(
-		max_length=150,
+		max_length=maxlengths['consultation']['examination']['description'],
 		blank=True,
 		null=True,
 	)

@@ -5,7 +5,7 @@ import { Col, Form, Input, Row, Select } from "antd";
 import { LoadingOutlined } from '@ant-design/icons'
 
 import { patientBasicSetFormData, patientSearch } from "myredux";
-import maxlengths from "constants/maxlengths";
+import maxlengths from "constants/maxlengths.json";
 
 
 // Drop down headings and other details
@@ -46,18 +46,27 @@ const dropDownInfo = [
 
 
 const PatientID = props => {
+	let { noFormStyle } = props;
+	if (noFormStyle === undefined || noFormStyle === null) noFormStyle = false;
+	
+	const inputStyle = {
+		minWidth: '120px',
+		...props.style,
+	};
 	
 	return (
 		<React.Fragment>
-			<Form.Item label="Patient ID:"
+			<Form.Item noStyle={noFormStyle}
+			           label={"Patient ID:"}
 			           rules={[{
 				           required: true,
 				           message: 'Valid Patient ID is required!'
 			           }]}
 			>
 				{props.nodeType === 'input' ?
-					<Input placeholder='Enter patient ID'
-					       maxLength={maxlengths.patientID}
+					<Input style={inputStyle}
+					       placeholder='Enter patient ID'
+					       maxLength={maxlengths.person.patient.patientID}
 					       minLength={5}
 					       disabled={props.disabled}
 					       autoFocus={!props.disabled}
@@ -69,6 +78,7 @@ const PatientID = props => {
 					:
 					
 					<Select showSearch
+					        style={inputStyle}
 					        placeholder="Enter patient ID"
 					        onSearch={value => props.searchPatient(value)}
 					        onFocus={() => props.searchPatient(props.patientID)}
@@ -81,14 +91,14 @@ const PatientID = props => {
 					        value={props.formData.patientID}
 					        onChange={value => {
 						        props.setFormData('patientID', value);
-						        // props.searchPatient(value);
 					        }}
+					        dropdownMatchSelectWidth={false}
+					        dropdownStyle={{ width: '60vw' }}
 					        suffixIcon={props.loading ? <LoadingOutlined /> : null}
 					        showArrow={props.loading ?
 						        <LoadingOutlined /> : null}      // Jugaad to show the loading icon, it is actually the arrow to toggle the dropdown
 					>
 						{props.showDropdown ?
-							
 							<Select.OptGroup label={
 								<Row>
 									{dropDownInfo.map((col, index) => (

@@ -2,6 +2,7 @@ from django.db import models
 
 from abstract.fields.fields import MobileField, PercentageField
 from abstract.models.person import PersonAddress
+from constants.maxlengths import maxlengths
 from doctors.models import Doctor
 from .basic_data import Consultation
 
@@ -15,7 +16,7 @@ class FollowUp(models.Model):
 	)
 
 	follow_up_after = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['follow_up'],
 		verbose_name='Follow Up',
 	)
 
@@ -35,11 +36,11 @@ class ReferredTo(PersonAddress):
 	)
 
 	doctor_name = models.CharField(
-		max_length=100,
+		max_length=maxlengths['person']['name'],
 	)
 
 	doctor_qualification = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['qualification'],
 		blank=True,
 		null=True,
 	)
@@ -68,10 +69,6 @@ class ReferredFrom(models.Model):
 		related_name='consultations_referred'
 	)
 
-	percentage_cut = PercentageField(
-		default=0,
-	)
-
 	def __str__(self):
 		return '%s) %s was referred by %s' % (self.consultation.id, self.consultation.patient, self.doctor_id.name)
 
@@ -81,7 +78,7 @@ class ReferredFrom(models.Model):
 		verbose_name_plural = 'Referred From'
 
 
-class Remark(models.Model):
+class Remarks(models.Model):
 	consultation = models.OneToOneField(
 		Consultation,
 		on_delete=models.CASCADE,
@@ -89,12 +86,12 @@ class Remark(models.Model):
 		primary_key=True,
 	)
 
-	remark = models.TextField(
-		max_length=300,
+	remarks = models.TextField(
+		max_length=maxlengths['consultation']['remarks'],
 	)
 
 	def __str__(self):
-		return '%s) %s - %s' % (self.consultation.id, self.consultation.patient, self.remark)
+		return '%s) %s - %s' % (self.consultation.id, self.consultation.patient, self.remarks)
 
 	class Meta:
 		verbose_name = 'Remark'

@@ -5,9 +5,9 @@ from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, CreateAP
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from misc.models.profile import Profile
-from patients.api.serializers import PatientSearchSerializer, PatientBasicDetailCreateSerializer, \
-	PatientBasicDetailRetrieveUpdateSerializer
+from misc.models.profiles import Profile
+from patients.api.serializers import PatientSearchSerializer, PatientBasicCreateSerializer, \
+	PatientBasicRetrieveUpdateSerializer
 from patients.models import Patient
 
 
@@ -15,8 +15,8 @@ class PatientSearchView(ListAPIView):
 	serializer_class = PatientSearchSerializer
 
 	filter_backends = [SearchFilter, OrderingFilter]
-	search_fields = ['patient_id', 'name', 'last_consultation__referred_from__doctor_id__name',
-	                 'mobiles__mobile']  # TODO Add hospital to list once it has been added to backend
+	search_fields = ['patient_id', 'name', 'last_consultation__referred_from__doctor_id__name', 'last_consultation__hospital',
+	                 'mobiles__mobile']
 	ordering = ['patient_id']
 
 	def get_queryset(self):
@@ -24,7 +24,7 @@ class PatientSearchView(ListAPIView):
 
 
 class PatientBasicCreateView(CreateAPIView):
-	serializer_class = PatientBasicDetailCreateSerializer
+	serializer_class = PatientBasicCreateSerializer
 
 	def perform_create(self, serializer):
 		serializer.save(user=self.request.user)
@@ -35,7 +35,7 @@ class PatientBasicCreateView(CreateAPIView):
 
 
 class PatientBasicRetrieveUpdateView(RetrieveUpdateAPIView):
-	serializer_class = PatientBasicDetailRetrieveUpdateSerializer
+	serializer_class = PatientBasicRetrieveUpdateSerializer
 	lookup_field = 'patient_id'
 
 	def get_queryset(self):

@@ -1,6 +1,7 @@
 from django.db import models
 
 from abstract.models.person import Person, PersonMobile, PersonEmail
+from constants.maxlengths import maxlengths
 
 
 class Patient(Person):
@@ -11,7 +12,7 @@ class Patient(Person):
 
 	# Patient ID is not the primary key as they can be the same for two different users
 	patient_id = models.CharField(
-		max_length=6,
+		max_length=maxlengths['person']['patient']['patient_id'],
 		verbose_name='Patient ID',
 	)
 

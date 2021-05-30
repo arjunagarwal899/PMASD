@@ -28,14 +28,6 @@ const patientSetPatientIDNodeDisabled = patientIDNodeDisabled => {
 	};
 };
 
-// Function to switch between patient type (new or existing)
-const patientSetPatientType = patientType => {
-	return {
-		type: actionTypes.PATIENT_SET_PATIENT_TYPE,
-		patientType: patientType,
-	}
-}
-
 // Function to update store values of form data with the user entered values
 const patientBasicSetFormData = (formData, dataType = 'complete') => {
 	return {
@@ -184,7 +176,6 @@ export {
 	patientBasicResetState,
 	patientSetPatientIDNodeType,
 	patientSetPatientIDNodeDisabled,
-	patientSetPatientType,
 	patientBasicSetFormData,
 	patientBasicResetFormData,
 	patientAddNew,

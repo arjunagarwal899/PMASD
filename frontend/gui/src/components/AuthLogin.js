@@ -5,9 +5,10 @@ import { NavLink } from "react-router-dom";
 import { Alert, Avatar, Button, Form, Input, Space } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
-import { authLogin, changePasswordReset } from '../myredux';
+import { authLogin, changePasswordReset } from 'myredux';
 import rajAvatarImage from '../static/img/dr-raj.jpg';
-import defaultAvatarImage from '../static/img/default-user.jpg';
+import defaultAvatarImage from 'static/img/default-person.jpg';
+import project from 'constants/project.json';
 
 
 const AuthLogin = (props) => {
@@ -21,7 +22,7 @@ const AuthLogin = (props) => {
 	
 	
 	useEffect(() => {
-		document.title = 'Login | PMASD';
+		document.title = `Login | ${project.projectNick}`;
 	}, []);
 	
 	

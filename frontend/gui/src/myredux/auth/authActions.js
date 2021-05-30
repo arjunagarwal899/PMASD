@@ -2,7 +2,7 @@ import * as actionTypes from './authTypes';
 import * as urls from 'constants/urls';
 import { axiosWithHeaders, axiosWithoutHeaders } from 'util/httpClient';
 import history from '../../history';
-import { parseAxiosError } from "util/requestManagement";
+import { handleAxiosError, parseAxiosError } from "util/requestManagement";
 
 // Begin login action-type
 const authBegin = () => {
@@ -22,6 +22,8 @@ const authSuccess = (token) => {
 // Fail login action-type
 const authFail = (error) => {
 	let parsedError = parseAxiosError(error);
+	console.log(parsedError)
+	handleAxiosError(parsedError);
 	
 	switch (error.status) {
 		case 400:

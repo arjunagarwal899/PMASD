@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.timezone import now as django_now
 
+from constants.maxlengths import maxlengths
 from patients.models.basic_data import Patient
 
 
@@ -16,6 +17,18 @@ class Consultation(models.Model):
 		on_delete=models.PROTECT,
 		related_name='consultations',
 	)
+
+	hospital = models.CharField(
+		max_length=maxlengths['hospital'],
+		default='Unknown',
+	)
+
+	professional_service = models.CharField(
+		max_length=maxlengths['consultation']['professional_service'],
+		default='Unknown',
+	)
+
+	online_consultation = models.BooleanField()
 
 	consultation_date = models.DateField(
 		default=django_now,

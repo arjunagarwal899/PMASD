@@ -1,5 +1,6 @@
 from django.db import models
 
+from constants.maxlengths import maxlengths
 from .basic_data import Consultation
 
 
@@ -11,11 +12,11 @@ class GeneralAdvice(models.Model):
 	)
 
 	advice = models.CharField(
-		max_length=50,
+		max_length=maxlengths['consultation']['general_advice']['advice'],
 	)
 
 	description = models.TextField(
-		max_length=150,
+		max_length=maxlengths['consultation']['general_advice']['description'],
 		blank=True,
 		null=True,
 	)

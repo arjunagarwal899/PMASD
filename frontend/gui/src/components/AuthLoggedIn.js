@@ -3,11 +3,13 @@ import React, { useEffect } from 'react';
 import { Button, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
+import project from 'constants/project.json';
+
 
 const AuthLoggedIn = () => {
 	
 	useEffect(() => {
-		document.title = 'Login | PMASD';
+		document.title = `Login | ${project.projectNick}`;
 	}, []);
 	
 	return (

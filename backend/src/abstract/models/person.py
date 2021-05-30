@@ -4,36 +4,37 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 
 from abstract.fields.fields import MobileField
+from constants.maxlengths import maxlengths
 
 
 class PersonAddress(models.Model):
 	building_details = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['address']['building_details'],
 		null=True,
 		blank=True,
 	)
 
 	lane = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['address']['lane'],
 		null=True,
 		blank=True,
 	)
 
 	area = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['address']['area'],
 		null=True,
 		blank=True,
 	)
 
 	city = models.CharField(
-		max_length=50,
+		max_length=maxlengths['person']['address']['city'],
 		default='Mumbai',
 		null=True,
 		blank=True,
 	)
 
 	pincode = models.CharField(
-		max_length=6,
+		max_length=maxlengths['person']['address']['pincode'],
 		validators=[MinLengthValidator(6)],
 		null=True,
 		blank=True,
@@ -66,12 +67,12 @@ class Person(PersonAddress):
 		('Ms', 'Ms.'),
 	]
 	title = models.CharField(
-		max_length=3,
+		max_length=maxlengths['person']['title'],
 		choices=title_choices
 	)
 
 	name = models.CharField(
-		max_length=100
+		max_length=maxlengths['person']['name']
 	)
 
 	dob = models.DateField(
@@ -86,7 +87,7 @@ class Person(PersonAddress):
 		('U', 'Unknown'),
 	]
 	gender = models.CharField(
-		max_length=1,
+		max_length=maxlengths['person']['gender'],
 		choices=gender_choices,
 		default='U',
 	)
@@ -163,7 +164,7 @@ class PersonMobile(models.Model):
 
 class PersonEmail(models.Model):
 	email = models.EmailField(
-		max_length=100,
+		max_length=maxlengths['person']['email'],
 	)
 
 	synced_with_contacts = models.BooleanField(
